@@ -8,6 +8,25 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
+  <!-- Tailwind Config for Dark Mode (Lichess like colors) -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            lichess: {
+              bg: '#161512',
+              surface: '#262421',
+              border: '#3b3834',
+              text: '#c9c9c9',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
   <!-- React & ReactDOM -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -60,6 +79,9 @@
       transform: translate(-50%, -50%) rotate(45deg);
       z-index: 0;
     }
+    .dark .logic-arrow-diagonal-1 {
+      background-image: linear-gradient(to right, transparent 10%, #3b3834 10%, #3b3834 90%, transparent 90%);
+    }
     .logic-arrow-diagonal-2 {
       position: absolute;
       top: 50%;
@@ -70,6 +92,9 @@
       transform: translate(-50%, -50%) rotate(-45deg);
       z-index: 0;
     }
+    .dark .logic-arrow-diagonal-2 {
+      background-image: linear-gradient(to right, transparent 10%, #3b3834 10%, #3b3834 90%, transparent 90%);
+    }
     /* Ensure cards are above connecting lines */
     .relative-card {
       position: relative;
@@ -77,7 +102,7 @@
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen">
+<body class="bg-slate-50 dark:bg-lichess-bg text-slate-800 dark:text-lichess-text font-sans min-h-screen transition-colors duration-300">
   <div id="root"></div>
 
   <script type="text/babel" data-presets="tsx">
@@ -141,6 +166,7 @@
       isTrue: boolean | null;
       explanation: string;
       color: string;
+      panelBorder: string;
     }
 
     const logicNodes: Record<string, NodeData> = {
@@ -152,7 +178,8 @@
         example: '東京にいる ならば 日本にいる',
         isTrue: true,
         explanation: 'これがスタート地点です。東京は日本の中にあるので、この命題は100%正しい（真）です。',
-        color: 'bg-blue-100 border-blue-400 text-blue-900'
+        color: 'bg-blue-100 dark:bg-blue-900/30 border-blue-400 dark:border-blue-500/50 text-blue-900 dark:text-blue-300',
+        panelBorder: 'border-blue-400 dark:border-blue-500/50'
       },
       converse: {
         id: 'converse',
@@ -162,7 +189,8 @@
         example: '日本にいる ならば 東京にいる',
         isTrue: false,
         explanation: '前後を入れ替えました。日本にいても大阪や北海道にいるかもしれないので、これは「偽」です。元の命題が真でも、逆が真とは限りません。',
-        color: 'bg-emerald-100 border-emerald-400 text-emerald-900'
+        color: 'bg-emerald-100 dark:bg-emerald-900/30 border-emerald-400 dark:border-emerald-500/50 text-emerald-900 dark:text-emerald-300',
+        panelBorder: 'border-emerald-400 dark:border-emerald-500/50'
       },
       inverse: {
         id: 'inverse',
@@ -172,7 +200,8 @@
         example: '東京にいない ならば 日本にいない',
         isTrue: false,
         explanation: '両方を否定しました。東京にいなくても沖縄にいるかもしれないので「偽」です。実は「逆」と「裏」は常に同じ真偽（同値）になります。',
-        color: 'bg-purple-100 border-purple-400 text-purple-900'
+        color: 'bg-purple-100 dark:bg-purple-900/30 border-purple-400 dark:border-purple-500/50 text-purple-900 dark:text-purple-300',
+        panelBorder: 'border-purple-400 dark:border-purple-500/50'
       },
       contrapositive: {
         id: 'contrapositive',
@@ -182,7 +211,8 @@
         example: '日本にいない ならば 東京にいない',
         isTrue: true,
         explanation: '入れ替えて、さらに否定しました。日本国外にいるなら、絶対に東京にはいません。「元の命題」と「対偶」の真偽は常に一致（同値）します！',
-        color: 'bg-rose-100 border-rose-400 text-rose-900'
+        color: 'bg-rose-100 dark:bg-rose-900/30 border-rose-400 dark:border-rose-500/50 text-rose-900 dark:text-rose-300',
+        panelBorder: 'border-rose-400 dark:border-rose-500/50'
       }
     };
 
@@ -202,22 +232,42 @@
       </svg>
     );
 
+    const SunIcon = () => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+    );
+
+    const MoonIcon = () => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    );
+
     const VocabCard = ({ item }: { item: VocabItem }) => {
       return (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-shadow">
+        <div className="bg-white dark:bg-lichess-surface rounded-xl shadow-sm border border-slate-200 dark:border-lichess-border p-5 hover:shadow-md transition-shadow">
           <div className="flex items-center gap-3 mb-3">
             <span className="text-2xl">{item.icon}</span>
             <div>
-              <h3 className="text-xl font-bold text-slate-800">{item.ja}</h3>
-              <p className="text-sm text-slate-500 font-mono">{item.en} <span className="text-slate-400 text-xs">{item.pronunciation}</span></p>
+              <h3 className="text-xl font-bold text-slate-800 dark:text-gray-100">{item.ja}</h3>
+              <p className="text-sm text-slate-500 dark:text-gray-400 font-mono">{item.en} <span className="text-slate-400 dark:text-gray-500 text-xs">{item.pronunciation}</span></p>
             </div>
           </div>
-          <p className="text-slate-700 mb-4 text-sm leading-relaxed">{item.meaning}</p>
-          <div className="bg-amber-50 rounded-lg p-3 border border-amber-100 flex gap-2">
+          <p className="text-slate-700 dark:text-lichess-text mb-4 text-sm leading-relaxed">{item.meaning}</p>
+          <div className="bg-amber-50 dark:bg-[#2b251a] rounded-lg p-3 border border-amber-100 dark:border-[#403826] flex gap-2">
             <div className="mt-0.5"><BulbIcon /></div>
             <div>
-              <span className="text-xs font-bold text-amber-800 block mb-1">Tips: 語源・由来</span>
-              <p className="text-xs text-amber-900 leading-relaxed">{item.etymology}</p>
+              <span className="text-xs font-bold text-amber-800 dark:text-amber-400 block mb-1">Tips: 語源・由来</span>
+              <p className="text-xs text-amber-900 dark:text-amber-200/80 leading-relaxed">{item.etymology}</p>
             </div>
           </div>
         </div>
@@ -226,6 +276,15 @@
 
     const App = () => {
       const [selectedNodeId, setSelectedNodeId] = React.useState<string>('base');
+      const [isDarkMode, setIsDarkMode] = React.useState<boolean>(false);
+      
+      React.useEffect(() => {
+        if (isDarkMode) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }, [isDarkMode]);
       
       const selectedNode = logicNodes[selectedNodeId];
 
@@ -238,12 +297,12 @@
             onClick={() => setSelectedNodeId(nodeKey)}
             className={`relative-card cursor-pointer transform transition-all duration-300 rounded-xl border-2 p-4 text-center w-40 sm:w-48
               ${node.color} 
-              ${isSelected ? 'ring-4 ring-offset-2 ring-indigo-400 scale-105 shadow-lg' : 'hover:scale-105 shadow hover:shadow-md opacity-90'}
+              ${isSelected ? 'ring-4 ring-offset-2 dark:ring-offset-lichess-bg ring-indigo-400 dark:ring-indigo-500 scale-105 shadow-lg' : 'hover:scale-105 shadow hover:shadow-md opacity-90'}
             `}
           >
             <div className="text-xs font-bold uppercase tracking-wider opacity-70 mb-1">{node.enTitle}</div>
             <div className="text-xl font-bold mb-2">{node.title}</div>
-            <div className="font-mono text-lg bg-white/50 rounded py-1 border border-black/10 inline-block px-3">
+            <div className="font-mono text-lg bg-white/50 dark:bg-black/30 rounded py-1 border border-black/10 dark:border-white/10 inline-block px-3">
               {node.symbol}
             </div>
           </div>
@@ -253,22 +312,31 @@
       return (
         <div className="max-w-4xl mx-auto px-4 py-12">
           
+          {/* Theme Toggle */}
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="fixed top-4 right-4 p-3 rounded-full bg-slate-200 dark:bg-lichess-surface text-slate-700 dark:text-lichess-text hover:bg-slate-300 dark:hover:bg-lichess-border transition-colors z-50 shadow-sm"
+            aria-label="Toggle Dark Mode"
+          >
+            {isDarkMode ? <SunIcon /> : <MoonIcon />}
+          </button>
+
           <header className="mb-12 text-center">
-            <div className="inline-flex items-center justify-center p-3 bg-indigo-100 text-indigo-700 rounded-full mb-4">
+            <div className="inline-flex items-center justify-center p-3 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 rounded-full mb-4">
               <BookIcon />
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-gray-100 mb-4 tracking-tight">
               論理学の基礎語彙と<br className="sm:hidden" />「逆・裏・対偶」
             </h1>
-            <p className="text-slate-600 max-w-2xl mx-auto">
+            <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
               英語の語源（Etymology）を知ることで、論理学の用語は単なる暗記から「なるほど！」という納得に変わります。まずは基礎語彙から見ていきましょう。
             </p>
           </header>
 
           {/* Vocabulary Section */}
           <section className="mb-16">
-            <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-              <span className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
+            <h2 className="text-2xl font-bold text-slate-800 dark:text-gray-100 mb-6 flex items-center gap-2">
+              <span className="bg-indigo-600 dark:bg-indigo-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
               基礎語彙と語源 (Vocabulary & Etymology)
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -278,34 +346,34 @@
 
           {/* Interactive Diagram Section */}
           <section className="mb-16">
-            <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-              <span className="bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
+            <h2 className="text-2xl font-bold text-slate-800 dark:text-gray-100 mb-6 flex items-center gap-2">
+              <span className="bg-indigo-600 dark:bg-indigo-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
               関係図と具体例 (Diagram & Examples)
             </h2>
             
-            <p className="text-slate-600 mb-8">
+            <p className="text-slate-600 dark:text-gray-400 mb-8">
               下の図の各ボックスをクリックすると、具体的な例（東京と日本）と、その真偽（正しいか間違っているか）を確認できます。
             </p>
 
-            <div className="bg-white p-6 sm:p-10 rounded-2xl shadow-sm border border-slate-200">
+            <div className="bg-white dark:bg-lichess-surface p-6 sm:p-10 rounded-2xl shadow-sm border border-slate-200 dark:border-lichess-border">
               
               {/* Diagram Area */}
               <div className="relative w-full max-w-md mx-auto aspect-square mb-10">
                 {/* Connecting Lines */}
                 <div className="logic-arrow-horizontal">
-                  <div className="w-full h-0.5 bg-slate-300"></div>
+                  <div className="w-full h-0.5 bg-slate-300 dark:bg-lichess-border"></div>
                 </div>
                 <div className="logic-arrow-vertical">
-                  <div className="h-full w-0.5 bg-slate-300"></div>
+                  <div className="h-full w-0.5 bg-slate-300 dark:bg-lichess-border"></div>
                 </div>
                 <div className="logic-arrow-diagonal-1"></div>
                 <div className="logic-arrow-diagonal-2"></div>
                 
                 {/* Text Labels for Lines (Optional, but helps learning) */}
-                <div className="absolute top-[50%] left-[25%] -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-xs text-slate-500 font-bold z-0">裏</div>
-                <div className="absolute top-[50%] left-[75%] -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-xs text-slate-500 font-bold z-0">裏</div>
-                <div className="absolute top-[25%] left-[50%] -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-xs text-slate-500 font-bold z-0">逆</div>
-                <div className="absolute top-[75%] left-[50%] -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-xs text-slate-500 font-bold z-0">逆</div>
+                <div className="absolute top-[50%] left-[25%] -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-lichess-surface px-2 text-xs text-slate-500 dark:text-gray-400 font-bold z-0">裏</div>
+                <div className="absolute top-[50%] left-[75%] -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-lichess-surface px-2 text-xs text-slate-500 dark:text-gray-400 font-bold z-0">裏</div>
+                <div className="absolute top-[25%] left-[50%] -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-lichess-surface px-2 text-xs text-slate-500 dark:text-gray-400 font-bold z-0">逆</div>
+                <div className="absolute top-[75%] left-[50%] -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-lichess-surface px-2 text-xs text-slate-500 dark:text-gray-400 font-bold z-0">逆</div>
 
                 {/* The 4 Nodes */}
                 <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-between">
@@ -321,31 +389,31 @@
               </div>
 
               {/* Dynamic Detail Panel */}
-              <div className={`rounded-xl p-6 border-2 transition-colors duration-300 ${selectedNode.color.replace('text-', 'border-').replace('bg-', 'bg-white border-')}`}>
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 pb-4 border-b border-slate-200 gap-4">
+              <div className={`rounded-xl p-6 border-2 transition-colors duration-300 bg-white dark:bg-lichess-bg ${selectedNode.panelBorder}`}>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 pb-4 border-b border-slate-200 dark:border-lichess-border gap-4">
                   <div>
                     <span className="text-sm font-bold uppercase tracking-wider opacity-70 block mb-1">{selectedNode.enTitle}</span>
                     <h3 className="text-2xl font-bold flex items-center gap-3">
                       {selectedNode.title}
-                      <span className="font-mono text-lg font-normal bg-slate-100 px-2 py-0.5 rounded text-slate-600">{selectedNode.symbol}</span>
+                      <span className="font-mono text-lg font-normal bg-slate-100 dark:bg-lichess-surface px-2 py-0.5 rounded text-slate-600 dark:text-gray-300">{selectedNode.symbol}</span>
                     </h3>
                   </div>
                   
-                  <div className={`px-4 py-2 rounded-lg font-bold text-lg flex items-center gap-2 ${selectedNode.isTrue ? 'bg-blue-100 text-blue-700' : 'bg-red-100 text-red-700'}`}>
+                  <div className={`px-4 py-2 rounded-lg font-bold text-lg flex items-center gap-2 ${selectedNode.isTrue ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300' : 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300'}`}>
                     {selectedNode.isTrue ? '✅ 真 (True)' : '❌ 偽 (False)'}
                   </div>
                 </div>
                 
                 <div className="mb-4">
-                  <p className="text-sm text-slate-500 mb-1">具体例</p>
-                  <p className="text-xl font-bold text-slate-800 bg-slate-50 p-4 rounded-lg border border-slate-100">
+                  <p className="text-sm text-slate-500 dark:text-gray-400 mb-1">具体例</p>
+                  <p className="text-xl font-bold text-slate-800 dark:text-gray-100 bg-slate-50 dark:bg-lichess-surface p-4 rounded-lg border border-slate-100 dark:border-lichess-border">
                     「{selectedNode.example}」
                   </p>
                 </div>
                 
                 <div>
-                  <p className="text-sm text-slate-500 mb-1">解説</p>
-                  <p className="text-slate-700 leading-relaxed">
+                  <p className="text-sm text-slate-500 dark:text-gray-400 mb-1">解説</p>
+                  <p className="text-slate-700 dark:text-lichess-text leading-relaxed">
                     {selectedNode.explanation}
                   </p>
                 </div>
@@ -355,18 +423,18 @@
           </section>
 
           {/* Important Rule Section */}
-          <section className="bg-indigo-50 rounded-2xl p-6 sm:p-8 border border-indigo-100">
-            <h2 className="text-xl font-bold text-indigo-900 mb-4 flex items-center gap-2">
+          <section className="bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl p-6 sm:p-8 border border-indigo-100 dark:border-indigo-800/50">
+            <h2 className="text-xl font-bold text-indigo-900 dark:text-indigo-300 mb-4 flex items-center gap-2">
               🌟 最も重要なルール (The Golden Rule)
             </h2>
-            <div className="bg-white rounded-xl p-5 shadow-sm">
-              <p className="text-slate-700 leading-relaxed mb-4">
+            <div className="bg-white dark:bg-lichess-surface rounded-xl p-5 shadow-sm">
+              <p className="text-slate-700 dark:text-lichess-text leading-relaxed mb-4">
                 論理学や数学において最も重要で、そして便利なルールがこれです。
               </p>
-              <div className="text-center p-4 bg-indigo-600 text-white rounded-lg font-bold text-lg sm:text-xl shadow-inner mb-4">
+              <div className="text-center p-4 bg-indigo-600 dark:bg-indigo-700 text-white rounded-lg font-bold text-lg sm:text-xl shadow-inner mb-4">
                 「元の命題」と「対偶」は、真偽が必ず一致する (同値)
               </div>
-              <p className="text-slate-700 leading-relaxed text-sm">
+              <p className="text-slate-700 dark:text-gray-400 leading-relaxed text-sm">
                 ある命題を直接証明するのが難しいとき、<b>「代わりにその対偶を証明する」</b>というテクニック（対偶証明法：Proof by contrapositive）が数学では頻繁に使われます。対偶が「真」だと証明できれば、自動的に元の命題も「真」だと証明したことになるからです。
               </p>
             </div>
