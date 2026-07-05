@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>統計学用語 語源＆直感ノート 完全版</title>
+    <style>
+      body {
+        font-family: 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #fff;
+        margin: 0 auto;
+        padding: 2% 4%;
+        max-width: 1000px;
+      }
+      h1 {
+        font-size: 1.6em;
+        text-align: center;
+        border-bottom: 2px solid #000;
+        padding-bottom: 0.5em;
+        margin-bottom: 1.5em;
+      }
+      h2 {
+        font-size: 1.2em;
+        margin-top: 2.5em;
+        border-bottom: 2px solid;
+        padding-bottom: 0.3em;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2em;
+        font-size: 0.9em;
+      }
+      th, td {
+        border: 1px solid #ccc;
+        padding: 6px 8px;
+        vertical-align: top;
+      }
+      th { font-weight: bold; text-align: left; }
+      .chk { color: #888; font-family: sans-serif; margin-right: 4px; }
+      .ja { width: 18%; font-weight: bold; }
+      .en { width: 22%; font-weight: bold; font-family: 'Times New Roman', Times, serif; }
+      .ety { width: 30%; font-size: 0.9em; color: #555; }
+      .sq { width: 30%; font-size: 0.95em; font-weight: bold; color: #111; }
+      tr { page-break-inside: avoid; }
+
+      /* カテゴリ別の色分け */
+      .cat-1 h2 { border-color: #2563eb; color: #2563eb; } /* 記述統計: 青 */
+      .cat-1 th { background-color: #dbeafe; }
+      .cat-2 h2 { border-color: #16a34a; color: #16a34a; } /* 確率: 緑 */
+      .cat-2 th { background-color: #dcfce7; }
+      .cat-3 h2 { border-color: #dc2626; color: #dc2626; } /* 検定: 赤 */
+      .cat-3 th { background-color: #fee2e2; }
+      .cat-4 h2 { border-color: #9333ea; color: #9333ea; } /* 回帰: 紫 */
+      .cat-4 th { background-color: #f3e8ff; }
+      .cat-5 h2 { border-color: #ea580c; color: #ea580c; } /* 実験: 橙 */
+      .cat-5 th { background-color: #ffedd5; }
+      .cat-6 h2 { border-color: #92400e; color: #92400e; } /* ベイズ: 茶 */
+      .cat-6 th { background-color: #fef3c7; }
+    </style>
+  </head>
+  <body>
+
+    <h1>統計学用語 語源＆直感ノート (全210語 網羅版)</h1>
+
+    <div class="cat-1">
+      <h2>1. 記述統計学・データの基礎 (Descriptive Statistics)</h2>
+      <table>
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>StatQuest風ひとこと (イメージ)</th></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 統計学</td><td class="en">Statistics</td><td class="ety">ラテン語 statisticum (国の)。国家状態の把握が起源。</td><td class="sq">データから「全体像」を掴み取る魔法のレンズ。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> データ</td><td class="en">Data</td><td class="ety">ラテン語 datum (与えられたもの) の複数形。</td><td class="sq">すべての始まり。現実に転がっている事実の欠片。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 平均</td><td class="en">Mean</td><td class="ety">古英語 mænan (共有する)・middleに由来。</td><td class="sq">データの「重心」。ただし外れ値にめっちゃ弱い。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 中央値</td><td class="en">Median</td><td class="ety">ラテン語 medianus (真ん中の)。</td><td class="sq">外れ値ガン無視！ひたすら順番のド真ん中。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 最頻値</td><td class="en">Mode</td><td class="ety">ラテン語 modus (流行)。最も頻出する値。</td><td class="sq">一番人気！ヒストグラムで一番高い山の頂上。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 分散</td><td class="en">Variance</td><td class="ety">ラテン語 variare (変わる)。Fisherが命名。</td><td class="sq">データが平均からどれくらい「散らかっているか」。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 標準偏差</td><td class="en">Standard Deviation</td><td class="ety">Standard (基準) + de- (離れて) + via (道)。K. Pearsonが考案。</td><td class="sq">分散のルート。平均から「だいたいこれくらい離れてる」距離。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 度数</td><td class="en">Frequency</td><td class="ety">ラテン語 frequentia (群衆、頻発)。</td><td class="sq">要するに「何回出たか？」のカウント数。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ヒストグラム</td><td class="en">Histogram</td><td class="ety">ギリシャ語 histos (直立・帆柱) + gramma (図)。Pearson命名。</td><td class="sq">データの分布を一目で把握できる最強のブロック遊び。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 四分位数</td><td class="en">Quartile</td><td class="ety">ラテン語 quartus (4番目の)。</td><td class="sq">データを並べて包丁で4等分したときの切れ目。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> パーセンタイル</td><td class="en">Percentile</td><td class="ety">ラテン語 per centum (100につき) + -ile。</td><td class="sq">下から数えて「上位何％」の位置にいるか。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 範囲</td><td class="en">Range</td><td class="ety">古フランス語 reng (列、並び)。</td><td class="sq">マックス引くミニマム。データの端から端までの幅。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 歪度</td><td class="en">Skewness</td><td class="ety">古ノルド語 skeefr (斜め、非対称)。</td><td class="sq">分布の「しっぽ」がどっちに長く伸びて偏っているか。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 尖度</td><td class="en">Kurtosis</td><td class="ety">ギリシャ語 kurtos (膨らんだ)。</td><td class="sq">分布の山の「トンガリ具合」と裾の「分厚さ」。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 外れ値</td><td class="en">Outlier</td><td class="ety">Out (外) + Lie (横たわる)。</td><td class="sq">群れからポツンと離れた異端児。計算を狂わせる厄介者。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 母集団</td><td class="en">Population</td><td class="ety">ラテン語 populus (人々)。</td><td class="sq">本当は知りたい「全部」の世界。でもデカすぎて見えない。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 標本</td><td class="en">Sample</td><td class="ety">ラテン語 exemplum (例)。</td><td class="sq">母集団からすくい取った、手元にある現実のデータ。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 変数</td><td class="en">Variable</td><td class="ety">ラテン語 variare (変わる)。</td><td class="sq">人や条件によって値がコロコロ変わる箱。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 質的変数</td><td class="en">Qualitative Var.</td><td class="ety">ラテン語 qualitas (性質)。</td><td class="sq">「赤」「血液型」など、足し算引き算ができないラベル。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 量的変数</td><td class="en">Quantitative Var.</td><td class="ety">ラテン語 quantitas (量)。</td><td class="sq">「身長」「重さ」など、計算ができるホンモノの数字。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 名義尺度</td><td class="en">Nominal Scale</td><td class="ety">ラテン語 nomen (名前)。</td><td class="sq">ただの名前分け。「男/女」のように順番すら無い。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 順序尺度</td><td class="en">Ordinal Scale</td><td class="ety">ラテン語 ordo (順序)。</td><td class="sq">「1位、2位」など順番はあるが、間隔の大きさは謎。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 間隔尺度</td><td class="en">Interval Scale</td><td class="ety">ラテン語 inter (間に) + vallum (壁)。</td><td class="sq">「温度」のように間隔は同じだが、0が「何もない」を意味しない。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 比例尺度</td><td class="en">Ratio Scale</td><td class="ety">ラテン語 ratio (計算、比率)。</td><td class="sq">「身長」のように、0が完全に「無」を意味する最強の尺度。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 絶対頻度</td><td class="en">Absolute Freq.</td><td class="ety">ラテン語 absolutus (完全な)。</td><td class="sq">単純に数えただけの、そのままの「回数」。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 相対頻度</td><td class="en">Relative Freq.</td><td class="ety">ラテン語 referre (関係づける)。</td><td class="sq">全体を1(100%)としたときの、そのグループの「割合」。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 累積頻度</td><td class="en">Cumulative Freq.</td><td class="ety">ラテン語 cumulare (積み上げる)。</td><td class="sq">下から順番に足し合わせていった合計値。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 散布図</td><td class="en">Scatter Plot</td><td class="ety">scateren (まき散らす) + Plot (図面)。</td><td class="sq">点々をバラまいて、2つの関係性（右上がりか等）を探る図。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 箱ひげ図</td><td class="en">Box Plot</td><td class="ety">J. Tukey考案。箱 (Box) とひげ (Whiskers)。</td><td class="sq">中央値や四分位数を「箱とヒゲ」でまとめて見せる便利ツール。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 要約統計量</td><td class="en">Summary Statistics</td><td class="ety">ラテン語 summa (合計、頂点)。</td><td class="sq">平均や分散など、大量のデータを「一言で表す」便利な数字。</td></tr>
+      </table>
+    </div>
+
+    <div class="cat-2">
+      <h2>2. 確率と確率分布 (Probability & Distributions)</h2>
+      <table>
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>StatQuest風ひとこと (イメージ)</th></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 確率</td><td class="en">Probability</td><td class="ety">ラテン語 probabilitas (もっともらしさ)。</td><td class="sq">それが起こる「可能性のパーセンテージ」。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 確率変数</td><td class="en">Random Variable</td><td class="ety">randon (無作為) + Variable。</td><td class="sq">サイコロの目のように、結果が出るまで分からない数字の箱。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 分布</td><td class="en">Distribution</td><td class="ety">ラテン語 dis- (離れて) + tribuere (割り当てる)。</td><td class="sq">どこにどれくらいのデータ（確率）が散らばっているかの地図。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 正規分布</td><td class="en">Normal Dist.</td><td class="ety">ラテン語 normalis (標準的)。ガウス分布とも。</td><td class="sq">おなじみベルカーブ！世の中の多くはコレに落ち着く魔法の形。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 二項分布</td><td class="en">Binomial Dist.</td><td class="ety">Bi- (2つ) + nomen (項)。</td><td class="sq">コイントス(表/裏)を何回もやったとき、表が出る回数の山の形。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ポアソン分布</td><td class="en">Poisson Dist.</td><td class="ety">Poisson (仏数学者。稀な事象の確率論に貢献)。</td><td class="sq">「1日に交通事故が起きる回数」など、滅多に起きない事の分布。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 一様分布</td><td class="en">Uniform Dist.</td><td class="ety">Uni- (1つ) + forma (形)。</td><td class="sq">真っ平ら！サイコロのように、どの値が出る確率も完全に平等。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 期待値</td><td class="en">Expected Value</td><td class="ety">ラテン語 ex- (外へ) + spectare (見る)。</td><td class="sq">何回も繰り返したとき、結局「平均して」もらえる値。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 事象</td><td class="en">Event</td><td class="ety">ラテン語 e- (外に) + venire (来る)。</td><td class="sq">「サイコロで1が出る」など、起こりうる具体的な出来事。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 独立</td><td class="en">Independent</td><td class="ety">In- (否定) + dependent (依存する)。</td><td class="sq">昨日のサイコロと今日のサイコロ。お互いに全く空気を読まない関係。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 条件付き確率</td><td class="en">Conditional Prob.</td><td class="ety">ラテン語 condicio (条件、合意)。</td><td class="sq">「もしAが起きたとしたら」の世界線でBが起きる確率。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ベイズの定理</td><td class="en">Bayes' Theorem</td><td class="ety">T. Bayes (英牧師)。死後に発表された。</td><td class="sq">新しい証拠を手に入れたら、自分の思い込みをアップデートする数式。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 大数の法則</td><td class="en">Law of Large N</td><td class="ety">試行回数 (Large) が増えるほど真の確率に近づく法則。</td><td class="sq">サイコロを「無限回」振れば、平均は絶対に3.5になる！</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 中心極限定理</td><td class="en">Central Limit Thm</td><td class="ety">Laplaceらが基礎構築。統計学の中心 (Central)。</td><td class="sq">BAM! どんな変な分布でも、サンプルの平均を集めりゃ正規分布になる！</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 確率質量関数</td><td class="en">PMF</td><td class="ety">Mass (質量) / 離散型の確率。</td><td class="sq">飛び飛びの値（サイコロの目とか）が持つ、棒グラフ状の確率の高さ。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 確率密度関数</td><td class="en">PDF</td><td class="ety">Density (密度) / 連続型の確率。</td><td class="sq">なめらかな曲線の「面積」が確率になる。一点の確率はゼロという罠！</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 累積分布関数</td><td class="en">CDF</td><td class="ety">Cumulative (積み重なった)。</td><td class="sq">左から順に確率を足し合わせていく。最後は必ず1(100%)になる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ベルヌーイ分布</td><td class="en">Bernoulli Dist.</td><td class="ety">スイスの数学者 J. Bernoulli。</td><td class="sq">「成功か失敗か」の1回勝負！二項分布の一番ミニマムな姿。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 幾何分布</td><td class="en">Geometric Dist.</td><td class="ety">ギリシャ語 geometria (幾何学) / 等比数列的性質。</td><td class="sq">「初めて当たりが出るまで、何回ハズレを引き続けるか」の分布。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 超幾何分布</td><td class="en">Hypergeometric Dist.</td><td class="ety">Hyper- (超えた) / 幾何分布の一般化。</td><td class="sq">くじ引きで「引いたくじを戻さない」時の当たりの数の分布。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 負の二項分布</td><td class="en">Negative Binomial</td><td class="ety">成功回数に達するまでの失敗回数(負の要素)。</td><td class="sq">「r回当たるまでに、何回ハズレを引くか」の分布。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 指数分布</td><td class="en">Exponential Dist.</td><td class="ety">ラテン語 ex- (外へ) + ponere (置く)。</td><td class="sq">「次の地震が起きるまでの時間」など、待ち時間を表すすべり台。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ガンマ分布</td><td class="en">Gamma Dist.</td><td class="ety">ギリシャ文字のガンマ (Γ) 関数に基づく。</td><td class="sq">指数分布の進化版。「r回地震が起きるまでの時間」の分布。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ベータ分布</td><td class="en">Beta Dist.</td><td class="ety">ギリシャ文字のベータ (Β) 関数に基づく。</td><td class="sq">確率そのものがどう分布しているか（0〜1の間）を表す柔軟な関数。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> コーシー分布</td><td class="en">Cauchy Dist.</td><td class="ety">フランスの数学者 A-L Cauchy。</td><td class="sq">ヤバい奴。平均も分散も存在しない、極端な外れ値が出まくる分布。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 対数正規分布</td><td class="en">Lognormal Dist.</td><td class="ety">対数 (Logarithm) をとると正規分布になる。</td><td class="sq">年収や株価など、「0以下にならない＆右に長く伸びる」データの王様。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ワイブル分布</td><td class="en">Weibull Dist.</td><td class="ety">スウェーデンの物理学者 W. Weibull。</td><td class="sq">「機械がいつ壊れるか」など、時間経過で壊れやすさが変わる寿命の分布。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> カイ二乗分布</td><td class="en">Chi-square Dist.</td><td class="ety">ギリシャ文字 χ (カイ) の二乗。</td><td class="sq">正規分布のデータを二乗して足した形。分散のズレを測る時に大活躍。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> t分布</td><td class="en">t-Distribution</td><td class="ety">W.S. Gossetが "Student" 名義で発表。</td><td class="sq">サンプルが少ない時の正規分布の代役。裾がちょっと分厚い。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> F分布</td><td class="en">F-Distribution</td><td class="ety">統計学者 Fisher の頭文字に由来。</td><td class="sq">2つの分散の「比率」が従う分布。ANOVA（分散分析）の主役。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 同時分布</td><td class="en">Joint Dist.</td><td class="ety">ラテン語 jungere (結びつける)。</td><td class="sq">「身長と体重」のように、2つ以上の変数が同時にどう散らばるかの3Dマップ。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 周辺分布</td><td class="en">Marginal Dist.</td><td class="ety">ラテン語 margo (縁) / 表の欄外に書くため。</td><td class="sq">2つの関係のうち、片方だけ無視して横からペチャっと潰して見た分布。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> モーメント</td><td class="en">Moment</td><td class="ety">ラテン語 momentum (動き)。物理のモーメントから。</td><td class="sq">分布の形（平均・分散・歪度など）を決める「DNA」のような数値。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 積率母関数</td><td class="en">MGF</td><td class="ety">モーメントを生成 (Generate) する関数。</td><td class="sq">微分するだけで平均や分散がポンポン飛び出してくる魔法の杖。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 特性関数</td><td class="en">Characteristic Func.</td><td class="ety">ギリシャ語 kharakter (刻印された印)。</td><td class="sq">MGFの親戚。複素数を使うことでどんな分布でも確実に存在するスゴイ奴。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> マルコフの不等式</td><td class="en">Markov's Inequality</td><td class="ety">ロシアの数学者 A. Markov。</td><td class="sq">「平均がわかれば、極端にデカい値が出る確率はこれ以下だ」と制限をかける。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> チェビシェフ不等式</td><td class="en">Chebyshev's Ineq.</td><td class="ety">ロシアの数学者 P. Chebyshev。</td><td class="sq">「平均と分散さえわかれば、大半のデータはこの範囲に収まる」という鉄則。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 大数の弱法則</td><td class="en">Weak Law of Large N</td><td class="ety">確率収束を意味する。</td><td class="sq">サンプルが増えれば、平均から外れる確率は「ほぼゼロ」になる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 大数の強法則</td><td class="en">Strong Law</td><td class="ety">概収束を意味する（条件が強い）。</td><td class="sq">こっちは数学的に「確実に一致する！」と断言するガチバージョン。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ランダムウォーク</td><td class="en">Random Walk</td><td class="ety">無作為 (Random) な歩み (Walk)。</td><td class="sq">酔っぱらいの千鳥足。次は右か左か、完全ランダムな動きの軌跡。</td></tr>
+      </table>
+    </div>
+
+    <div class="cat-3">
+      <h2>3. 推測統計と仮説検定 (Inference & Hypothesis Testing)</h2>
+      <table>
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>StatQuest風ひとこと (イメージ)</th></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 推測</td><td class="en">Inference</td><td class="ety">ラテン語 in- (中に) + ferre (運ぶ)。</td><td class="sq">手元の少しの証拠から、見えない全体の真実をあぶり出す探偵作業。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 推定</td><td class="en">Estimation</td><td class="ety">ラテン語 aestimare (評価する)。</td><td class="sq">「母集団の平均って、だいたいコレくらいじゃね？」と当てること。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 点推定</td><td class="en">Point Estimation</td><td class="ety">ラテン語 punctum (点)。</td><td class="sq">「真実はズバリこれだ！」と一つの値で言い切る（外れやすい）。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 区間推定</td><td class="en">Interval Estimation</td><td class="ety">ラテン語 inter (間に) + vallum (壁)。</td><td class="sq">「真実はだいたいこの幅の中にある！」と網を張って捕まえる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 信頼区間</td><td class="en">Confidence Interval</td><td class="ety">ラテン語 con- (完全に) + fidere (信じる)。</td><td class="sq">100回網を投げたら、95回は真実を捕まえられる広さの網。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 仮説</td><td class="en">Hypothesis</td><td class="ety">ギリシャ語 hypo- (下に) + thesis (置く)。</td><td class="sq">「もしかしてこうなんじゃないか？」という、検証すべきアイデア。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 帰無仮説</td><td class="en">Null Hypothesis</td><td class="ety">Null (無) / 効果や差が無いとするベース。</td><td class="sq">「お前の薬、ただの偶然でしょ？（差はない）」という意地悪な前提。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 対立仮説</td><td class="en">Alternative Hypo.</td><td class="ety">Alter (もう一方)。帰無仮説と対立。</td><td class="sq">「いや、絶対に薬の効果がある！（差がある）」というあなたの熱い主張。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 有意水準</td><td class="en">Significance Level</td><td class="ety">ラテン語 signum (しるし)。アルファ (α)。</td><td class="sq">「これより確率が低かったら偶然じゃないと認める」合格ライン(例:0.05)。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> p値</td><td class="en">p-value</td><td class="ety">Probability (確率) の p。</td><td class="sq">「偶然こんな結果になる確率」。これが小さい (p<0.05) と大喜び！</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 第1種の過誤</td><td class="en">Type I Error</td><td class="ety">あわてんぼうの誤り。偽陽性。</td><td class="sq">効果ないのに「効果あった！」と勘違いする痛恨のミス (α)。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 第2種の過誤</td><td class="en">Type II Error</td><td class="ety">ぼんやり者の誤り。偽陰性。</td><td class="sq">効果あるのに「効果なし」と見逃してしまう残念なミス (β)。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 検出力</td><td class="en">Power</td><td class="ety">ラテン語 potere (できる) / 差を見つける力。</td><td class="sq">真実を見逃さないパワー (1-β)。サンプルを増やすとムキムキになる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 自由度</td><td class="en">Degrees of Freedom</td><td class="ety">自由に動ける変数の数。</td><td class="sq">計算に使える「独立した情報の数」。サンプル数からちょっと引いた数。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> t検定</td><td class="en">t-test</td><td class="ety">t分布を用いた平均の差の検定。</td><td class="sq">2つのグループの平均に「本当に差があるか」を比べる基本ワザ。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 分散分析</td><td class="en">ANOVA</td><td class="ety">Analysis of Variance. Fisherが確立。</td><td class="sq">3つ以上のグループを比べる。「分散」を使って平均の差をあぶり出す。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> カイ二乗検定</td><td class="en">Chi-square Test</td><td class="ety">カイ二乗分布を用いた検定。Pearson考案。</td><td class="sq">アンケート結果などの「カテゴリーのズレ」が偶然か確かめる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ノンパラメトリック</td><td class="en">Non-parametric</td><td class="ety">パラメータ(正規分布など)を仮定しない。</td><td class="sq">データが正規分布じゃなくても気にせず使える、順位ベースの強行突破。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> パラメトリック</td><td class="en">Parametric</td><td class="ety">ギリシャ語 para- (並んで) + metron (測る)。</td><td class="sq">「データは正規分布だ！」という前提を置いて、強力に計算する手法。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 尤度</td><td class="en">Likelihood</td><td class="ety">古英語 gelic (似ている) / もっともらしさ。</td><td class="sq">データは固定！「このパラメータだった時、手元のデータがどれくらい起きそうか」。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 最尤推定 (MLE)</td><td class="en">Max Likelihood Est.</td><td class="ety">尤度を最大化する。Fisher提唱。</td><td class="sq">今手元にあるデータが「一番起きやすくなる」ような真実の姿を逆算する。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 不偏推定量</td><td class="en">Unbiased Estimator</td><td class="ety">Un- (否定) + bias (偏り)。</td><td class="sq">何度も推定すれば、平均してズバリ真の値を指し示す「偏りのない」式。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 一致推定量</td><td class="en">Consistent Estimator</td><td class="ety">ラテン語 con- + sistere (立つ)。</td><td class="sq">サンプル数を無限に増やせば、絶対に真の値にピタリと一致する式。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 有効推定量</td><td class="en">Efficient Estimator</td><td class="ety">ラテン語 ex- + facere (作る)。</td><td class="sq">不偏推定量の中でも、一番バラつき（分散）が少なくて優秀な式。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 十分統計量</td><td class="en">Sufficient Statistic</td><td class="ety">ラテン語 sufficere (足りる)。</td><td class="sq">「これさえあれば元データはもういらない！」という全情報を持った要約値。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> クラメール・ラオ</td><td class="en">Cramer-Rao Bound</td><td class="ety">CramérとRao。分散の下限。</td><td class="sq">「どんなに頑張っても、これ以上は分散を小さくできないよ」という限界の壁。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> フィッシャー情報量</td><td class="en">Fisher Information</td><td class="ety">統計学者 R.A. Fisher に由来。</td><td class="sq">データが真のパラメータについて「どれくらい有益なヒントを持っているか」。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> Z検定</td><td class="en">Z-test</td><td class="ety">標準正規分布 (Z分布) を用いる検定。</td><td class="sq">サンプルが大量にあるか、母分散がわかっている時の王道の検定。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> F検定</td><td class="en">F-test</td><td class="ety">F分布を用いて分散の比を検定。</td><td class="sq">「この2つのグループ、データの散らばり具合（分散）は同じ？」を判定。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> マン・ホイットニー</td><td class="en">Mann-Whitney U Test</td><td class="ety">順位に基づく2群のノンパラメトリック。</td><td class="sq">正規分布じゃなくてもOK！データを「順位」に直して2グループを比べる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ウィルコクソン</td><td class="en">Wilcoxon Signed-Rank</td><td class="ety">対応のあるデータ用ノンパラ検定。</td><td class="sq">「薬を飲む前と後」のように、同じ人の変化を順位ベースで比べる手法。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> クラスカル・ウォリス</td><td class="en">Kruskal-Wallis Test</td><td class="ety">ANOVAのノンパラメトリック版。</td><td class="sq">正規分布を諦めた時の、3グループ以上の順位を使ったガチンコ勝負。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> フリードマン検定</td><td class="en">Friedman Test</td><td class="ety">対応のある3群以上のノンパラ検定。</td><td class="sq">「朝・昼・晩の血圧の変化」など、同じ人の3回以上の変化を追う。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> コルモゴロフ・スミルノフ</td><td class="en">K-S Test</td><td class="ety">経験分布と理論分布の適合度検定。</td><td class="sq">「この手元のデータ、本当に正規分布っぽい？」をチェックする検査。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> シャピロ・ウィルク</td><td class="en">Shapiro-Wilk Test</td><td class="ety">データが正規分布に従うかの検定。</td><td class="sq">K-S検定よりシビアに「君のデータ、正規分布じゃないよね？」と見破る。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 適合度検定</td><td class="en">Goodness-of-Fit Test</td><td class="ety">モデルがデータにどれくらい適合しているか。</td><td class="sq">「サイコロの目は本当に全部1/6ずつ出てる？」など理論通りか確かめる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 独立性の検定</td><td class="en">Test of Independence</td><td class="ety">2つの変数が独立しているかの検定。</td><td class="sq">「血液型と性格って関係あるの？」をクロス集計表で白黒つける。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 等分散性の検定</td><td class="en">Homogeneity of Var.</td><td class="ety">群間の分散が等しいか (Homogeneous)。</td><td class="sq">t検定やANOVAをやる前に「グループ間で散らばり具合同じ？」を確認。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ルベーンの検定</td><td class="en">Levene's Test</td><td class="ety">等分散性の代表的な検定手法。</td><td class="sq">等分散性チェックの定番。これが棄却されるとANOVAに進めなくて焦る。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ボンフェローニ補正</td><td class="en">Bonferroni Correction</td><td class="ety">多重検定時の有意水準の補正法。</td><td class="sq">何度も検定すると偶然当たりを引きやすくなるから、合格ラインを激辛にする。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 偽発見率 (FDR)</td><td class="en">False Discovery Rate</td><td class="ety">棄却された仮説のうち真の帰無仮説の割合。</td><td class="sq">ボンフェローニが辛すぎるので「少しの偽陽性は許そう」というマイルドな補正。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 片側検定</td><td class="en">One-tailed Test</td><td class="ety">分布の片側の裾 (Tail) のみを見る。</td><td class="sq">「新薬は絶対に従来薬より『良い』はずだ！」と方向を絞って検定する。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 両側検定</td><td class="en">Two-tailed Test</td><td class="ety">分布の両側の裾 (Tail) を見る。</td><td class="sq">「良くなるか悪くなるか分からんが、とにかく『差』がある！」と両方見る。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 棄却域</td><td class="en">Rejection Region</td><td class="ety">帰無仮説を棄却する領域。</td><td class="sq">分布の端っこの「ここに入ったら偶然じゃないとみなす！」というデッドゾーン。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 臨界値</td><td class="en">Critical Value</td><td class="ety">ギリシャ語 krinein (判断する) / 境界値。</td><td class="sq">棄却域に入るかどうかのギリギリの境界線となる数値。</td></tr>
+      </table>
+    </div>
+
+    <div class="cat-4">
+      <h2>4. 回帰・相関・多変量解析 (Regression & Multivariate)</h2>
+      <table>
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>StatQuest風ひとこと (イメージ)</th></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 相関</td><td class="en">Correlation</td><td class="ety">ラテン語 com- (共に) + relatio (関係)。</td><td class="sq">片方が増えればもう片方も増えるか？（※因果関係とは別！）</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 共分散</td><td class="en">Covariance</td><td class="ety">Co- (共に) + Variance (分散)。</td><td class="sq">2つの変数がどれだけ「一緒に変動しているか」の生の数値。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 回帰</td><td class="en">Regression</td><td class="ety">Galtonが発見した「親より子が平均へ戻る」現象から。</td><td class="sq">データの間を貫く「一番いい感じの直線（モデル）」を引くこと。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 線形回帰</td><td class="en">Linear Regression</td><td class="ety">ラテン語 linea (糸、線)。</td><td class="sq">とにかく「まっすぐな直線」を引いて未来を予測しようとする手法。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 最小二乗法</td><td class="en">OLS</td><td class="ety">誤差の二乗 (Squares) を最小 (Least) にする。</td><td class="sq">ズレ（残差）の二乗の合計が一番小さくなる線を引く王道ルール。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 残差</td><td class="en">Residual</td><td class="ety">ラテン語 residere (残る)。</td><td class="sq">直線(モデル)で予測した値と、実際のデータとの「ズレ」。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 決定係数 (R^2)</td><td class="en">R-squared</td><td class="ety">変動をどれだけ説明できるか。</td><td class="sq">0から1の値。「この直線、データのばらつきを何％説明できてる？」</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ピアソンの相関</td><td class="en">Pearson Correlation</td><td class="ety">K. Pearson (数理統計学の基礎を構築) に由来。</td><td class="sq">みんながよく使う普通の相関係数 (r)。直線的な関係しか測れない。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> スピアマンの相関</td><td class="en">Spearman's Rank</td><td class="ety">順位 (Rank) に基づく相関。</td><td class="sq">データを「順位」に変換してから相関を見る。曲線でもバッチリ測れる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ケンドールのタウ</td><td class="en">Kendall's Tau</td><td class="ety">ギリシャ文字 τ (タウ) を用いた順位相関。</td><td class="sq">スピアマンのライバル。順位の「追い抜き」に着目した計算方法。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 自己相関</td><td class="en">Autocorrelation</td><td class="ety">ギリシャ語 auto- (自身の)。</td><td class="sq">「昨日の株価と今日の株価」のように、過去の自分自身との相関。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 偏相関</td><td class="en">Partial Correlation</td><td class="ety">ラテン語 pars (部分)。</td><td class="sq">第3の要因を取り除いた「純粋な」2つだけの相関関係。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 単回帰分析</td><td class="en">Simple Regression</td><td class="ety">説明変数が1つ (Simple) の回帰。</td><td class="sq">「身長から体重を予測」のように、1つのヒントで1つの結果を当てる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 重回帰分析</td><td class="en">Multiple Regression</td><td class="ety">説明変数が複数 (Multiple) の回帰。</td><td class="sq">「身長・年齢・性別」など、複数のヒントを組み合わせて予測する。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 説明変数</td><td class="en">Explanatory Var.</td><td class="ety">ラテン語 ex- (外へ) + planare (平らにする)。</td><td class="sq">予測に使う「ヒント」の方の変数。x軸。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 目的変数</td><td class="en">Response Var.</td><td class="ety">ラテン語 respondere (答える)。</td><td class="sq">当てたい「答え」の方の変数。y軸。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ダミー変数</td><td class="en">Dummy Variable</td><td class="ety">質的変数を 0 と 1 で擬似的に表現した変数。</td><td class="sq">「男=0、女=1」のように、文字を無理やり数字にして回帰に突っ込む技。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 多重共線性</td><td class="en">Multicollinearity</td><td class="ety">Multi- (多数) + co- (共に) + linear (線)。</td><td class="sq">ヒント同士が似すぎていて（例：体重とBMI）計算がバグる現象。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ロジスティック回帰</td><td class="en">Logistic Regression</td><td class="ety">ギリシャ語 logistikos。S字曲線を使う。</td><td class="sq">「YesかNoか（0か1か）」の確率を予測する分類の王様。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 交差検証</td><td class="en">Cross-Validation</td><td class="ety">Cross (交差) して Validation (検証) する。</td><td class="sq">データを分割して「学習」と「テスト」を繰り返し、実力を正しく測る。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 過学習</td><td class="en">Overfitting</td><td class="ety">訓練データに過度 (Over) に適合 (Fit)。</td><td class="sq">練習問題の丸暗記。本番（未知のデータ）で全く役に立たない状態。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 未学習</td><td class="en">Underfitting</td><td class="ety">モデルの適合 (Fit) が不十分 (Under)。</td><td class="sq">モデルがシンプルすぎて、練習問題すら解けていない状態。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 正則化</td><td class="en">Regularization</td><td class="ety">モデルを規則化・単純化。</td><td class="sq">過学習を防ぐために「複雑すぎるモデルにペナルティを与える」仕組み。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> リッジ回帰</td><td class="en">Ridge Regression</td><td class="ety">係数の二乗和にペナルティ。Ridgeは「尾根」。</td><td class="sq">ペナルティを与えて係数を小さくし、多重共線性の影響を和らげる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ラッソ回帰</td><td class="en">Lasso Regression</td><td class="ety">Least Absolute Shrinkage and Selection Op.</td><td class="sq">いらない変数の係数を「完全にゼロ」にして無視する強力な技。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> エラスティックネット</td><td class="en">Elastic Net</td><td class="ety">リッジとラッソの中間 (弾力的・Elastic)。</td><td class="sq">リッジとラッソのいいとこ取り。両方のペナルティを混ぜて使う。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 一般化線形モデル</td><td class="en">GLM</td><td class="ety">誤差分布を正規分布以外に一般化したモデル。</td><td class="sq">正規分布の縛りをぶち壊し、ポアソン分布や二項分布も回帰できちゃう！</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ポアソン回帰</td><td class="en">Poisson Regression</td><td class="ety">カウントデータ(ポアソン分布)を対象。</td><td class="sq">「来店者数」など、ゼロ以上の整数（カウント）を予測するためのGLM。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> プロビット回帰</td><td class="en">Probit Regression</td><td class="ety">Probability + Unit / 標準正規分布を利用。</td><td class="sq">ロジスティック回帰の親戚。S字曲線の代わりに正規分布の形を使う。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 生存分析</td><td class="en">Survival Analysis</td><td class="ety">ラテン語 supervivere (長生きする)。</td><td class="sq">「病気の再発」や「退会」など、あるイベントが起こるまでの時間の分析。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> カプラン・マイヤー</td><td class="en">Kaplan-Meier</td><td class="ety">生存関数のノンパラメトリック推定。</td><td class="sq">時間経過とともに生存率が階段状に落ちていく様子を描くお馴染みの図。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> コックス比例ハザード</td><td class="en">Cox Proportional Haz.</td><td class="ety">群間のハザード比が一定と仮定するモデル。</td><td class="sq">「新薬と旧薬で、死ぬリスクは何倍違うか？」を時間経過によらず一言で表す。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 因子分析</td><td class="en">Factor Analysis</td><td class="ety">ラテン語 facere (作る)。</td><td class="sq">アンケート結果の裏に潜む「コミュ力」などの見えない要因を探り出す。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 主成分分析 (PCA)</td><td class="en">PCA</td><td class="ety">Principal (主要な) 成分の抽出。</td><td class="sq">BAM! 次元が多すぎるデータを、情報の損失を最小限にして2次元に圧縮！</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 判別分析</td><td class="en">Discriminant Analysis</td><td class="ety">ラテン語 discriminare (区別する)。</td><td class="sq">データがきれいに2グループに分かれるような直線を引く。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> クラスター分析</td><td class="en">Cluster Analysis</td><td class="ety">データを似たもの同士の群れに分ける。</td><td class="sq">正解データなし！似たもの同士をコンピュータに勝手にグループ分けさせる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> k-means法</td><td class="en">k-means Clustering</td><td class="ety">k個の平均 (means) によるクラスタリング。</td><td class="sq">あらかじめ「k個のグループ」を指定して、中心を動かしながら仲間分け。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 階層的クラスタリング</td><td class="en">Hierarchical Cluster</td><td class="ety">ギリシャ語 hierarchia / ツリー状の構造。</td><td class="sq">似た者同士をどんどんくっつけていき、樹形図（デンドログラム）を作る。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> マハラノビス距離</td><td class="en">Mahalanobis Dist.</td><td class="ety">統計学者 P.C. Mahalanobis に由来。</td><td class="sq">データの「ばらつきの向き」を考慮して測る、ちょっと賢い距離の測り方。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> サポートベクターマシン</td><td class="en">SVM</td><td class="ety">クラス間のマージンを最大化する境界線 (Vector)。</td><td class="sq">グループ間の「隙間」が一番広くなるような、絶対に譲れない境界線を引く！</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 時系列分析</td><td class="en">Time Series Analysis</td><td class="ety">時間の経過に伴うデータの分析。</td><td class="sq">株価や気温など、時間とともにウネウネ動くデータを分析する技術。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ARIMAモデル</td><td class="en">ARIMA Model</td><td class="ety">自己回帰和分移動平均モデルの略。</td><td class="sq">過去の自分自身と、過去の予測のズレを使って未来を当てる時系列の王様。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 定常性</td><td class="en">Stationarity</td><td class="ety">ラテン語 stare (立つ) / 確率分布が変わらない。</td><td class="sq">時間が経っても「平均やばらつきが変わらない」という時系列分析の前提条件。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 異分散性</td><td class="en">Heteroskedasticity</td><td class="ety">ギリシャ語 heteros (異なる) + skedannunai (散らす)。</td><td class="sq">値が大きくなるにつれて、データのばらつきまでデカくなってしまう厄介な状態。</td></tr>
+      </table>
+    </div>
+
+    <div class="cat-5">
+      <h2>5. 実験計画法と標本抽出 (Design of Experiments & Sampling)</h2>
+      <table>
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>StatQuest風ひとこと (イメージ)</th></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 実験</td><td class="en">Experiment</td><td class="ety">ラテン語 ex- (外へ) + periri (試す)。</td><td class="sq">ただ観察するのではなく、意図的に介入して反応を見るアクション。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 無作為化</td><td class="en">Randomization</td><td class="ety">古仏語 randon (無作為)。</td><td class="sq">コイントスでグループを分ける。バイアスを消す最強の盾。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 交絡</td><td class="en">Confounding</td><td class="ety">ラテン語 con- (共に) + fundere (注ぐ)。</td><td class="sq">「コーヒー飲むとガンになる？」いや、タバコのせいかも。隠れた第3の要因。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> プラセボ</td><td class="en">Placebo</td><td class="ety">ラテン語 placere (喜ばせる) / 偽薬。</td><td class="sq">ただの小麦粉なのに「薬だ」と思い込んで効いちゃう現象。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 二重盲検法</td><td class="en">Double-blind Trial</td><td class="ety">医師も患者も (Double) 盲目 (Blind) の試験。</td><td class="sq">どっちが本物の薬か、医者も患者も知らない。プラセボ効果を完全ブロック。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> バイアス</td><td class="en">Bias</td><td class="ety">古フランス語 biais (斜め) / 推定の偏り。</td><td class="sq">真実から常にズレてしまう「偏見」や「サンプリングの偏り」。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 頑健性</td><td class="en">Robustness</td><td class="ety">ラテン語 robustus (オークのように堅固な)。</td><td class="sq">前提条件が多少崩れたり外れ値が混じっても、へこたれない強さ。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 標本抽出</td><td class="en">Sampling</td><td class="ety">母集団からサンプルを取り出すこと。</td><td class="sq">スープの味見。一口飲めば鍋全体の味がわかる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 単純無作為抽出</td><td class="en">Simple Random Samp.</td><td class="ety">全て同じ確率で無作為に抽出。</td><td class="sq">くじ引き。全員が同じ確率で選ばれる最もフェアなサンプリング。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 層化抽出</td><td class="en">Stratified Sampling</td><td class="ety">ラテン語 stratum (層)。</td><td class="sq">「男女比を揃える」など、あらかじめ層に分けてからくじ引きする。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> クラスター抽出</td><td class="en">Cluster Sampling</td><td class="ety">集団(クラスター)単位で無作為に抽出。</td><td class="sq">「3年B組を丸ごと選ぶ」など、グループ単位でごっそり持ってくる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 系統抽出</td><td class="en">Systematic Sampling</td><td class="ety">ギリシャ語 systema (体系)。</td><td class="sq">名簿の「10番目ごとに選ぶ」みたいな機械的な選び方。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> サンプリング誤差</td><td class="en">Sampling Error</td><td class="ety">標本調査ゆえに偶然生じる誤差。</td><td class="sq">全員を調べないからこそ生じる「しゃーない」ズレ。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 非サンプリング誤差</td><td class="en">Non-sampling Error</td><td class="ety">測定ミスや無回答など標本抽出以外の誤差。</td><td class="sq">アンケートの嘘や入力ミスなど、人間のポンコツ具合から来るズレ。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 実験計画法</td><td class="en">Design of Exp.</td><td class="ety">Fisherが農事試験場で確立した実験体系。</td><td class="sq">どうやったら一番少ない回数で、欲しいデータが綺麗に取れるかの戦略。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 対照群</td><td class="en">Control Group</td><td class="ety">比較の基準 (Control) となるグループ。</td><td class="sq">薬を「飲まなかった」人たち。彼らがいないと比較にならない。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 処置群</td><td class="en">Treatment Group</td><td class="ety">ラテン語 tractare (扱う)。</td><td class="sq">新薬を飲んだり、新しい勉強法を試した「実験台」の人たち。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 要因実験</td><td class="en">Factorial Exp.</td><td class="ety">複数の要因 (Factor) の組み合わせを調べる。</td><td class="sq">「温度」と「時間」を同時に変えてみて、相乗効果があるか調べる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ブロック化</td><td class="en">Blocking</td><td class="ety">似た性質のものをまとめる (Block)。</td><td class="sq">「男女別」など、あらかじめ似た人をグループにしてノイズを減らす。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 乱塊法</td><td class="en">Randomized Block</td><td class="ety">ブロック内で無作為化を行う配置。</td><td class="sq">ブロック化してから、その中でランダムに薬を割り当てる手法。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ラテン方格法</td><td class="en">Latin Square Design</td><td class="ety">ラテン文字の配列に基づく実験計画。</td><td class="sq">数独みたいなマス目を使って、少ない実験回数で複数の要因を検証する。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 傾向スコア</td><td class="en">Propensity Score</td><td class="ety">ラテン語 propensus (傾いた)。</td><td class="sq">ランダムに分けられない時、「薬を飲みそうな度合い」を計算して似た人を比べる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 操作変数</td><td class="en">Instrumental Var.</td><td class="ety">ラテン語 instrumentum (道具)。</td><td class="sq">交絡をぶち壊すために外から持ってくる「都合のいい変数」。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 差を差で測る手法</td><td class="en">Difference-in-Diff.</td><td class="ety">介入前後の変化の「差」を群間で比較 (DiD)。</td><td class="sq">「政策をやった県」と「やってない県」の伸び率の差を比べる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 回帰不連続デザイン</td><td class="en">Regression Discon.</td><td class="ety">閾値前後での不連続性 (Discontinuity) を利用。</td><td class="sq">テスト60点合格の「59点と60点の人」はほぼ同じ実力だよね、を利用する(RDD)。</td></tr>
+      </table>
+    </div>
+
+    <div class="cat-6">
+      <h2>6. ベイズ統計・その他の発展的手法 (Bayesian & Advanced)</h2>
+      <table>
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>StatQuest風ひとこと (イメージ)</th></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ベイズ推論</td><td class="en">Bayesian Inference</td><td class="ety">Bayes (英牧師) が基礎を築いた定理に基づく。</td><td class="sq">新しい証拠が出るたびに、自分の「思い込み（確率）」をアップデート！</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 事前分布</td><td class="en">Prior</td><td class="ety">ラテン語 prior (前)。</td><td class="sq">データを見る「前」の、あなたの最初の考えや経験則。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 事後分布</td><td class="en">Posterior</td><td class="ety">ラテン語 posterior (後)。</td><td class="sq">データを見た「後」にアップデートされた、新しい結論の分布。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 共役事前分布</td><td class="en">Conjugate Prior</td><td class="ety">ラテン語 con- (共に) + jugum (くびき)。</td><td class="sq">「事前」と「事後」で分布の形が変わらない、計算が超絶ラクになるペア。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 無情報事前分布</td><td class="en">Non-informative Prior</td><td class="ety">事前の情報を持たない平坦な分布。</td><td class="sq">「まっっったく何もわかりません！」という状態を表す真っ平らな分布。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 階層ベイズモデル</td><td class="en">Hierarchical Bayes</td><td class="ety">パラメータの事前分布に階層構造を持たせる。</td><td class="sq">「個人の特徴」と「全体の特徴」をマトリョーシカのように繋ぐモデル。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 尤度関数</td><td class="en">Likelihood Function</td><td class="ety">パラメータを変数とみなした尤度の関数。</td><td class="sq">パラメータを色々動かした時、手元のデータが起きる確率がどう変わるかのグラフ。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> マルコフ連鎖</td><td class="en">Markov Chain</td><td class="ety">現在の状態のみで次の状態が決まる連鎖。</td><td class="sq">「明日の天気は今日の天気だけで決まる」という過去を引きずらないモデル。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> モンテカルロ法</td><td class="en">Monte Carlo Method</td><td class="ety">カジノの地名に由来する乱数シミュレーション。</td><td class="sq">数式が解けないなら、ランダムな点をサイコロで打ちまくってゴリ押し計算！</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> MCMC</td><td class="en">MCMC</td><td class="ety">Markov Chain Monte Carlo。</td><td class="sq">ベイズ計算が複雑すぎるとき、ランダムに歩き回って近似解を探す魔法。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ギブスサンプリング</td><td class="en">Gibbs Sampling</td><td class="ety">物理学者 J.W. Gibbs の名に基づくMCMC。</td><td class="sq">MCMCの一種。変数が複数ある時、一個ずつ順番に更新していくやり方。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> メトロポリス・ヘイスティングス</td><td class="en">Metropolis-Hastings</td><td class="ety">N. MetropolisらによるMCMC。</td><td class="sq">MCMCの一種。「適当に進んでみて、良さそうなら採用！」を繰り返す。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> メタアナリシス</td><td class="en">Meta-analysis</td><td class="ety">ギリシャ語 meta (〜を超えて)。</td><td class="sq">過去の似たような研究を全部合体させて、デカい結論を出す最強の論文。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 効果量</td><td class="en">Effect Size</td><td class="ety">介入の効果 (Effect) の大きさ (Size)。</td><td class="sq">p値はサンプル数で変わるけど、効果量は「純粋な効果の大きさ」を教えてくれる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> コーエンのd</td><td class="en">Cohen's d</td><td class="ety">J. Cohenによる標準化された効果量指標。</td><td class="sq">効果量の代表格。「平均の差が、標準偏差の何個分か」で測る。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ブートストラップ法</td><td class="en">Bootstrapping</td><td class="ety">「靴紐を引いて自力で飛ぶ」ほら話に由来。</td><td class="sq">手元のデータを何度も復元抽出して、無理やり大量のサンプルを作り出す技。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ジャックナイフ法</td><td class="en">Jackknife Resampling</td><td class="ety">万能ナイフのように汎用的。</td><td class="sq">データを1個だけ抜いて計算、を繰り返して推定の安定感を確かめる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 機械学習</td><td class="en">Machine Learning</td><td class="ety">コンピュータ (Machine) がデータから学習。</td><td class="sq">人間がルールを書くのではなく、データから勝手にルールを見つけ出す技術。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 深層学習</td><td class="en">Deep Learning</td><td class="ety">多層 (Deep) の人工ニューラルネットワーク。</td><td class="sq">脳の神経を真似たネットワークを何層も重ねて、複雑なパターンを学習。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> アンサンブル学習</td><td class="en">Ensemble Learning</td><td class="ety">フランス語 ensemble (一緒に)。</td><td class="sq">三人寄れば文殊の知恵！複数のモデルに多数決をとらせて精度を上げる。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ランダムフォレスト</td><td class="en">Random Forest</td><td class="ety">多数の決定木 (Forest) を無作為に作成。</td><td class="sq">BAM! たくさんの「決定木」による多数決。機械学習でとりあえず試す超優等生。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 勾配降下法</td><td class="en">Gradient Descent</td><td class="ety">勾配 (Gradient) を下って (Descent) 最適解へ。</td><td class="sq">目隠しして山を下るように、傾きを感じながら一番底（誤差最小）を探す。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 情報量規準</td><td class="en">Information Criterion</td><td class="ety">統計モデルの良さを評価する指標。</td><td class="sq">「当てはまりの良さ」と「モデルのシンプルさ」のバランスを評価する点数。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> 赤池情報量規準 (AIC)</td><td class="en">AIC</td><td class="ety">日本の統計学者 赤池弘次に由来。</td><td class="sq">「予測精度は高いか？でも複雑すぎないか？」を点数化。低いほどエラい。</td></tr>
+        <tr><td class="ja"><span class="chk">☐</span> ベイズ情報量規準 (BIC)</td><td class="en">BIC</td><td class="ety">ベイズ的アプローチに基づく情報量規準。</td><td class="sq">AICより「複雑なモデル」へのペナルティが厳しい、スパルタな点数。</td></tr>
+      </table>
+    </div>
+
+  </body>
+</html>
