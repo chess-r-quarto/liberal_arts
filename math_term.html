@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>初歩からの数学 直感的学習ノート（全200用語）</title>
+<style>
+:root {
+  --c1-main: #1e3a8a; --c1-bg: #dbeafe; /* 青: 数の概念 */
+  --c2-main: #166534; --c2-bg: #dcfce7; /* 緑: 方程式と図形 */
+  --c3-main: #991b1b; --c3-bg: #fee2e2; /* 赤: 関係と関数 */
+  --c4-main: #6b21a8; --c4-bg: #f3e8ff; /* 紫: 指数・対数・三角 */
+  --c5-main: #b45309; --c5-bg: #fef3c7; /* 橙: 場合の数と数列 */
+  --c6-main: #0f766e; --c6-bg: #ccfbf1; /* 鴨の羽色: 極限と微積分 */
+}
+body {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+  line-height: 1.4;
+  color: #111;
+  background: #fff;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+h1 {
+  text-align: center;
+  border-bottom: 2px solid #000;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+p.intro {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 0.9em;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 40px;
+  page-break-inside: auto;
+}
+tr {
+  page-break-inside: avoid;
+  page-break-after: auto;
+}
+th, td {
+  border: 1px solid #333;
+  padding: 8px;
+  font-size: 0.9em;
+  vertical-align: top;
+}
+th {
+  font-weight: bold;
+}
+td:first-child {
+  white-space: nowrap;
+  font-weight: bold;
+}
+.en {
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+}
+/* Categories */
+.cat-1 h2 { color: var(--c1-main); border-bottom: 2px solid var(--c1-main); }
+.cat-1 th { background-color: var(--c1-bg); color: var(--c1-main); }
+.cat-2 h2 { color: var(--c2-main); border-bottom: 2px solid var(--c2-main); }
+.cat-2 th { background-color: var(--c2-bg); color: var(--c2-main); }
+.cat-3 h2 { color: var(--c3-main); border-bottom: 2px solid var(--c3-main); }
+.cat-3 th { background-color: var(--c3-bg); color: var(--c3-main); }
+.cat-4 h2 { color: var(--c4-main); border-bottom: 2px solid var(--c4-main); }
+.cat-4 th { background-color: var(--c4-bg); color: var(--c4-main); }
+.cat-5 h2 { color: var(--c5-main); border-bottom: 2px solid var(--c5-main); }
+.cat-5 th { background-color: var(--c5-bg); color: var(--c5-main); }
+.cat-6 h2 { color: var(--c6-main); border-bottom: 2px solid var(--c6-main); }
+.cat-6 th { background-color: var(--c6-bg); color: var(--c6-main); }
+
+@media print {
+  body { padding: 0; font-size: 10pt; }
+  h1 { font-size: 16pt; margin-top: 0; }
+  h2 { font-size: 13pt; margin-top: 15px; margin-bottom: 5px; }
+  table { margin-bottom: 15px; }
+  th, td { padding: 4px; border: 1px solid #000; }
+  /* Ensure backgrounds print correctly */
+  th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<h1>初歩からの数学 直感的学習ノート（全200用語）</h1>
+<p class="intro">
+専門知識をBAM!と直感的に理解するためのノートです。印刷やPDF出力に最適化されています。<br>
+数式の丸暗記は捨てて、言葉のルーツと「要するにどういうこと？」というイメージを脳に焼き付けましょう。
+</p>
+
+<div class="cat-1">
+  <h2>第1章：数の概念と計算 (Numbers & Calculation)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:15%">日本語</th>
+        <th style="width:20%">英語 (English)</th>
+        <th style="width:30%">語源・由来・人物</th>
+        <th style="width:35%">直感的なイメージ（要するに？）</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>☐ 自然数</td><td class="en">Natural number</td><td>自然界（nature）の事物を数えることに由来。</td><td>「りんごが1個、2個…」と指折り数えられる最もピュアな数！</td></tr>
+      <tr><td>☐ 整数</td><td class="en">Integer</td><td>ラテン語のinteger（触れられていない＝完全な、欠けのない）。</td><td>借金（マイナス）も無（ゼロ）も含めた、スパッとキリのいい数！</td></tr>
+      <tr><td>☐ 有理数</td><td class="en">Rational number</td><td>比（ratio）で表すことができる（-al）数。</td><td>ピザを均等に切り分けるように、分数で完璧に表せる数！</td></tr>
+      <tr><td>☐ 無理数</td><td class="en">Irrational number</td><td>比（ratio）で表すことができない（ir-）数。ピタゴラス学派が発見。</td><td>分数にできず、小数点以下がカオスに永遠に続くヤバい数。</td></tr>
+      <tr><td>☐ 実数</td><td class="en">Real number</td><td>虚数（想像上の数）と対比して「実際に（real）存在する」数。デカルト命名。</td><td>数直線を隙間なくギッシリ埋め尽くす、現実世界のすべての数！</td></tr>
+      <tr><td>☐ 虚数</td><td class="en">Imaginary number</td><td>デカルトが「想像上の（imaginary）数」と呼んで皮肉ったことに由来。</td><td>2回掛けるとマイナスになっちゃう、現実にはない魔法の数！</td></tr>
+      <tr><td>☐ 複素数</td><td class="en">Complex number</td><td>複数の要素（実数と虚数）が組み合わさった（complex）数。</td><td>「現実（実数）」と「魔法（虚数）」を合体させた最強の数！</td></tr>
+      <tr><td>☐ 加法</td><td class="en">Addition</td><td>ラテン語のaddere（付け加える）。</td><td>とにかく集めてドカンとまとめること。足し算！</td></tr>
+      <tr><td>☐ 乗法</td><td class="en">Multiplication</td><td>ラテン語のmultiplicare（多く折り重ねる）。</td><td>同じものを何度もコピペして爆発的に増やすこと。掛け算！</td></tr>
+      <tr><td>☐ 減法</td><td class="en">Subtraction</td><td>ラテン語のsubtrahere（下から引き抜く）。</td><td>ある塊から、一部をズボッと抜き取ること。引き算！</td></tr>
+      <tr><td>☐ 除法</td><td class="en">Division</td><td>ラテン語のdividere（分割する）。</td><td>みんなで平等に山分けすること。割り算！</td></tr>
+      <tr><td>☐ 交換法則</td><td class="en">Commutative law</td><td>commute（交換する）。</td><td>「A+B」と「B+A」、順番をひっくり返しても結果は同じ！</td></tr>
+      <tr><td>☐ 結合法則</td><td class="en">Associative law</td><td>associate（結びつける）。</td><td>「(A+B)+C」でも「A+(B+C)」でも、どこから計算しても同じ！</td></tr>
+      <tr><td>☐ 分配法則</td><td class="en">Distributive law</td><td>distribute（配る）。</td><td>外にある数を、カッコの中のみんなに平等に配り歩くルール！</td></tr>
+      <tr><td>☐ 零 (ゼロ)</td><td class="en">Zero</td><td>アラビア語のsifr（空っぽ）が由来。インドで発見された。</td><td>「何もない」ことを表す、数学界の大革命的プレースホルダー！</td></tr>
+      <tr><td>☐ 正の数</td><td class="en">Positive number</td><td>ラテン語のpositivus（置かれた、積極的な）。</td><td>ゼロより大きい、前向きに増えていく数！</td></tr>
+      <tr><td>☐ 負の数</td><td class="en">Negative number</td><td>ラテン語のnegativus（否定的な）。</td><td>ゼロより小さい、借金や地下室のようなマイナスの世界！</td></tr>
+      <tr><td>☐ 絶対値</td><td class="en">Absolute value</td><td>ラテン語のabsolvere（解き放つ）。符号から解放された値。</td><td>原点（ゼロ）からの「距離」。プラスもマイナスも関係ない歩数！</td></tr>
+      <tr><td>☐ 素数</td><td class="en">Prime number</td><td>ラテン語のprimus（最初の、主要な）。数の「素（もと）」。</td><td>「1」と「自分自身」でしか割れない、数の世界の一匹狼！</td></tr>
+      <tr><td>☐ 合成数</td><td class="en">Composite number</td><td>ラテン語のcomponere（組み立てる）。</td><td>いくつかの素数をレゴブロックのように組み立てて作られた数！</td></tr>
+      <tr><td>☐ 素因数分解</td><td class="en">Prime factorization</td><td>数を素数（prime）の要素（factor）に分解すること。</td><td>数をハンマーで叩き割って、一番基本の「素数ブロック」にバラすこと！</td></tr>
+      <tr><td>☐ 倍数</td><td class="en">Multiple</td><td>ラテン語のmultiplus（何倍にも重なった）。</td><td>ある数を1倍、2倍、3倍…とドンドン大きくしていった数！</td></tr>
+      <tr><td>☐ 約数</td><td class="en">Divisor</td><td>ラテン語のdividere（分割する）を行う者。</td><td>ある数を、余りを出さずにピッタリ割り切れる頼もしい数！</td></tr>
+      <tr><td>☐ 最大公約数</td><td class="en">Greatest common divisor (GCD)</td><td>共通の（common）約数の中で最大（greatest）のもの。</td><td>2つの数を同時に割り切れる、一番デカい最強の数！</td></tr>
+      <tr><td>☐ 最小公倍数</td><td class="en">Least common multiple (LCM)</td><td>共通の（common）倍数の中で最小（least）のもの。</td><td>2つの数が、倍増していく過程で初めて出会う感動の数！</td></tr>
+      <tr><td>☐ 展開</td><td class="en">Expansion</td><td>ex-（外へ）+ pandere（広げる）。</td><td>カッコの掛け算をバラバラにして、足し算の形に広げること！</td></tr>
+      <tr><td>☐ 因数分解</td><td class="en">Factorization</td><td>式を構成する要素（factor）に分解すること。</td><td>バラバラの足し算の式を、掛け算のカッコでコンパクトにパックすること！</td></tr>
+      <tr><td>☐ 単項式</td><td class="en">Monomial</td><td>ギリシャ語のmonos（単一の）+ nomos（部分）。</td><td>数や文字の「掛け算だけで」作られた、一人ぼっちの塊！</td></tr>
+      <tr><td>☐ 多項式</td><td class="en">Polynomial</td><td>ギリシャ語のpolys（多くの）+ nomos（部分）。</td><td>いくつかの単項式が「足し算・引き算」で連結された列車の編成！</td></tr>
+      <tr><td>☐ 係数</td><td class="en">Coefficient</td><td>co-（共に）+ efficere（作り出す）。</td><td>文字の前にくっついて、その文字の「量」を教える案内役の数字！</td></tr>
+      <tr><td>☐ 次数</td><td class="en">Degree</td><td>ラテン語のgradus（歩み、段階）。</td><td>掛けられている文字の「個数」。式のレベルやパワーを表す！</td></tr>
+      <tr><td>☐ 同類項</td><td class="en">Like terms</td><td>同じ種類（like）の項（terms）。</td><td>文字の部分が完全に一致している項。合体させてスッキリできる！</td></tr>
+      <tr><td>☐ 平方根</td><td class="en">Square root</td><td>平方（square = 2乗）の根っこ（root）。</td><td>「2回掛けたらその数になる」元祖の数。面積から一辺の長さを出す！</td></tr>
+      <tr><td>☐ 立方根</td><td class="en">Cube root</td><td>立方（cube = 3乗）の根っこ（root）。</td><td>「3回掛けたらその数になる」数。体積から一辺の長さを出す！</td></tr>
+      <tr><td>☐ 指数</td><td class="en">Exponent</td><td>ex-（外へ）+ ponere（置く）。右上にポンと置かれた数。</td><td>「俺を何回掛け合わせろ！」と指示を出す、右肩の小さな監督！</td></tr>
+      <tr><td>☐ 底 (てい)</td><td class="en">Base</td><td>土台、基礎（base）。</td><td>指数監督の指示に従って、ひたすら掛け合わされる下働きの数！</td></tr>
+      <tr><td>☐ 累乗</td><td class="en">Power</td><td>力を倍加させる（power）こと。</td><td>同じ数を何度も何度も掛けて、パワーを爆発させる計算！</td></tr>
+      <tr><td>☐ 指数法則</td><td class="en">Laws of exponents</td><td>指数の計算を楽にする神ルール。</td><td>面倒な掛け算・割り算を、指数の足し算・引き算に変換するチート技！</td></tr>
+      <tr><td>☐ 稠密性</td><td class="en">Denseness</td><td>dense（密集した）。</td><td>どんな2つの数の間にも、必ず別の数があるという「隙間ギッシリ」な性質！</td></tr>
+      <tr><td>☐ 背理法</td><td class="en">Proof by contradiction</td><td>理（ことわり）に背く（矛盾する）ことを示す証明法。</td><td>「もし仮に嘘だとしたら…ほら、おかしな事になった！」と追い詰める論破術！</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="cat-2">
+  <h2>第2章：方程式と図形の性質 (Equations & Geometry)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:15%">日本語</th>
+        <th style="width:20%">英語 (English)</th>
+        <th style="width:30%">語源・由来・人物</th>
+        <th style="width:35%">直感的なイメージ（要するに？）</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>☐ 方程式</td><td class="en">Equation</td><td>ラテン語のaequare（等しくする）。</td><td>「xに何を入れたら左右の天秤が釣り合う？」という謎解きゲーム！</td></tr>
+      <tr><td>☐ 未知数</td><td class="en">Unknown</td><td>まだ知られていない（unknown）数。</td><td>方程式に隠された犯人。大抵「x」という仮面を被っている。</td></tr>
+      <tr><td>☐ 解</td><td class="en">Solution</td><td>ラテン語のsolvere（解きほぐす）。</td><td>天秤を見事に釣り合わせた、未知数（犯人）の正体！</td></tr>
+      <tr><td>☐ 恒等式</td><td class="en">Identity</td><td>ラテン語のidem（同じ）。</td><td>xに何を入れようが、絶対に左右が同じになる「当たり前」の式！</td></tr>
+      <tr><td>☐ 不等式</td><td class="en">Inequality</td><td>in-（否定）+ aequare（等しくする）。</td><td>「どっちが重いか？」という天秤の傾きを表す不等号（&lt; , &gt;）の式！</td></tr>
+      <tr><td>☐ 連立方程式</td><td class="en">System of equations</td><td>複数の式がシステムとして連立している。</td><td>複数の証言（式）から、複数の犯人（未知数）を同時に特定する捜査！</td></tr>
+      <tr><td>☐ 2次方程式</td><td class="en">Quadratic equation</td><td>ラテン語のquadratus（正方形の）。面積の計算に由来。</td><td>xの「2乗」が含まれる方程式。解が2つ出てくることが多い！</td></tr>
+      <tr><td>☐ 解の公式</td><td class="en">Quadratic formula</td><td>2次方程式の解を一発で出す最強の呪文。</td><td>係数(a,b,c)をぶち込めば、脳死で答えが出てくる魔法の自動販売機！</td></tr>
+      <tr><td>☐ 判別式</td><td class="en">Discriminant</td><td>discriminate（区別する、判別する）。</td><td>ルートの中身（b²-4ac）を見て、解が何個あるか一瞬で見抜くレーダー！</td></tr>
+      <tr><td>☐ 複素数平面</td><td class="en">Complex plane</td><td>ガウスが考案した、複素数を視覚化する平面。</td><td>横軸に「現実」、縦軸に「魔法（虚数）」をとった、数の2Dマップ！</td></tr>
+      <tr><td>☐ 共役複素数</td><td class="en">Complex conjugate</td><td>conjugate（対になった、くびきで結ばれた）。</td><td>「a + bi」と「a - bi」。虚数の符号だけが逆転した双子の兄弟！</td></tr>
+      <tr><td>☐ 平面</td><td class="en">Plane</td><td>ラテン語のplanus（平らな）。</td><td>厚みがゼロで、無限に広がる真っ平らな世界！</td></tr>
+      <tr><td>☐ 直線</td><td class="en">Line</td><td>ラテン語のlinea（亜麻糸）。ピンと張った糸。</td><td>両端がなく、宇宙の果てまで真っ直ぐ伸び続ける線！</td></tr>
+      <tr><td>☐ 線分</td><td class="en">Line segment</td><td>segment（切り取られた断片）。</td><td>直線の一部をチョキンと切り取った、スタートとゴールがある線！</td></tr>
+      <tr><td>☐ 半直線</td><td class="en">Ray</td><td>ray（光線）。</td><td>スタート地点はあるが、もう片方は無限に突き抜けるレーザービーム！</td></tr>
+      <tr><td>☐ 点</td><td class="en">Point</td><td>ラテン語のpunctum（刺された跡）。</td><td>位置だけを示し、大きさも広がりも一切持たない究極の存在！</td></tr>
+      <tr><td>☐ 角度</td><td class="en">Angle</td><td>ラテン語のangulus（曲がり角、隅）。</td><td>2つの線が交わってできる「開き具合」。ピザの切り口の尖り方！</td></tr>
+      <tr><td>☐ 直角</td><td class="en">Right angle</td><td>right（正しい、真っ直ぐな）。</td><td>完璧な90度。L字型。建築の基本！</td></tr>
+      <tr><td>☐ 鋭角</td><td class="en">Acute angle</td><td>ラテン語のacutus（尖った）。</td><td>90度より小さい、チクッと刺さりそうな鋭い角！</td></tr>
+      <tr><td>☐ 鈍角</td><td class="en">Obtuse angle</td><td>ラテン語のobtusus（鈍い）。</td><td>90度より大きく180度より小さい、ずんぐりした鈍い角！</td></tr>
+      <tr><td>☐ 平行</td><td class="en">Parallel</td><td>ギリシャ語のpara（並んで）+ allelon（互いに）。</td><td>永遠に伸ばしても絶対に交わらない、線路のような2本の線！</td></tr>
+      <tr><td>☐ 垂直</td><td class="en">Perpendicular</td><td>ラテン語のperpendiculum（下げ振り）。</td><td>2つの線がピタッと90度で交わっている状態。十字架！</td></tr>
+      <tr><td>☐ 多角形</td><td class="en">Polygon</td><td>ギリシャ語のpolys（多い）+ gonia（角）。</td><td>直線だけで囲まれた、カクカクした平べったい図形！</td></tr>
+      <tr><td>☐ 三角形</td><td class="en">Triangle</td><td>tri-（3つ）+ angle（角）。</td><td>3つの直線で囲まれた、図形界の最も頑丈な基本パーツ！</td></tr>
+      <tr><td>☐ 正三角形</td><td class="en">Equilateral triangle</td><td>equi-（等しい）+ lateral（辺）。</td><td>3つの辺も3つの角（60度）も全部同じ、完璧なプロポーションの三角形！</td></tr>
+      <tr><td>☐ 二等辺三角形</td><td class="en">Isosceles triangle</td><td>ギリシャ語のisos（等しい）+ skelos（脚）。</td><td>2つの辺の長さが同じで、左右対称の美しい三角形！</td></tr>
+      <tr><td>☐ 直角三角形</td><td class="en">Right triangle</td><td>直角（right angle）を持つ三角形。</td><td>1つの角が90度の三角形。三角比や三平方の定理の主役！</td></tr>
+      <tr><td>☐ 合同</td><td class="en">Congruence</td><td>con-（共に）+ gruere（一致する）。</td><td>形も大きさも完全に一致。重ねたらピタッと重なるコピペ図形！</td></tr>
+      <tr><td>☐ 相似</td><td class="en">Similarity</td><td>similar（似ている）。</td><td>形は同じだけど、大きさだけが違う（拡大・縮小された）図形！</td></tr>
+      <tr><td>☐ 円</td><td class="en">Circle</td><td>ラテン語のcirculus（小さな輪）。</td><td>中心から「同じ距離」にある点を集めてできた、完璧な丸！</td></tr>
+      <tr><td>☐ 半径</td><td class="en">Radius</td><td>ラテン語のradius（車輪のスポーク、光線）。</td><td>円の中心から外周までの距離。自転車のスポーク！</td></tr>
+      <tr><td>☐ 直径</td><td class="en">Diameter</td><td>dia-（横切って）+ metron（測る）。</td><td>円の中心を通って、端から端までを貫く一番長い直線！</td></tr>
+      <tr><td>☐ 円周</td><td class="en">Circumference</td><td>circum-（周りを）+ ferre（運ぶ）。</td><td>円のふちの長さ。直径の約3.14倍（π）になる！</td></tr>
+      <tr><td>☐ 円周角</td><td class="en">Inscribed angle</td><td>inscribe（内側に書き込む）。</td><td>円周上の点から引いた2本の線が作る角度。中心角のちょうど半分！</td></tr>
+      <tr><td>☐ 三平方の定理</td><td class="en">Pythagorean theorem</td><td>ピタゴラスが証明したとされる（ピタゴラスの定理）。</td><td>直角三角形で「タテの2乗 ＋ ヨコの2乗 ＝ ナナメの2乗」になる神法則！</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="cat-3">
+  <h2>第3章：関係・関数と座標 (Relations & Functions)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:15%">日本語</th>
+        <th style="width:20%">英語 (English)</th>
+        <th style="width:30%">語源・由来・人物</th>
+        <th style="width:35%">直感的なイメージ（要するに？）</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>☐ 集合</td><td class="en">Set</td><td>配置されたもの、一揃い（set）。カントールが創始。</td><td>「〇〇なものの集まり！」と明確に線を引かれたグループ・箱！</td></tr>
+      <tr><td>☐ 要素</td><td class="en">Element</td><td>element（構成要素）。</td><td>集合の箱の中に入っている、個々のメンバー（部員）たち！</td></tr>
+      <tr><td>☐ 部分集合</td><td class="en">Subset</td><td>sub-（下部の、部分の）+ set（集合）。</td><td>ある集合の中にすっぽり収まっている、小さなグループ！</td></tr>
+      <tr><td>☐ 和集合</td><td class="en">Union</td><td>union（結合、連合）。</td><td>2つの集合のメンバーを「全員まとめて」合体させた大グループ！</td></tr>
+      <tr><td>☐ 共通部分</td><td class="en">Intersection</td><td>intersect（交差する）。</td><td>2つの集合の「両方に所属している」エリートメンバーだけを抽出！</td></tr>
+      <tr><td>☐ 空集合</td><td class="en">Empty set</td><td>empty（空の）。</td><td>メンバーが誰一人いない、空っぽの虚無の箱。記号は「∅」！</td></tr>
+      <tr><td>☐ 補集合</td><td class="en">Complement</td><td>complement（補うもの）。</td><td>「それ以外」の奴ら全員！全体の枠組みから、ある集合を除外した残り。</td></tr>
+      <tr><td>☐ ベン図</td><td class="en">Venn diagram</td><td>イギリスの論理学者ジョン・ベンに由来。</td><td>集合の関係を「丸い枠の重なり」で視覚的にパッと見せる最強の図解！</td></tr>
+      <tr><td>☐ 関係</td><td class="en">Relation</td><td>relatio（持ち帰ること、関連）。</td><td>集合の要素同士が「より大きい」「等しい」などで結びついている状態！</td></tr>
+      <tr><td>☐ 写像</td><td class="en">Mapping</td><td>map（地図を作るように対応づける）。</td><td>集合Aの要素を、集合Bの要素に矢印で「紐付ける」ルール！</td></tr>
+      <tr><td>☐ 定義域</td><td class="en">Domain</td><td>dominium（領地、支配領域）。</td><td>関数に入力できる「x」の許容範囲。関数の活動エリア！</td></tr>
+      <tr><td>☐ 値域</td><td class="en">Range</td><td>rangier（並べる、列）。</td><td>関数が実際に吐き出した「y」たちの集まり。結果の範囲！</td></tr>
+      <tr><td>☐ 終域</td><td class="en">Codomain</td><td>co-（共に）+ domain（定義域）。</td><td>関数が出力する「可能性がある」着地点の全体枠組み！</td></tr>
+      <tr><td>☐ 全射</td><td class="en">Surjection</td><td>sur-（上に）+ jacere（投げる）。全体を覆う。</td><td>終域の全員に対して、必ず1本以上矢印が刺さっているモテモテ状態！</td></tr>
+      <tr><td>☐ 単射</td><td class="en">Injection</td><td>in-（中に）+ jacere（投げる）。狙い撃ち。</td><td>違う要素からは必ず違う要素へ矢印が飛ぶ。カブリなしの1対1対応！</td></tr>
+      <tr><td>☐ 全単射</td><td class="en">Bijection</td><td>bi-（2つの性質を持つ）+ jection。</td><td>全射かつ単射。完璧な一対一のパートナー関係が結ばれた究極状態！</td></tr>
+      <tr><td>☐ 逆写像</td><td class="en">Inverse mapping</td><td>inverse（逆の）。</td><td>入力と出力をひっくり返し、ゴールからスタートへ矢印を逆流させること！</td></tr>
+      <tr><td>☐ 関数</td><td class="en">Function</td><td>functio（実行、働き）。ライプニッツらが使用。</td><td>xを入れると自動的にyが1つ出てくる「魔法の自動販売機（ブラックボックス）」！</td></tr>
+      <tr><td>☐ 変数</td><td class="en">Variable</td><td>vary（変化する）+ -able（できる）。</td><td>色々な値にコロコロ変わる、箱のような文字（xやyなど）！</td></tr>
+      <tr><td>☐ 独立変数</td><td class="en">Independent variable</td><td>independent（独立した）。</td><td>こちらが自由に数値を入力できる変数。原因となる「x」。</td></tr>
+      <tr><td>☐ 従属変数</td><td class="en">Dependent variable</td><td>dependent（依存した）。</td><td>xの値によって運命が決まる変数。結果となる「y」。</td></tr>
+      <tr><td>☐ グラフ</td><td class="en">Graph</td><td>ギリシャ語のgraphein（描く）。</td><td>関数の見えない動きを、点と線で目に見える形にした設計図！</td></tr>
+      <tr><td>☐ 座標平面</td><td class="en">Coordinate plane</td><td>デカルトがベッドの上のハエを見て思いついたとされる。</td><td>縦横の目盛り（軸）で、空間のあらゆる場所を「番地（数値）」で表す舞台！</td></tr>
+      <tr><td>☐ x軸</td><td class="en">x-axis</td><td>axis（軸）。横方向。</td><td>座標平面を左右に貫く水平な数直線。</td></tr>
+      <tr><td>☐ y軸</td><td class="en">y-axis</td><td>axis（軸）。縦方向。</td><td>座標平面を上下に貫く垂直な数直線。</td></tr>
+      <tr><td>☐ 原点</td><td class="en">Origin</td><td>origin（起源、始まり）。</td><td>x軸とy軸が交差する中心地。(0,0)の絶対的スタート地点！</td></tr>
+      <tr><td>☐ 象限</td><td class="en">Quadrant</td><td>quadr-（4つの）。</td><td>座標平面を十字で4等分した各エリア。右上から反時計回りに第1〜4象限！</td></tr>
+      <tr><td>☐ 1次関数</td><td class="en">Linear function</td><td>line（直線）になる関数。</td><td>グラフにすると真っ直ぐな「直線」になる、一番シンプルな関数（y=ax+b）！</td></tr>
+      <tr><td>☐ 傾き</td><td class="en">Slope</td><td>slope（坂、傾斜）。</td><td>xが1進んだとき、yがどれくらい登る（下る）かを表す坂の急勾配（a）！</td></tr>
+      <tr><td>☐ 切片</td><td class="en">Intercept</td><td>inter-（間に）+ capere（捕まえる）。軸を切る点。</td><td>直線がy軸とぶつかる「スタート地点」の高さ（b）！</td></tr>
+      <tr><td>☐ 平行移動</td><td class="en">Translation</td><td>trans-（越えて）+ ferre（運ぶ）。</td><td>形を変えずに、グラフをそのまま上下左右にスライドさせること！</td></tr>
+      <tr><td>☐ 対称移動</td><td class="en">Reflection</td><td>reflect（反射する）。</td><td>鏡に映したように、ある軸を基準にしてグラフをパタンと裏返すこと！</td></tr>
+      <tr><td>☐ 2次関数</td><td class="en">Quadratic function</td><td>xの2乗を含む関数。</td><td>物を投げたときの軌道のような、美しいカーブ（y=ax²）を描く関数！</td></tr>
+      <tr><td>☐ 放物線</td><td class="en">Parabola</td><td>ギリシャ語のparabole（そばに投げる）。</td><td>2次関数のグラフが描く、U字型（または逆U字型）の滑らかな曲線！</td></tr>
+      <tr><td>☐ 頂点</td><td class="en">Vertex</td><td>ラテン語のvertex（渦、頂上）。</td><td>放物線がUターンする最も高い（または低い）限界ギリギリのポイント！</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="cat-4">
+  <h2>第4章：指数・対数・三角関数 (Exp, Log & Trig)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:15%">日本語</th>
+        <th style="width:20%">英語 (English)</th>
+        <th style="width:30%">語源・由来・人物</th>
+        <th style="width:35%">直感的なイメージ（要するに？）</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>☐ 指数関数</td><td class="en">Exponential function</td><td>指数（exponent）が変数になっている関数。</td><td>最初はジワジワ、後から爆発的にギュン！と右肩上がりに増えるヤバい関数！</td></tr>
+      <tr><td>☐ 対数</td><td class="en">Logarithm</td><td>ギリシャ語のlogos（比）+ arithmos（数）。ネイピアが発明。</td><td>「何乗したらその数になる？」という、指数の逆算をするハッキングツール！</td></tr>
+      <tr><td>☐ 対数関数</td><td class="en">Logarithmic function</td><td>指数関数の逆関数。</td><td>最初はグンと伸びるけど、徐々にサボり始めてゆっくりになる関数！</td></tr>
+      <tr><td>☐ 自然対数</td><td class="en">Natural logarithm</td><td>自然現象の記述に最適だから（natural）。</td><td>底が「ネイピア数(e)」の対数。微積分をする時に数式が超絶キレイになる！</td></tr>
+      <tr><td>☐ 常用対数</td><td class="en">Common logarithm</td><td>日常的（common）によく使われる10進法基準。</td><td>底が「10」の対数。桁数をサクッと計算できる天文学者の救世主！</td></tr>
+      <tr><td>☐ ネイピア数</td><td class="en">Euler's number / Napier's constant</td><td>ジョン・ネイピアに因む。記号「e」はオイラーが導入。</td><td>約2.718。微分しても積分しても姿が変わらない、数学界の不死身のモンスター！</td></tr>
+      <tr><td>☐ 弧度法</td><td class="en">Radian measure</td><td>円の弧（arc）の長さで角度を測る方法。</td><td>角度を「度（°）」ではなく、円周の「長さ」でクールに表現する微積分の共通言語！</td></tr>
+      <tr><td>☐ ラジアン</td><td class="en">Radian</td><td>半径（radius）に基づく角度の単位。</td><td>半径と同じ長さの弧を描いた時の角度（約57.3度）を「1」とする基準！</td></tr>
+      <tr><td>☐ 度数法</td><td class="en">Degree measure</td><td>円を360等分する古代バビロニアに由来。</td><td>おなじみの「直角は90度、一周は360度」という日常的な角度の測り方！</td></tr>
+      <tr><td>☐ 三角比</td><td class="en">Trigonometric ratio</td><td>直角三角形の辺の長さの比。</td><td>直角三角形の「タテ・ヨコ・ナナメ」の長さを割り算した割合のこと！</td></tr>
+      <tr><td>☐ 正弦 (サイン)</td><td class="en">Sine</td><td>アラビア語の「弦」がラテン語のsinus（湾、胸）と誤訳されて定着。</td><td>ナナメに対する「タテ」の割合。（波の高さ！）</td></tr>
+      <tr><td>☐ 余弦 (コサイン)</td><td class="en">Cosine</td><td>余角（complementary angle）のサイン。</td><td>ナナメに対する「ヨコ」の割合。（波の横幅！）</td></tr>
+      <tr><td>☐ 正接 (タンジェント)</td><td class="en">Tangent</td><td>ラテン語のtangere（触れる）。接線に由来。</td><td>ヨコに対する「タテ」の割合。要するに直線の「傾き」！</td></tr>
+      <tr><td>☐ 単位円</td><td class="en">Unit circle</td><td>半径が1（unit）の円。</td><td>半径1の円の円周上をグルグル回る点で、三角関数を無限に拡張する最強アイテム！</td></tr>
+      <tr><td>☐ 周期関数</td><td class="en">Periodic function</td><td>period（周期）を持つ。</td><td>同じパターンを永遠にリピート再生し続ける関数（波など）！</td></tr>
+      <tr><td>☐ 周期</td><td class="en">Period</td><td>ギリシャ語のperiodos（一周、循環）。</td><td>波が1回のパターンを終えて、次の同じ波形が始まるまでの「長さ（時間）」！</td></tr>
+      <tr><td>☐ 振幅</td><td class="en">Amplitude</td><td>ラテン語のamplitudo（広さ、大きさ）。</td><td>中心の線から、波の山の頂上（または谷底）までの「高さ（パワー）」！</td></tr>
+      <tr><td>☐ 位相</td><td class="en">Phase</td><td>ギリシャ語のphasis（現れ方）。</td><td>波のスタート地点が、本来の位置からどれくらい「ズレているか」！</td></tr>
+      <tr><td>☐ 正弦定理</td><td class="en">Law of sines</td><td>サイン（正弦）に関する定理。</td><td>三角形の「辺」と「向かい合う角のサイン」の比が、全部同じになる魔法の法則！</td></tr>
+      <tr><td>☐ 余弦定理</td><td class="en">Law of cosines</td><td>コサイン（余弦）に関する定理。</td><td>三平方の定理をレベルアップさせて、どんな三角形でも辺の長さを出せる神公式！</td></tr>
+      <tr><td>☐ 加法定理</td><td class="en">Addition formula</td><td>角度の足し算（加法）に関する定理。</td><td>「sin(A+B)」をバラして計算するための、暗記必須の呪文（咲いたコスモスコスモス咲いた等）！</td></tr>
+      <tr><td>☐ 2倍角の公式</td><td class="en">Double-angle formula</td><td>角度が2倍のときの公式。</td><td>加法定理の「AとBを同じ」にして生まれた、角度を半分にする便利な公式！</td></tr>
+      <tr><td>☐ 半角の公式</td><td class="en">Half-angle formula</td><td>角度が半分のときの公式。</td><td>2倍角の公式を裏返した、角度を半分にしつつ2乗を生み出すテクニック！</td></tr>
+      <tr><td>☐ 合成公式</td><td class="en">Harmonic addition</td><td>サインとコサインを合成する。</td><td>「サインの波」と「コサインの波」を混ぜて、1つの巨大な「サインの波」にまとめる技！</td></tr>
+      <tr><td>☐ 逆三角関数</td><td class="en">Inverse trigonometric function</td><td>三角関数の逆関数。</td><td>辺の比から「じゃあ角度は何度なの？」を逆算する関数（電卓の裏コマンド）！</td></tr>
+      <tr><td>☐ アークサイン</td><td class="en">Arcsine</td><td>arc（弧）+ sine。</td><td>サインがその値になるような「角度（弧）」を返す逆関数！</td></tr>
+      <tr><td>☐ アークコサイン</td><td class="en">Arccosine</td><td>arc（弧）+ cosine。</td><td>コサインがその値になるような「角度」を返す逆関数！</td></tr>
+      <tr><td>☐ アークタンジェント</td><td class="en">Arctangent</td><td>arc（弧）+ tangent。</td><td>タンジェント（傾き）から「角度」をバシッと割り出す逆関数！</td></tr>
+      <tr><td>☐ サインカーブ</td><td class="en">Sine wave</td><td>正弦関数が描く波。</td><td>音や光など、自然界のあらゆる波の基本となる、なめらかで美しいS字の連続！</td></tr>
+      <tr><td>☐ コサインカーブ</td><td class="en">Cosine wave</td><td>余弦関数が描く波。</td><td>サインカーブをほんの少し（90度）横にズラしただけの双子の波！</td></tr>
+      <tr><td>☐ 指数方程式</td><td class="en">Exponential equation</td><td>指数の部分に未知数xがいる方程式。</td><td>「2のx乗＝8」のように、肩に乗った未知数を対数を使って引きずり降ろすパズル！</td></tr>
+      <tr><td>☐ 対数方程式</td><td class="en">Logarithmic equation</td><td>対数の中に未知数xがいる方程式。</td><td>対数のルールを使って、ログ（log）の呪縛からxを解放するパズル！</td></tr>
+      <tr><td>☐ 三角方程式</td><td class="en">Trigonometric equation</td><td>三角関数に未知数x（角度）がいる方程式。</td><td>単位円のグルグルをイメージして、「この高さになる角度はどこだ？」と探すゲーム！</td></tr>
+      <tr><td>☐ 底の変換公式</td><td class="en">Change of base formula</td><td>対数の底を変換する公式。</td><td>扱いにくい底（基準）を、自分が計算しやすい好きな底にチェンジするチート技！</td></tr>
+      <tr><td>☐ 常用対数表</td><td class="en">Table of common logarithms</td><td>計算機がない時代に天文学者が愛用した表。</td><td>10の何乗かを細かくリスト化した、昔の数学者の血と汗の結晶（カンニングペーパー）！</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="cat-5">
+  <h2>第5章：場合の数と数列 (Combinatorics & Sequences)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:15%">日本語</th>
+        <th style="width:20%">英語 (English)</th>
+        <th style="width:30%">語源・由来・人物</th>
+        <th style="width:35%">直感的なイメージ（要するに？）</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>☐ 場合の数</td><td class="en">Number of cases</td><td>起こりうる結果の数。確率論の祖パスカルやフェルマーが研究。</td><td>「全部で何パターンの起こり方があるの？」を漏れなくダブりなく数えること！</td></tr>
+      <tr><td>☐ 樹形図</td><td class="en">Tree diagram</td><td>枝分かれしていく木（tree）のような図。</td><td>可能性を枝分かれさせて描くことで、脳死で全パターンを網羅できる作戦マップ！</td></tr>
+      <tr><td>☐ 和の法則</td><td class="en">Rule of sum</td><td>足し算の法則。</td><td>「同時に起こらない」2つのパターンの数は、シンプルに足し合わせるだけ！</td></tr>
+      <tr><td>☐ 積の法則</td><td class="en">Rule of product</td><td>掛け算の法則。</td><td>「Aの後にBが起こる」ような連続するパターンは、掛け算で爆発的に増える！</td></tr>
+      <tr><td>☐ 階乗</td><td class="en">Factorial</td><td>階段状に掛けていく。記号「!」はクリスチャン・クランプが導入。</td><td>「5!」なら「5×4×3×2×1」。全員を一直線に並べる全パターンの数！BAM!</td></tr>
+      <tr><td>☐ 順列</td><td class="en">Permutation</td><td>ラテン語のpermutare（順番を入れ替える）。記号「P」。</td><td>選んだ奴らを「順番を気にして」並べる並べ方。リレーの走順！</td></tr>
+      <tr><td>☐ 円順列</td><td class="en">Circular permutation</td><td>円状に並べる順列。</td><td>丸いテーブルに座らせる並べ方。回転して同じになる分、パターンが減る！</td></tr>
+      <tr><td>☐ 重複順列</td><td class="en">Permutation with repetition</td><td>同じものを何度も使って（重複して）よい順列。</td><td>パスワードの設定のように、同じ数字を何度でも使って並べるパターン！</td></tr>
+      <tr><td>☐ 組合せ</td><td class="en">Combination</td><td>combinare（結びつける）。記号「C」。</td><td>順番はどうでもよくて、とにかく「誰を選ぶか」というチーム結成のパターン！</td></tr>
+      <tr><td>☐ 重複組合せ</td><td class="en">Combination with repetition</td><td>同じものを何度も選んでよい組合せ。</td><td>アイス屋で「バニラ3個、チョコ2個」のように、同じ種類を複数選ぶパターン！</td></tr>
+      <tr><td>☐ 二項定理</td><td class="en">Binomial theorem</td><td>2つの項（bi-nomial）の足し算の累乗を展開する定理。</td><td>(a+b)の100乗みたいにエグい展開を、組合せ（C）の力を借りて瞬殺する公式！</td></tr>
+      <tr><td>☐ パスカルの三角形</td><td class="en">Pascal's triangle</td><td>ブレーズ・パスカルが研究した数の配列。</td><td>上の2つを足して下を作る三角形。二項定理の係数がズラッと並ぶ魔法のピラミッド！</td></tr>
+      <tr><td>☐ 数学的帰納法</td><td class="en">Mathematical induction</td><td>ドミノ倒しのように無限を証明する論理（induction）。</td><td>「最初が倒れる」「次も必ず倒れる」の2つを示し、無限のドミノを全壊させる最強の証明法！</td></tr>
+      <tr><td>☐ 数列</td><td class="en">Sequence</td><td>ラテン語のsequi（続く）。数が一列に続くもの。</td><td>一定のルールに従って順番に並べられた、数字の長い行列！</td></tr>
+      <tr><td>☐ 項</td><td class="en">Term</td><td>ラテン語のterminus（境界、限界）。</td><td>数列の行列に並んでいる、一人ひとりの数字のこと！</td></tr>
+      <tr><td>☐ 初項</td><td class="en">First term</td><td>一番初めの項。</td><td>数列の行列の先頭に立っているリーダーの数字！</td></tr>
+      <tr><td>☐ 末項</td><td class="en">Last term</td><td>一番終わりの項。</td><td>（有限の）数列の行列の、一番最後尾にいる数字！</td></tr>
+      <tr><td>☐ 一般項</td><td class="en">General term</td><td>n番目の項を式で表したもの。</td><td>「n番目には何がいる？」を計算一発で割り出せる、数列の設計図！</td></tr>
+      <tr><td>☐ 等差数列</td><td class="en">Arithmetic sequence</td><td>差が等しい数列。算術（arithmetic）的増加。</td><td>「毎回＋3」のように、常に同じ数だけ足されて増えていく規則正しい行列！</td></tr>
+      <tr><td>☐ 公差</td><td class="en">Common difference</td><td>共通の（common）差（difference）。</td><td>等差数列で、隣のヤツとの間に常にある「一定のステップ幅」！</td></tr>
+      <tr><td>☐ 等比数列</td><td class="en">Geometric sequence</td><td>比が等しい数列。幾何（geometric）的増加。</td><td>「毎回×2」のように、常に同じ数だけ掛けられて爆発的に増えていく行列！</td></tr>
+      <tr><td>☐ 公比</td><td class="en">Common ratio</td><td>共通の（common）比率（ratio）。</td><td>等比数列で、隣のヤツに化けるための「掛け算の倍率」！</td></tr>
+      <tr><td>☐ 階差数列</td><td class="en">Difference sequence</td><td>隣り合う項の「差」を集めて作った新しい数列。</td><td>パッと見ルール不明の数列の「増えた分」だけを抜き出して作ったサブ数列！</td></tr>
+      <tr><td>☐ シグマ記号 (Σ)</td><td class="en">Sigma notation</td><td>ギリシャ文字のΣ。Sum（和）の頭文字Sに対応。オイラーが使用。</td><td>「ここからここまで全部足せ！」を1文字で指示する、極悪非道な総和マシーン！</td></tr>
+      <tr><td>☐ 漸化式</td><td class="en">Recurrence relation</td><td>漸次（次第に）化けていく式。再帰的関係。</td><td>「前のヤツをこう加工すれば次のヤツになるよ」というバケツリレーのルール！</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="cat-6">
+  <h2>第6章：極限と微積分 (Limits & Calculus)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:15%">日本語</th>
+        <th style="width:20%">英語 (English)</th>
+        <th style="width:30%">語源・由来・人物</th>
+        <th style="width:35%">直感的なイメージ（要するに？）</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>☐ 極限</td><td class="en">Limit</td><td>ラテン語のlimes（境界、限界）。</td><td>「限りなく近づけたら、結局どこに向かってるの？」という最終目標地点を探る概念！</td></tr>
+      <tr><td>☐ 収束</td><td class="en">Convergence</td><td>con-（共に）+ vergere（傾く、向かう）。</td><td>極限の世界で、フラフラせずに「たった1つの確固たる数値」にピタッと落ち着くこと！</td></tr>
+      <tr><td>☐ 発散</td><td class="en">Divergence</td><td>di-（離れて）+ vergere（傾く）。</td><td>数値が定まらず、無限大に吹っ飛んだりマイナス無限に落ち込んだりして暴走すること！</td></tr>
+      <tr><td>☐ 振動</td><td class="en">Oscillation</td><td>ラテン語のoscillare（揺れる）。</td><td>1、-1、1、-1…のように、答えが定まらずに反復横跳びし続ける落ち着きのない状態！</td></tr>
+      <tr><td>☐ 無限大 (∞)</td><td class="en">Infinity</td><td>in-（無い）+ finis（終わり）。ジョン・ウォリスが記号考案。</td><td>どんなにデカい数を言われても「それよりデカいぞ」と言い返せる、底なしの超巨大空間！</td></tr>
+      <tr><td>☐ 無限小</td><td class="en">Infinitesimal</td><td>無限に分割された極小の量。</td><td>「0じゃないけど、0に限りなく近い」という、微積分の計算でだけ許されるチリやホコリ！</td></tr>
+      <tr><td>☐ 左側極限</td><td class="en">Left-hand limit</td><td>左から近づけたときの極限。</td><td>数直線の「マイナス側（左）」からジリジリとターゲットに近づいていった時の行き先！</td></tr>
+      <tr><td>☐ 右側極限</td><td class="en">Right-hand limit</td><td>右から近づけたときの極限。</td><td>数直線の「プラス側（右）」からジリジリとターゲットに近づいていった時の行き先！</td></tr>
+      <tr><td>☐ 連続</td><td class="en">Continuity</td><td>con-（共に）+ tenere（保つ）。</td><td>グラフがプツンと途切れることなく、一本の線で滑らかに繋がっている状態！</td></tr>
+      <tr><td>☐ 不連続点</td><td class="en">Point of discontinuity</td><td>連続が破綻する点。</td><td>グラフに穴が空いていたり、ワープして飛んでいたりする「線がちぎれた場所」！</td></tr>
+      <tr><td>☐ 平均変化率</td><td class="en">Average rate of change</td><td>2点間の変化の平均。</td><td>「2時間で100km進んだから時速50kmだね」という、ざっくりした直線の傾き！</td></tr>
+      <tr><td>☐ 瞬間変化率</td><td class="en">Instantaneous rate of change</td><td>極限をとった、ある一瞬の変化率。</td><td>「今この0.001秒の瞬間のスピードは！？」という、スピードメーターが指している値！</td></tr>
+      <tr><td>☐ 微分係数</td><td class="en">Differential coefficient</td><td>ある特定の点での瞬間の変化率。</td><td>グラフの「特定の1点」にピッタリくっつけた接線の、ピンポイントの傾き！</td></tr>
+      <tr><td>☐ 導関数</td><td class="en">Derivative</td><td>ラテン語のderivare（流れを導く）。</td><td>「xを入れたら、その場所の傾き（微分係数）を教えてやるよ」という新しい関数(f'(x))！</td></tr>
+      <tr><td>☐ 微分</td><td class="en">Differentiation</td><td>difference（違い）を極限まで細かくする。ニュートンとライプニッツが確立。</td><td>関数を削って削って、「瞬間の変化（傾き）」をえぐり出す究極の分析ツール！ BAM!</td></tr>
+      <tr><td>☐ 接線</td><td class="en">Tangent line</td><td>ラテン語のtangere（触れる）。</td><td>カーブの「ある1点だけ」にギリギリかすって通り過ぎる、進行方向を示す直線！</td></tr>
+      <tr><td>☐ 法線</td><td class="en">Normal line</td><td>ラテン語のnorma（大工の直角定規）。</td><td>接線に対して、ピタッと90度（垂直）に交わる直線！</td></tr>
+      <tr><td>☐ 極大値</td><td class="en">Local maximum</td><td>周辺（local）で最大。</td><td>グラフの山登りで、「一旦ピークに達して下り始める」瞬間の山の頂上の高さ！</td></tr>
+      <tr><td>☐ 極小値</td><td class="en">Local minimum</td><td>周辺（local）で最小。</td><td>グラフの谷下りで、「底を打って再び上がり始める」瞬間の谷底の深さ！</td></tr>
+      <tr><td>☐ 増減表</td><td class="en">Sign chart / Monotonicity table</td><td>関数の増加・減少をまとめた表。</td><td>微分(f')の符号（＋か－か）を調べて、グラフがどこで上がり下がりするかを示すナビ！</td></tr>
+      <tr><td>☐ 不定積分</td><td class="en">Indefinite integral</td><td>区間が定まっていない（indefinite）積分。</td><td>「微分する前の元の関数（親）は誰だ？」を逆算して探し出すタイムトラベル！</td></tr>
+      <tr><td>☐ 積分定数</td><td class="en">Constant of integration</td><td>微分の時に消えてしまった定数。記号「C」。</td><td>「元の関数にあったかもしれないただの数字」の身代わりとして置く、お助けマンのC！</td></tr>
+      <tr><td>☐ 原始関数</td><td class="en">Antiderivative / Primitive function</td><td>微分される前の元の関数。</td><td>微分という加工を受ける前の、ピュアで手つかずのオリジナルの関数！</td></tr>
+      <tr><td>☐ 定積分</td><td class="en">Definite integral</td><td>区間がハッキリ定まっている（definite）積分。</td><td>「ここからここまで！」と範囲を指定して、グラフの下の面積をガチで数値化する計算！</td></tr>
+      <tr><td>☐ 積分区間</td><td class="en">Interval of integration</td><td>積分を行う範囲。</td><td>定積分で面積を求めるときの、「スタートライン（a）」と「ゴールライン（b）」！</td></tr>
+      <tr><td>☐ リーマン和</td><td class="en">Riemann sum</td><td>ベルンハルト・リーマンが定式化。</td><td>面積を「極細の長方形の集まり」として近似して、それを全部足し合わせる泥臭い手法！</td></tr>
+      <tr><td>☐ 面積</td><td class="en">Area</td><td>ラテン語のarea（空き地、平面）。</td><td>定積分の結果として出てくる、グラフとx軸に挟まれた部分の「広さ」！</td></tr>
+      <tr><td>☐ 微分積分学の基本定理</td><td class="en">Fundamental theorem of calculus</td><td>微積分の基礎（fundamental）となる人類の至宝。</td><td>「傾きを出す微分」と「面積を出す積分」が、実は全くの【逆の計算】だったという奇跡の定理！ BAM!</td></tr>
+      <tr><td>☐ 区分求積法</td><td class="en">Quadrature by parts</td><td>細かく区切って（区分）、面積を求める（求積）方法。</td><td>複雑な形を無限の長方形に切り刻んで足し合わせ、極限を使って正確な面積を出すゴリ押し技！</td></tr>
+      <tr><td>☐ 積分</td><td class="en">Integration</td><td>ラテン語のinteger（完全な、全体）。バラバラなものを統合する。</td><td>微分で細かく切り刻まれた「瞬間の変化」を掻き集めて、全体の「蓄積（面積や体積）」を復元する究極魔法！</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p style="text-align: right; font-size: 0.8em; color: #666;">
+  ※本資料は「初歩からの数学」の学習補助を目的とした概念理解用ノートです。厳密な数学的定義よりも直感的な理解（BAM!）を優先しています。<br>
+  Print this page or save as PDF to keep your BAM! learning offline.
+</p>
+</body>
+</html>
