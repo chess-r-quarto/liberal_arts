@@ -1,34 +1,45 @@
-liberal_arts
-Repository navigation
-Code
-Issues
-Pull requests
-Agents
- 0 stars
- 0 forks
- 0 watching
- 1 Branch
- 0 Tags
- Activity
-Public repository
-chess-r-quarto/liberal_arts
-Name	
-chess-r-quarto
-chess-r-quarto
-now
-.github/workflows
-last week
-README.md
-last week
-logic_basic.html
-last week
-math_term.html
-2 days ago
-navi.html
-now
-stat_term.html
-3 days ago
-stat_term2.html
-3 days ago
-Repository files navigation
-README
+Liberal Arts
+
+A collection of interactive, browser-based educational modules for foundational liberal arts subjects, including logic, mathematics, and statistics.
+
+🚀 Open Launcher
+
+Overview
+
+This repository contains single-file web applications designed to aid in the learning and reference of various academic concepts. Each module is built using React and TypeScript, running entirely in the browser without the need for a local Node.js build environment.
+
+Modules
+
+Launcher (navi.html): An Anaconda Navigator-style dashboard that provides easy access to all the modules in this repository.
+
+Logic Basic (logic_basic.html): Covers the fundamentals of logic, including propositional and predicate logic.
+
+Math Terminology (math_term.html): A comprehensive reference and explanation of basic mathematical terms across algebra, analysis, and geometry.
+
+Stat Terminology 1 (stat_term.html): Focuses on descriptive statistics and foundational probability concepts.
+
+Stat Terminology 2 (stat_term2.html): Covers inferential statistics, hypothesis testing, and regression analysis.
+
+Usage
+
+All applications in this repository are completely self-contained. To use them:
+
+Clone or download this repository to your local machine.
+
+Open navi.html (or any individual module file) directly in any modern web browser.
+
+No Node.js, npm install, or build steps are required.
+
+Architecture
+
+These applications follow a strict single-file architecture:
+
+Framework: React (loaded via CDN)
+
+Styling: Tailwind CSS (loaded via CDN)
+
+Language: TypeScript (TSX) compiled in-browser using @babel/standalone
+
+CI/CD
+
+Automated workflows are managed via GitHub Actions located in the .github/workflows directory.
