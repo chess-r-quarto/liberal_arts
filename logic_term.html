@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>論理学・集合論 重要用語200 BAM! 学習ノート</title>
+<style>
+  :root {
+    --cat1-bg: #1e3a8a; /* 青 */
+    --cat2-bg: #14532d; /* 緑 */
+    --cat3-bg: #7f1d1d; /* 赤 */
+    --cat4-bg: #4c1d95; /* 紫 */
+    --cat5-bg: #9a3412; /* オレンジ */
+    --cat6-bg: #0f766e; /* ティール */
+    --cat7-bg: #4c0519; /* ボルドー */
+  }
+  
+  body {
+    font-family: "Noto Serif JP", "Mincho", "MS Mincho", serif;
+    color: #111;
+    background-color: #fff;
+    line-height: 1.4;
+    padding: 20px;
+    font-size: 14px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  h1 {
+    text-align: center;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .intro {
+    text-align: center;
+    margin-bottom: 30px;
+    font-style: italic;
+  }
+
+  .category-container {
+    margin-bottom: 40px;
+    page-break-inside: auto;
+  }
+
+  h2 {
+    padding: 8px 15px;
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 0;
+    border-radius: 4px 4px 0 0;
+    page-break-after: avoid;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    page-break-inside: auto;
+  }
+
+  th, td {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    color: white;
+    font-weight: bold;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+
+  .serif {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1.05em;
+  }
+
+  .check {
+    margin-right: 5px;
+    font-size: 1.2em;
+    color: #555;
+  }
+
+  /* カテゴリ別カラー設定 */
+  .cat-1 h2, .cat-1 th { background-color: var(--cat1-bg); }
+  .cat-2 h2, .cat-2 th { background-color: var(--cat2-bg); }
+  .cat-3 h2, .cat-3 th { background-color: var(--cat3-bg); }
+  .cat-4 h2, .cat-4 th { background-color: var(--cat4-bg); }
+  .cat-5 h2, .cat-5 th { background-color: var(--cat5-bg); }
+  .cat-6 h2, .cat-6 th { background-color: var(--cat6-bg); }
+  .cat-7 h2, .cat-7 th { background-color: var(--cat7-bg); }
+
+  /* 印刷用スタイル */
+  @media print {
+    body { font-size: 10pt; padding: 0; }
+    .intro { display: none; }
+    th { color: #000 !important; background-color: #e5e5e5 !important; border: 1px solid #000; }
+    h2 { color: #000 !important; background-color: transparent !important; border: none; border-bottom: 2px solid #000; padding: 5px 0; }
+    th, td { border: 1px solid #000; }
+    tr:nth-child(even) { background-color: transparent; }
+  }
+</style>
+</head>
+<body>
+
+<h1>論理学＆集合論 重要用語200 BAM! 学習ノート</h1>
+<p class="intro">やあみんな！天才エデュケーターの私が、論理学や集合論の難解な用語を「直感的なイメージ」で丸裸にしていくぞ。数式は忘れて、本質だけをBAM!と理解しよう！</p>
+
+<!-- 1. 命題論理と論理結合子 -->
+<div class="category-container cat-1">
+  <h2>1. 命題論理と論理結合子 (Propositional Logic)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:16%;">日本語</th>
+        <th style="width:16%;">英語</th>
+        <th style="width:26%;">語源・由来・人物</th>
+        <th style="width:42%;">直感的なイメージ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="check">&#9744;</span> 命題</td><td class="serif">Proposition</td><td>ラテン語 propositio (提示)。アリストテレスが基礎を確立。</td><td>BAM! 要するに「マルかバツか」白黒はっきりつけられる宣言のこと！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 真</td><td class="serif">True / Truth</td><td>古英語 triewe (信頼できる)。</td><td>クイズ大正解！現実とピッタリ一致している状態だ。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 偽</td><td class="serif">False / Falsity</td><td>ラテン語 falsus (欺く)。</td><td>ブッブー！現実に反している大ハズレの状態。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 論理値</td><td class="serif">Truth value</td><td>ジョージ・ブールに由来。</td><td>真(1)か偽(0)の、たった2つしかない答えを入れる箱！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 論理演算</td><td class="serif">Logical operation</td><td>ブール代数に基づく操作。</td><td>真と偽のブロックを組み合わせて遊ぶ、論理のレゴブロックだ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 否定</td><td class="serif">Negation</td><td>ラテン語 negatio (否認)。</td><td>BAM! 単純に状態を「裏返し」にする魔法だ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> NOT (¬, ~)</td><td class="serif">NOT</td><td>否定を表す論理結合子。</td><td>電気のスイッチをカチッと切り替えるだけ！マルはバツに、バツはマルに！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 連言</td><td class="serif">Conjunction</td><td>ラテン語 coniunctio (結合)。</td><td>「両方揃って初めてクリア！」という厳しい条件。</td></tr>
+      <tr><td><span class="check">&#9744;</span> AND (∧)</td><td class="serif">AND</td><td>山の形をした記号。</td><td>両方の坂を登り切らないと頂上に着かないぞ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 選言</td><td class="serif">Disjunction</td><td>ラテン語 disiunctio (分離)。</td><td>「どっちか片方でもできればOK！」という優しい条件。</td></tr>
+      <tr><td><span class="check">&#9744;</span> OR (∨)</td><td class="serif">OR</td><td>谷の形をした記号。</td><td>どっちかの滑り台を滑り降りればゴールできる！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 排他的論理和 (⊕)</td><td class="serif">Exclusive OR (XOR)</td><td>ラテン語 excludere (排除)。</td><td>ケーキかアイス、どっちか1つだけ！両方食べるのはズルだ！BAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> 含意</td><td class="serif">Implication</td><td>ラテン語 implicare (巻き込む)。</td><td>「もし〜なら、絶対に〜だ」という強いお約束。</td></tr>
+      <tr><td><span class="check">&#9744;</span> ならば (→, ⇒)</td><td class="serif">If-then</td><td>原因から結果への方向を示す。</td><td>一方通行のベルトコンベア！左に乗ったら自動で右に運ばれるぞ。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 同値</td><td class="serif">Equivalence</td><td>ラテン語 aequus (等しい) + valere (価値)。</td><td>形は違っても「中身の価値は全く同じ」ってこと！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 互いに必要十分 (↔, ⇔)</td><td class="serif">If and only if (iff)</td><td>両方向の含意が成り立つ状態。</td><td>双子みたいに完全に一心同体！どっちかが真ならもう片方も絶対真！</td></tr>
+      <tr><td><span class="check">&#9744;</span> トートロジー</td><td class="serif">Tautology</td><td>ギリシャ語 tauto(同じ)+logos(言葉)。ウィトゲンシュタインが定義。</td><td>「明日は雨が降るか、降らないかのどっちかだ」みたいな、絶対に正解する最強の式！Double BAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> 矛盾</td><td class="serif">Contradiction</td><td>中国の古典『韓非子』の「矛と盾」に由来。</td><td>「俺は今、喋っていない！」みたいな、絶対にありえない大ハズレの式。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 充足可能性</td><td class="serif">Satisfiability</td><td>アルフレト・タルスキが定式化。</td><td>パーツの組み合わせ次第で、最低1回は正解(真)を作れるチャンスがある式！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 偶然式</td><td class="serif">Contingency</td><td>必然(トートロジー)と不可能(矛盾)の間。</td><td>状況によってマルにもバツにもなる、ごく普通のアバウトな式のこと。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 真理値表</td><td class="serif">Truth table</td><td>ウィトゲンシュタインとポストが考案。</td><td>全パターンを書き出した究極の「カンペ」だ！これを見れば一目瞭然！</td></tr>
+      <tr><td><span class="check">&#9744;</span> ド・モルガンの法則</td><td class="serif">De Morgan's laws</td><td>オーガスタス・ド・モルガンが定式化。</td><td>NOTを配ると、ANDがORに、ORがANDにひっくり返るマジック！BAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> 二重否定の法則</td><td class="serif">Double negation elimination</td><td>古典論理の基本原則。</td><td>「行かなくはない」＝「行く」。マイナス×マイナス＝プラスと同じ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 対偶</td><td class="serif">Contrapositive</td><td>ラテン語 contrapositio (対立配置)。</td><td>「ならば」を逆にして両方裏返したもの。驚くことに、元の文と完全に同じ意味だ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 逆</td><td class="serif">Converse</td><td>前提と結論を入れ替える。</td><td>矢印の向きを逆にしただけ。「犬なら動物」の逆は「動物なら犬」。これは必ずしも正しくないぞ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 裏</td><td class="serif">Inverse</td><td>前提と結論を否定する。</td><td>矢印はそのままで、両方NOTにしたもの。「逆」と同じ意味になる！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 前件</td><td class="serif">Antecedent</td><td>ラテン語 antecedens (先行するもの)。</td><td>「もし〇〇ならば」の〇〇の部分。スイッチの役割だ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 後件</td><td class="serif">Consequent</td><td>ラテン語 consequens (後に続くもの)。</td><td>「△△である」の△△の部分。スイッチを押した結果起きること！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 論理結合子</td><td class="serif">Logical connective</td><td>命題同士を結びつける演算子。</td><td>短い文と文をくっつけて、長くて複雑な文を作る「接着剤」だ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 分配則</td><td class="serif">Distributive law</td><td>論理演算の基本法則。</td><td>掛け算のカッコ外しと同じ！論理のパーツをそれぞれの部屋に配る操作だ。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 2. 述語論理と量化子 -->
+<div class="category-container cat-2">
+  <h2>2. 述語論理と量化子 (Predicate Logic)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:16%;">日本語</th>
+        <th style="width:16%;">英語</th>
+        <th style="width:26%;">語源・由来・人物</th>
+        <th style="width:42%;">直感的なイメージ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="check">&#9744;</span> 述語論理</td><td class="serif">Predicate logic</td><td>ゴットロープ・フレーゲが創始。</td><td>単なる「マルバツ」を超えて、文の中身（主語と述語）まで踏み込む虫メガネ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 述語</td><td class="serif">Predicate</td><td>ラテン語 praedicatum (宣言されたもの)。</td><td>主語が「どんな奴か」「何をしているか」を説明する部分だ。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 主語</td><td class="serif">Subject</td><td>ラテン語 subiectum (下に置かれたもの)。</td><td>文の「主役」！誰についての話をしているのかを指す。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 量化子</td><td class="serif">Quantifier</td><td>フレーゲとパースが導入。</td><td>「どれくらいいるか（全員か、一部か）」をビシッと指定するスコープ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 全称量化子 (∀)</td><td class="serif">Universal quantifier</td><td>AllのAをひっくり返した記号。</td><td>BAM! 要するに「例外なく全員だ！」ってこと。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 全て</td><td class="serif">For all</td><td>文字通りの意味。</td><td>100%、残さず、すっぽり全部。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 存在量化子 (∃)</td><td class="serif">Existential quantifier</td><td>ExistsのEを裏返した記号。</td><td>「全員とは言わん。でも、少なくとも1個は見つけたぞ！」BAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> 存在する</td><td class="serif">There exists</td><td>文字通りの意味。</td><td>ゼロじゃない。1個でも見つかればお前の勝ちだ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 唯一存在量化子 (∃!)</td><td class="serif">Uniqueness quantifier</td><td>存在量化子に感嘆符を追加。</td><td>「この世にたった1つだけしかない！」という超レアな確定演出！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 束縛変数</td><td class="serif">Bound variable</td><td>量化子の支配下にある変数。</td><td>量化子にガッチリ捕まって、勝手に身動きが取れなくなった変数のこと。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 自由変数</td><td class="serif">Free variable</td><td>量化子に縛られていない変数。</td><td>まだ誰にも縛られていない、何にでもなれるフリーダムな変数！</td></tr>
+      <tr><td><span class="check">&#9744;</span> スコープ</td><td class="serif">Scope</td><td>作用域。</td><td>量化子の魔法が届く「効果範囲」のこと。バリアみたいなものだ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 閉論理式</td><td class="serif">Closed formula</td><td>自由変数を持たない論理式。</td><td>穴埋め箇所がゼロ！誰が読んでも「真か偽か」がはっきりする完成品。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 開論理式</td><td class="serif">Open formula</td><td>自由変数を持つ論理式。</td><td>「〇〇は赤い」みたいに、〇〇に何を入れるか決まるまで真偽が分からない未完成の式。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 項</td><td class="serif">Term</td><td>ラテン語 terminus (境界、限界)。</td><td>数式の中で、特定の対象を指し示す「名前」や「名詞」のパーツ。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 個体定数</td><td class="serif">Individual constant</td><td>特定の1つの対象を指す記号。</td><td>具体的な「特定の一人」。アリスとかボブ、あるいは数字の「3」のこと！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 変数</td><td class="serif">Variable</td><td>値が変わりうる記号 (x, yなど)。</td><td>誰が入るか分からない、とりあえず用意しておいた「空箱」。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 解釈</td><td class="serif">Interpretation</td><td>アルフレト・タルスキによる意味論的定義。</td><td>空箱や記号に「今回はこういう意味で使うよ！」とルールを当てはめる「設定」。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 領域</td><td class="serif">Domain of discourse</td><td>議論の対象となる集合。</td><td>変数が入ることができる「住人のリスト」全体のこと。この世界の広さだ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> スコーレム化</td><td class="serif">Skolemization</td><td>トアルフ・スコーレムが考案。</td><td>メンドクサイ存在量化子(∃)を、新しい関数を使って消し去る魔法のテクニック！</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 3. 集合論の基礎 -->
+<div class="category-container cat-3">
+  <h2>3. 集合論の基礎 (Basic Set Theory)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:16%;">日本語</th>
+        <th style="width:16%;">英語</th>
+        <th style="width:26%;">語源・由来・人物</th>
+        <th style="width:42%;">直感的なイメージ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="check">&#9744;</span> 集合</td><td class="serif">Set</td><td>ゲオルク・カントールが創始。</td><td>BAM! 要するに、はっきり条件が決まった「モノの集まり、グループ」だ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 要素 (∈)</td><td class="serif">Element / Member</td><td>ラテン語 elementum (基本要素)。ペアノが記号考案。</td><td>グループに入っている「メンバー」一人一人のこと！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 属する</td><td class="serif">Belongs to</td><td>要素が集合に含まれる関係。</td><td>「私はこのクラブの正式な会員です！」ってこと。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 属さない (∉)</td><td class="serif">Does not belong to</td><td>要素が集合に含まれない関係。</td><td>「そんな奴はウチのグループにはいねえ！」</td></tr>
+      <tr><td><span class="check">&#9744;</span> 外延的記法</td><td class="serif">Extensional definition</td><td>ラテン語 extensio (広がり)。</td><td>メンバーの名前を「アリス、ボブ、チャーリー」と全部書き出す力技！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 内包的記法</td><td class="serif">Intensional definition</td><td>ラテン語 intensio (緊張、内側)。</td><td>「〇〇高校の生徒」のように、条件やルールで一括りにするスマートな書き方。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 空集合 (∅)</td><td class="serif">Empty set</td><td>ニコラ・ブルバキがノルウェー文字から記号を導入。</td><td>メンバーが「0人」の誰もいない幽霊グループ！BAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> 部分集合 (⊆)</td><td class="serif">Subset</td><td>集合の一部分。</td><td>「グループAのメンバーは、全員グループBにも所属してますよ」という包み込み状態。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 真部分集合 (⊂)</td><td class="serif">Proper subset</td><td>完全に一致しない部分集合。</td><td>AはBの部分集合だけど、完全に同じじゃない（Bの方がデカい）ってこと。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 上位集合 (⊇)</td><td class="serif">Superset</td><td>部分集合の逆の関係。</td><td>相手をすっぽり飲み込んでいる、より大きな親グループのこと。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 全体集合 (U)</td><td class="serif">Universal set</td><td>議論の枠組みとなる最大の集合。</td><td>「今回考える世界すべて」を囲い込んだ超巨大な箱！</td></tr>
+      <tr><td><span class="check">&#9744;</span> ベン図</td><td class="serif">Venn diagram</td><td>ジョン・ベンが考案。</td><td>丸を重ねて、グループのカンケイを一目でわかるようにする便利なお絵描き！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 和集合 (∪)</td><td class="serif">Union</td><td>ラテン語 unio (結合)。</td><td>「お前ら、今日から全員仲間だ！」と2つのグループをガッチャンコする。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 積集合 (∩)</td><td class="serif">Intersection</td><td>ラテン語 intersectio (交差)。</td><td>「両方のグループに入ってるヤツだけ残れ！」という厳しい選抜。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 差集合 (\, -)</td><td class="serif">Difference set</td><td>集合の引き算。</td><td>「あっちのグループにもいる奴は裏切り者だ、出ていけ！」と引き算する。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 補集合 (^c)</td><td class="serif">Complement</td><td>ラテン語 complementum (補充)。</td><td>「お前ら以外、全員集合！」という世界を裏返したグループ。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 対称差 (△)</td><td class="serif">Symmetric difference</td><td>和集合から積集合を引いたもの。</td><td>「どっちか片方にしかいない奴だけ集まれ！」両方に属する八方美人は除外だ。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 互いに素</td><td class="serif">Disjoint</td><td>共通部分が空集合であること。</td><td>共通のメンバーが「一人もいない」、交わることのない完全に別々のグループ。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 濃度 (|A|)</td><td class="serif">Cardinality</td><td>カントールが無限の大きさを比較するために導入。</td><td>要するに、そのグループの「メンバーの人数（個数）」のこと！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 有限集合</td><td class="serif">Finite set</td><td>要素数が有限の集合。</td><td>気合を入れれば、いつかはメンバー全員を数え切れる普通のグループ。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 無限集合</td><td class="serif">Infinite set</td><td>要素数が無限の集合。</td><td>一生かかっても絶対に数え切れないヤバいグループ。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 可算無限</td><td class="serif">Countably infinite</td><td>自然数と1対1対応できる無限。</td><td>無限だけど、「1番、2番…」と順番に背番号を付けていけるマイルドな無限。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 非可算無限</td><td class="serif">Uncountably infinite</td><td>カントールが対角線論法で証明。</td><td>背番号をつけることすら不可能な、さらにデカいモンスター級の無限！Double BAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> アレフ・ゼロ (ℵ₀)</td><td class="serif">Aleph-null</td><td>ヘブライ文字の最初の文字。</td><td>可算無限（自然数の個数）の「サイズ」を表すためにつけられたカッコいい名前。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 連続体仮説</td><td class="serif">Continuum hypothesis</td><td>カントールが提唱、ゲーデルとコーエンが解決。</td><td>「アレフ・ゼロと非可算無限の間に、中くらいのサイズはあるの？」という数学界の超難問。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 冪集合</td><td class="serif">Power set</td><td>ある集合のすべての部分集合を集めた集合。</td><td>「このメンバーで作れるチームの全パターン」を集めた究極のグループ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> カントールの定理</td><td class="serif">Cantor's theorem</td><td>冪集合の濃度は元の集合より大きい。</td><td>「どんな集まりも、その冪集合よりは小さい」。無限にもランクがあることを証明！</td></tr>
+      <tr><td><span class="check">&#9744;</span> カントールの対角線論法</td><td class="serif">Cantor's diagonal argument</td><td>カントールの必殺技。</td><td>リストを斜めに読んで反転させ「リストにない奴」をひねり出す魔法の証明法！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 順序対</td><td class="serif">Ordered pair</td><td>クラトフスキらが厳密に定義。</td><td>(a, b)のように「順番」が命のペア。(1, 2)と(2, 1)は全くの別物だ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 直積集合 (×)</td><td class="serif">Cartesian product</td><td>デカルト(Cartesius)の座標系に由来。</td><td>「こっちから1人、あっちから1人」選んで作るペア全通りの組み合わせ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 分割</td><td class="serif">Partition</td><td>集合を互いに素な部分集合に分けること。</td><td>グループを「重なりなし」かつ「漏れなし」でいくつかの班にキッチリ分けること！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 類</td><td class="serif">Class</td><td>ノイマン・ベルナイス・ゲーデル集合論など。</td><td>「すべての集合の集合」みたいに、デカすぎて集合と呼べなくなった超巨大な集まり。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 集合族</td><td class="serif">Family of sets</td><td>要素がすべて集合であるような集合。</td><td>「集合の集合」。箱の中にさらに箱が入っているマトリョーシカ状態！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 添字集合</td><td class="serif">Index set</td><td>集合族の各要素を区別するための集合。</td><td>集合が入った箱に「1番、2番」とインデックス（名札）をつけるための集合。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 直和</td><td class="serif">Disjoint union</td><td>共通部分を持たないようにした和集合。</td><td>絶対に重ならないように、あらかじめタグを付けてから合体させる安全な和集合！</td></tr>
+      <tr><td><span class="check">&#9744;</span> ラッセルのパラドックス</td><td class="serif">Russell's paradox</td><td>バートランド・ラッセルが発見。</td><td>「自分を含まない集合の集合は、自分を含むか？」数学界を根底から揺るがした大爆発！BAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> ツェルメロ＝フレンケル公理系</td><td class="serif">Zermelo-Fraenkel set theory</td><td>パラドックスを回避するために作られた。</td><td>変なパラドックスが起きないように作られた、「集合」に対するガチガチの厳格な法律。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 選択公理</td><td class="serif">Axiom of choice</td><td>エルンスト・ツェルメロが定式化。</td><td>「無限に箱があっても、そこから1つずつ代表をピックアップできる」というヤバいルール。</td></tr>
+      <tr><td><span class="check">&#9744;</span> ZFC</td><td class="serif">ZFC</td><td>ZF公理系 + 選択公理(Choice)。</td><td>現在の数学の基礎となっている、最強のルールセット！</td></tr>
+      <tr><td><span class="check">&#9744;</span> ツォルンの補題</td><td class="serif">Zorn's lemma</td><td>マックス・ツォルン。選択公理と同値。</td><td>選択公理の親戚。「行き止まりがないなら、絶対に頂上がある！」という強力な助っ人。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 4. 関係と関数 -->
+<div class="category-container cat-4">
+  <h2>4. 関係と関数 (Relations & Functions)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:16%;">日本語</th>
+        <th style="width:16%;">英語</th>
+        <th style="width:26%;">語源・由来・人物</th>
+        <th style="width:42%;">直感的なイメージ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="check">&#9744;</span> 関係</td><td class="serif">Relation</td><td>ラテン語 relatio (持ち帰る、報告する)。</td><td>モノとモノの間に、何かしらの「繋がり」や「ルール」があるかどうか。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 二項関係</td><td class="serif">Binary relation</td><td>2つの要素間の関係。</td><td>アリスとボブ、のように「2つの間」限定の繋がりルール。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 同値関係</td><td class="serif">Equivalence relation</td><td>反射律・対称律・推移律を満たす関係。</td><td>要するに「俺たち、同じ穴のムジナ（仲間）だね！」ってこと。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 反射律</td><td class="serif">Reflexivity</td><td>自分自身との関係。</td><td>「自分自身と繋がりがある」。鏡を見ている状態だ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 対称律</td><td class="serif">Symmetry</td><td>AからBならBからA。</td><td>「俺がお前と繋がるなら、お前も俺と繋がる」。完全な両思いだ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 推移律</td><td class="serif">Transitivity</td><td>AからB、BからCならAからC。</td><td>「AがBの友達で、BがCの友達なら、AとCも友達」。友達の友達は友達！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 同値類</td><td class="serif">Equivalence class</td><td>同値関係で結ばれた要素の集合。</td><td>同値関係で繋がった「仲間たち」を1つのグループにガサッとまとめたもの。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 商集合</td><td class="serif">Quotient set</td><td>同値類全体の集合。</td><td>仲間ごとに分けた「グループのリスト」を作ること！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 順序関係</td><td class="serif">Order relation</td><td>大小や先後の関係。</td><td>「どっちが大きいか、偉いか、先か」のランキングをつけるルール。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 半順序</td><td class="serif">Partial order</td><td>比較不能な要素を許す順序。</td><td>全員とは比べられないけど、比べられる奴の間では順位がつく状態（トーナメント表みたいなもの）。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 全順序</td><td class="serif">Total order</td><td>すべての要素が比較可能な順序。</td><td>「全員一列に並べ！」例外なく誰とでも順位が比較できる状態。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 反対称律</td><td class="serif">Antisymmetry</td><td>A≧B かつ B≧A なら A=B。</td><td>「お前が俺より上で、俺がお前より上？だったらお前ら同一人物だろ！」というルール。</td></tr>
+      <tr><td><span class="check">&#9744;</span> ハッセ図</td><td class="serif">Hasse diagram</td><td>ヘルムート・ハッセが利用。</td><td>誰が誰より上か、線で繋いで一目でわかるようにした順位表ネットワーク！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 上界</td><td class="serif">Upper bound</td><td>部分集合のすべての要素より大きい元。</td><td>「あのグループの全員より上にいる」天井のような存在。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 下界</td><td class="serif">Lower bound</td><td>部分集合のすべての要素より小さい元。</td><td>「あのグループの全員より下にいる」床のような存在。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 上限</td><td class="serif">Supremum</td><td>上界の中で最小のもの。</td><td>天井たちの中で「一番低いところ（グループの頭スレスレ）」。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 下限</td><td class="serif">Infimum</td><td>下界の中で最大のもの。</td><td>床たちの中で「一番高いところ（グループの足元スレスレ）」。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 最大元</td><td class="serif">Maximum element</td><td>集合の中で最大の要素。</td><td>グループの中で「俺が一番デカい！」と威張れるやつ。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 最小元</td><td class="serif">Minimum element</td><td>集合の中で最小の要素。</td><td>グループの中で「俺が一番小さい…」やつ。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 整列集合</td><td class="serif">Well-ordered set</td><td>ツェルメロが整列定理で証明。</td><td>どんな部分グループを作っても、必ず「一番小さい奴」が見つかる神の並び。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 関数 / 写像</td><td class="serif">Function / Mapping</td><td>ゴットフリート・ライプニッツが用語を導入。</td><td>「何かを入れたら、必ず1つだけ答えを吐き出す自動販売機」！BAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> 定義域</td><td class="serif">Domain</td><td>関数に入力できる値の集合。</td><td>その自販機に入れられる「使えるコインの種類」全体。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 値域</td><td class="serif">Range / Image</td><td>関数が実際に出力する値の集合。</td><td>自販機から実際に出てくる「商品のリスト」。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 終域</td><td class="serif">Codomain</td><td>関数が出力する可能性のある集合。</td><td>自販機が「出す予定」だった商品のリスト全体（売り切れで出ないものも含む）。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 単射</td><td class="serif">Injection</td><td>ブルバキが用語を整備。1対1。</td><td>「違うコインを入れたら、絶対に違う商品が出る」。1対1の専用ライン！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 全射</td><td class="serif">Surjection</td><td>ブルバキが用語を整備。上への写像。</td><td>「準備した全ての商品が、必ずどれかのコインで買える」。売り残しゼロ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 全単射</td><td class="serif">Bijection</td><td>単射かつ全射。</td><td>無駄なく完璧な「1対1のペアリング」！過不足なし！BAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> 逆関数</td><td class="serif">Inverse function</td><td>関数の逆操作。</td><td>「出てきた商品から、入れたコインを当てる」逆再生の自販機。全単射のときだけ作れる！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 合成関数</td><td class="serif">Composite function</td><td>2つの関数をつなげること。</td><td>「自販機Aから出たものを、そのまま自販機Bにブチ込む」コンボ技！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 恒等関数</td><td class="serif">Identity function</td><td>入力と出力が同じ関数。</td><td>「入れたものを、そのままそっくり返す」何もしない透明な自販機。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 5. 証明の手法と推論規則 -->
+<div class="category-container cat-5">
+  <h2>5. 証明の手法と推論規則 (Proof Methods)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:16%;">日本語</th>
+        <th style="width:16%;">英語</th>
+        <th style="width:26%;">語源・由来・人物</th>
+        <th style="width:42%;">直感的なイメージ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="check">&#9744;</span> 証明</td><td class="serif">Proof</td><td>ラテン語 probare (試す、良いと認める)。</td><td>「絶対に正しい！」と誰もがぐうの音も出ないほど納得するロジックの積み重ね！BAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> 定理</td><td class="serif">Theorem</td><td>ギリシャ語 theorema (見渡すこと)。</td><td>証明という厳しい試練を乗り越えた「数学の真実」に与えられる輝かしい称号！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 補題</td><td class="serif">Lemma</td><td>ギリシャ語 lemma (受け取られたもの)。</td><td>大ボス（定理）を倒すために準備した「強力な踏み台」や「中ボス」。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 系</td><td class="serif">Corollary</td><td>ラテン語 corollarium (花冠、おまけ)。</td><td>定理を証明したことで「おまけ」としてタダでついてくる別の真実。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 公理</td><td class="serif">Axiom</td><td>ギリシャ語 axioma (価値があるもの)。ユークリッド。</td><td>「これはもう、証明なしで正しいってことで進めようぜ！」というゲームの初期ルール。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 定義</td><td class="serif">Definition</td><td>ラテン語 definitio (境界を定めること)。</td><td>「この言葉はこういう意味だよ」という、単なる単語帳の設定。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 仮説 / 予想</td><td class="serif">Conjecture / Hypothesis</td><td>未証明の主張。</td><td>「たぶんこうだと思うんだけど、まだ証明できてないんだよね」というワクワクする予想。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 推論規則</td><td class="serif">Inference rule</td><td>論理的ステップのルール。</td><td>正しい文から、別の正しい文を生み出すための「公式合成レシピ」。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 前件肯定</td><td class="serif">Modus ponens</td><td>ラテン語 modus ponens (肯定して肯定する様式)。</td><td>「雨なら濡れる。今、雨が降った。だから濡れる！」当たり前だ！BAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> 後件否定</td><td class="serif">Modus tollens</td><td>ラテン語 modus tollens (否定して否定する様式)。</td><td>「雨なら濡れる。でも濡れてない。だから雨じゃない！」探偵の基本推理！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 三段論法</td><td class="serif">Syllogism</td><td>アリストテレスが体系化。</td><td>「AはB、BはC。だからAはC」。論理学の絶対的王道！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 仮言三段論法</td><td class="serif">Hypothetical syllogism</td><td>条件法をつなぐ。</td><td>「AならB、BならC。だからAならC」。矢印のドミノ倒しだ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 選言三段論法</td><td class="serif">Disjunctive syllogism</td><td>ORに関する推論。</td><td>「AかBだ。Aじゃない。だからBだ！」完璧な消去法！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 直接証明</td><td class="serif">Direct proof</td><td>前提から直接結論を導く。</td><td>「AだからB、BだからC」と真っ向勝負で結論を出す王道の戦い方。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 間接証明</td><td class="serif">Indirect proof</td><td>結論の否定から矛盾を導く。</td><td>正面から行かず、結論をひっくり返して攻めるちょっとトリッキーな証明法。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 背理法</td><td class="serif">Proof by contradiction</td><td>ギリシャ数学の伝統的手法。</td><td>「もし間違ってると仮定したら、世界が矛盾で崩壊する！だから正しい！」最強の必殺技！Double BAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> 対偶法</td><td class="serif">Proof by contraposition</td><td>対偶が同値であることを利用。</td><td>「AならばB」を示す代わりに、ひっくり返して「NOT BならばNOT A」を証明するテクニック。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 数学的帰納法</td><td class="serif">Mathematical induction</td><td>ペアノの公理系に基づく。</td><td>「1番目が倒れる、次も倒れる。よし、無限ドミノ倒しの完成だ！」BAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> 構成的証明</td><td class="serif">Constructive proof</td><td>実際に例を提示する証明。</td><td>「あるよ」と口で言うだけでなく、「ほら、これだよ」と実物を作って見せる職人技。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 非構成的証明</td><td class="serif">Non-constructive proof</td><td>存在だけを示す証明。</td><td>「実物は作れないけど、背理法を使うと絶対に存在するんだってば！」という悪魔の証明。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 反例</td><td class="serif">Counterexample</td><td>主張が偽であることを示す例。</td><td>「みんな〇〇だ」という主張を、たった一撃で粉砕する「たった一つの例外」。</td></tr>
+      <tr><td><span class="check">&#9744;</span> しらみつぶし法</td><td class="serif">Proof by exhaustion</td><td>全ケースを網羅する。</td><td>パターンを「全部気合で確かめる」ゴリ押しのパワープレイ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 鳩の巣原理</td><td class="serif">Pigeonhole principle</td><td>ディリクレが「引き出し論法」として提唱。</td><td>「9個の巣に10羽入るなら、絶対どこかに2羽いる！」当たり前だけど超強力な武器！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 演繹</td><td class="serif">Deduction</td><td>ラテン語 deductio (引き出すこと)。</td><td>ルールから個別の結論を出す「上から下への推理」。絶対に正しい。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 帰納</td><td class="serif">Induction</td><td>ラテン語 inductio (導き入れること)。</td><td>いろんな結果からルールを予想する「下から上への推理」。外れることもある。</td></tr>
+      <tr><td><span class="check">&#9744;</span> アブダクション</td><td class="serif">Abduction</td><td>チャールズ・サンダース・パースが提唱。</td><td>結果を見て「たぶんこれが原因だろう」と一番マシな仮説を立てる探偵の推理。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 前提</td><td class="serif">Premise</td><td>証明の出発点。</td><td>証明のスタート地点。「とりあえずこれが正しいとする」材料。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 結論</td><td class="serif">Conclusion</td><td>証明の到達点。</td><td>証明のゴール。「だからこうなるんだ！」とドヤ顔を決めるポイント。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 妥当性</td><td class="serif">Validity</td><td>論理形式の正しさ。</td><td>推論の「形」が完璧で、前提が正しければ絶対結論も正しくなること。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 健全性</td><td class="serif">Soundness</td><td>妥当かつ前提が真であること。</td><td>推論の形が完璧なうえに、前提も「現実として本当に正しい」パーフェクトな状態！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 完全性</td><td class="serif">Completeness</td><td>クルト・ゲーデルが完全性定理で証明。</td><td>「真実であるものは、絶対に証明できる」という論理システムの夢の機能。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 無矛盾性</td><td class="serif">Consistency</td><td>矛盾が導かれないこと。</td><td>システムの中で「A」と「NOT A」が絶対にぶつからない、平和で安全な状態。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 形式的証明</td><td class="serif">Formal proof</td><td>記号操作のみによる証明。</td><td>意味は無視して、記号のパズルルールだけでガチャガチャ変形してゴールを目指す証明。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 自然演繹</td><td class="serif">Natural deduction</td><td>ゲルハルト・ゲンツェンが考案。</td><td>人間の普通の考え方に近い形でルールを作った、分かりやすい証明システム。</td></tr>
+      <tr><td><span class="check">&#9744;</span> シークエント計算</td><td class="serif">Sequent calculus</td><td>ゲンツェンが考案。</td><td>「〇〇から△△が言える」というまとまりを、どんどん変形していく計算方法。</td></tr>
+      <tr><td><span class="check">&#9744;</span> ターンスタイル (⊢)</td><td class="serif">Turnstile</td><td>フレーゲの記号に由来。証明可能性。</td><td>「構文ルールを使えば、ちゃんと証明できるぞ！」という力強い宣言記号。</td></tr>
+      <tr><td><span class="check">&#9744;</span> ダブルターンスタイル (⊨)</td><td class="serif">Double turnstile</td><td>意味論的帰結。真理性。</td><td>「どんな解釈をしても、絶対に正しいぞ！」という無敵の記号。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 論理的帰結</td><td class="serif">Logical consequence</td><td>前提から必然的に導かれること。</td><td>前提が正しいなら、どうあがいても絶対に結論も正しくなっちゃう運命のこと。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 置換規則</td><td class="serif">Rule of replacement</td><td>同値な式を入れ替える規則。</td><td>同じ意味のパーツなら、そっくりそのまま入れ替えてOK！という便利なルール。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 導入則・除去則</td><td class="serif">Introduction/Elimination rules</td><td>ゲンツェンの自然演繹の基本。</td><td>新しい記号を「追加する」ルールと、使って「消す」ルールのペア。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 6. 公理系とメタ論理 -->
+<div class="category-container cat-6">
+  <h2>6. 公理系とメタ論理 (Axiomatic Systems & Meta-Logic)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:16%;">日本語</th>
+        <th style="width:16%;">英語</th>
+        <th style="width:26%;">語源・由来・人物</th>
+        <th style="width:42%;">直感的なイメージ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="check">&#9744;</span> 形式言語</td><td class="serif">Formal language</td><td>数学・計算機科学で用いる人工言語。</td><td>文法をカチカチに決めて、曖昧さを一切なくしたロボット用の言葉！</td></tr>
+      <tr><td><span class="check">&#9744;</span> アルファベット</td><td class="serif">Alphabet</td><td>ギリシャ文字の最初の2文字に由来。</td><td>形式言語で使うことが許されている「文字の全リスト」。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 構文論</td><td class="serif">Syntax</td><td>ギリシャ語 syntaxis (配列)。</td><td>「意味はどうでもいい！文法通りに並んでるか？」だけを見る厳しいチェック。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 意味論</td><td class="serif">Semantics</td><td>ギリシャ語 semantikos (意味する)。</td><td>「その記号の並びは、現実にどういう意味を持つの？」を考えるチェック。</td></tr>
+      <tr><td><span class="check">&#9744;</span> メタ言語</td><td class="serif">Metalanguage</td><td>ギリシャ語 meta (〜を超えて)。</td><td>「言語について語る」ための外側の言語。要するにルールブックだ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 対象言語</td><td class="serif">Object language</td><td>メタ言語で言及される言語。</td><td>ルールブックで語られている「ゲーム内で実際に使う言葉」。</td></tr>
+      <tr><td><span class="check">&#9744;</span> ゲーデルの不完全性定理</td><td class="serif">Gödel's incompleteness theorems</td><td>クルト・ゲーデルが1931年に証明。</td><td>「完璧な数学システムなんて作れない！」と証明した、数学界最大のBAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> 決定問題</td><td class="serif">Entscheidungsproblem</td><td>ダフィット・ヒルベルトが提起。</td><td>「どんな数式でも、真偽を自動判定できる万能マシーンは作れるか？」という夢。</td></tr>
+      <tr><td><span class="check">&#9744;</span> チューリングマシン</td><td class="serif">Turing machine</td><td>アラン・チューリングが考案。</td><td>紙テープとペンだけで「コンピュータの限界」を示した想像上の最強機械！</td></tr>
+      <tr><td><span class="check">&#9744;</span> チャーチ＝チューリングのテーゼ</td><td class="serif">Church-Turing thesis</td><td>アロンゾ・チャーチとチューリング。</td><td>「計算できること＝チューリングマシンで計算できること」という世界一有名な仮説！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 非古典論理</td><td class="serif">Non-classical logic</td><td>古典論理の枠組みを拡張・変更。</td><td>「真か偽か」の2択に縛られない、アバンギャルドで自由な論理学の総称。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 多値論理</td><td class="serif">Many-valued logic</td><td>ウカシェヴィチらが創始。</td><td>真偽だけじゃなく「どっちでもない」とか「半々」とか、値を増やした論理。</td></tr>
+      <tr><td><span class="check">&#9744;</span> ファジィ論理</td><td class="serif">Fuzzy logic</td><td>ロトフィ・ザデーが提唱。</td><td>「ちょっと熱い」とか「かなり近い」みたいな曖昧さをグラデーションで扱う論理！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 直観主義論理</td><td class="serif">Intuitionistic logic</td><td>L.E.J.ブラウワーが創始。</td><td>「実際に作って見せないと証明とは認めない！」という超頑固な職人の論理。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 排中律の非承認</td><td class="serif">Rejection of excluded middle</td><td>直観主義論理の最大の特徴。</td><td>「AかNOT Aのどっちかだろ」という常識を捨てること。分からないものは分からない！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 様相論理</td><td class="serif">Modal logic</td><td>C.I.ルイスらが現代的に体系化。</td><td>「〜は必ず〜だ(必然)」「〜かもしれない(可能)」というニュアンスを足した論理。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 必然性 (□)</td><td class="serif">Necessity</td><td>様相論理の基本演算子。</td><td>「どう転んでも絶対にそうなる！」という力強い記号。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 可能性 (♢)</td><td class="serif">Possibility</td><td>様相論理の基本演算子。</td><td>「ひょっとしたらそうなる世界線もあるかも！」という希望の記号。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 時相論理</td><td class="serif">Temporal logic</td><td>アーサー・プライアーが創始。</td><td>「昔は〜だった」「いつか〜になる」など、時間を組み込んだタイムトラベル論理。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 認識論理</td><td class="serif">Epistemic logic</td><td>ヤーッコ・ヒンティッカが体系化。</td><td>「Aさんは〜を知っている」という知識のパズルを解くための論理。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 矛盾許容論理</td><td class="serif">Paraconsistent logic</td><td>矛盾から全てが導かれるのを防ぐ。</td><td>「ちょっとくらい矛盾してても、システムを爆発させないでおこう」という寛大な論理。</td></tr>
+      <tr><td><span class="check">&#9744;</span> ブール代数</td><td class="serif">Boolean algebra</td><td>ジョージ・ブールが考案。</td><td>論理を「1と0」の計算に落とし込んだ、現代コンピュータの心臓部！BAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> 論理回路</td><td class="serif">Logic gate</td><td>クロード・シャノンがブール代数と結びつけた。</td><td>ブール代数を電気のスイッチの組み合わせで作った物理的な回路だ！</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 7. パラドックスと論理的誤謬 -->
+<div class="category-container cat-7">
+  <h2>7. パラドックスと論理的誤謬 (Paradoxes & Fallacies)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:16%;">日本語</th>
+        <th style="width:16%;">英語</th>
+        <th style="width:26%;">語源・由来・人物</th>
+        <th style="width:42%;">直感的なイメージ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="check">&#9744;</span> パラドックス</td><td class="serif">Paradox</td><td>ギリシャ語 para(反する)+doxa(意見)。</td><td>正しいはずの推論から、ありえない結論が出る脳のバグ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 嘘つきのパラドックス</td><td class="serif">Liar paradox</td><td>クレタ人エピメニデスの言葉。</td><td>「私が今言っていることは嘘だ」。真でも偽でも爆発する無限ループ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 全能の逆説</td><td class="serif">Omnipotence paradox</td><td>中世の神学論争。</td><td>「神は、自分でも持ち上げられない重い石を作れるか？」神様の能力バグ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> テセウスの船</td><td class="serif">Ship of Theseus</td><td>プルタルコスの記述に由来。</td><td>「船の部品を全部入れ替えたら、それは元の船と同じと言える？」アイデンティティの謎。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 砂山のパラドックス</td><td class="serif">Sorites paradox</td><td>古代ギリシャのエウブリデス。</td><td>「砂山から1粒取っても砂山。じゃあ最後1粒になっても砂山？」境界線の曖昧さ。</td></tr>
+      <tr><td><span class="check">&#9744;</span> ヘンペルのカラス</td><td class="serif">Hempel's ravens</td><td>カール・ヘンペルが提唱。</td><td>「カラスは黒い」を証明するのに、「白い靴（黒くない・カラスじゃない）」を見れば証明になるという奇妙な話。</td></tr>
+      <tr><td><span class="check">&#9744;</span> グルーのパラドックス</td><td class="serif">Grue paradox</td><td>ネルソン・グッドマンが提唱。</td><td>「2000年までは緑、それ以降は青になる色（グルー）」。帰納法の弱点を突く悪魔の言葉！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 予期せぬ絞首刑</td><td class="serif">Unexpected hanging paradox</td><td>スウェーデンの数学者レナート・エクボム。</td><td>「来週、君が予期しない日に死刑にする」と言われると、論理的に死刑にできなくなる！？</td></tr>
+      <tr><td><span class="check">&#9744;</span> ニューカムのパラドックス</td><td class="serif">Newcomb's paradox</td><td>ウィリアム・ニューカム考案。</td><td>超能力者があなたの未来を予測する時、どっちの箱を選ぶのが最強？という究極のジレンマ。</td></tr>
+      <tr><td><span class="check">&#9744;</span> モンティ・ホール問題</td><td class="serif">Monty Hall problem</td><td>アメリカのテレビ番組に由来。</td><td>「ドアを変えた方が当たる確率が倍になる」人間の直感が見事にバグる確率パズル！Double BAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> 論理的誤謬</td><td class="serif">Logical fallacy</td><td>ラテン語 fallacia (欺瞞)。</td><td>一見正しそうだけど、実はズルをしている「ダメな推論」のこと。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 循環論法</td><td class="serif">Circular reasoning</td><td>前提が結論に依存している誤謬。</td><td>「神がいる理由は聖書に書いてある。聖書が正しい理由は神が書いたから」。ぐるぐる回って証拠ゼロ！</td></tr>
+      <tr><td><span class="check">&#9744;</span> ストローマン</td><td class="serif">Straw man fallacy</td><td>藁人形論法。</td><td>相手の意見をわざと極端な「わら人形」に変えてからフルボッコにする卑怯な手！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 対人論証</td><td class="serif">Ad hominem</td><td>ラテン語 ad hominem (人に対して)。</td><td>「お前は性格が悪いから、お前の言うことも間違ってる！」論理関係ないじゃん！</td></tr>
+      <tr><td><span class="check">&#9744;</span> 滑り坂論法</td><td class="serif">Slippery slope</td><td>小さな一歩が破滅を招くという誤謬。</td><td>「ゲームを許すと非行に走り、最後は世界が滅亡する！」一足飛びに最悪の結論に持っていくヤツ。</td></tr>
+      <tr><td><span class="check">&#9744;</span> 権威に訴える論証</td><td class="serif">Appeal to authority</td><td>権威者の意見を無条件で真とする。</td><td>「偉い〇〇先生が言ってるから絶対正しい！」自分で考えろ！BAM!</td></tr>
+      <tr><td><span class="check">&#9744;</span> 偽の二分法</td><td class="serif">False dilemma</td><td>2つの選択肢しかないように見せかける。</td><td>「俺の味方か、それとも敵か！」いやいや、どっちでもない普通の人もいるだろ！</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
