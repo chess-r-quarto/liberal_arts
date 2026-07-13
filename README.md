@@ -12,6 +12,7 @@ This repository contains single-file web applications designed to aid in the lea
 
 - **Launcher** (`navi.html`): An Anaconda Navigator-style dashboard that provides easy access to all the modules in this repository.
 - **Logic Basic** (`logic_basic.html`): Covers the fundamentals of logic, including propositional and predicate logic.
+- **Logic Terminology** (`logic_term.html`): Covers important terms and concepts in logic and set theory.
 - **Math Terminology** (`math_term.html`): A comprehensive reference and explanation of basic mathematical terms across algebra, analysis, and geometry.
 - **Stat Terminology 1** (`stat_term.html`): Focuses on descriptive statistics and foundational probability concepts.
 - **Stat Terminology 2** (`stat_term2.html`): Covers inferential statistics, hypothesis testing, and regression analysis.
