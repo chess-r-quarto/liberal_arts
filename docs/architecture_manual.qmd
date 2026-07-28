@@ -1,0 +1,79 @@
+---
+format:
+  html:
+    theme: cosmo
+    toc: true
+    css: styles.css
+---
+
+# Liberal Arts モジュール群 アーキテクチャ＆開発マニュアル
+
+## アプリの目的と概要 (Overview)
+本ドキュメントは、**Liberal Arts モジュール群（論理学・数学・統計学等の学習Webアプリ）** の全体設計、技術スタック、および今後の拡張方法についてまとめた「開発者および将来のAIアシスタント向け」のアーキテクチャ・マニュアルです。
+
+このプロジェクトの最大の特徴は、**「ビルド不要（No Build Step）で動作するSPA（Single Page Application）」**と**「Quartoによる高品質なドキュメントエコシステム」**を両立している点にあります。
+
+## 技術スタック (Tech Stack)
+
+本プロジェクトでは、フロントエンドのモダンな開発体験を維持しつつ、Node.jsやWebpack等の複雑なビルド環境に依存しない構成を採用しています。
+
+| コンポーネント | 採用技術 | 採用理由・メリット |
+| :--- | :--- | :--- |
+| **コアUI** | React 18 (CDN経由) | コンポーネント指向による保守性の高いUI開発を可能にするため。 |
+| **コンパイル** | Babel Standalone (CDN) | ブラウザ上で直接JSX/TSXをトランスパイルすることで、ビルドなしでReactを動かすため。 |
+| **スタイリング** | Tailwind CSS (CDN経由) | ユーティリティクラスを用いて、HTMLファイル内で完結した高速なスタイリングを行うため。 |
+| **ドキュメント** | Quarto (`.qmd` -> `.html`) | Markdownの書きやすさと、洗練された組版（CSS適用、目次自動生成など）を両立するため。 |
+
+## ディレクトリとファイル構成 (Architecture)
+
+リポジトリは極めてフラットかつシンプルに構成されています。
+
+```text
+liberal_arts/
+├── navi.html                 # 全モジュールを統合するランチャー（ハブ）
+├── logic_basic.html          # 論理学モジュール
+├── math_term.html            # 数学用語モジュール
+├── stat_term.html            # 統計学モジュール（基本）
+├── stat_term2.html           # 統計学モジュール（完全版）
+└── docs/                     # ドキュメントディレクトリ
+    ├── styles.css            # Quarto用カスタムCSS（万年筆・上質紙調）
+    ├── *_manual.qmd          # 各モジュールのQuartoソースファイル
+    └── *_manual.html         # レンダリング済みの製品レベルマニュアル
+```
+
+> [!IMPORTANT]
+> **ハブ＆スポーク構造**
+> `navi.html` が中心（ハブ）となり、各学習モジュール（スポーク）およびそのマニュアルへリンクする構造です。モジュール間の直接的な依存関係はないため、安全にアプリを追加・削除できます。
+
+## 新規モジュールを追加する際の手順 (How to add a new module)
+
+将来のAIアシスタントや開発者が、新しい学習アプリ（例：物理学、哲学など）を追加する場合は、以下のワークフローに従ってください。
+
+### 1. 新規アプリの作成
+既存のアプリ（例: `logic_basic.html`）をテンプレートとして複製し、新しい `.html` ファイルを作成します。ReactとTailwindのCDNスクリプトはそのまま引き継いでください。
+
+### 2. navi.html への登録
+`navi.html` 内の `const applications: AppCardProps[]` 配列に、新規アプリのオブジェクトを追加します。これによりランチャーにカードが自動で追加されます。
+
+```javascript
+{
+  id: 'new_module',
+  title: 'New App Title',
+  version: '1.0.0',
+  description: 'アプリの概要を記載します。',
+  url: 'https://chess-r-quarto.github.io/liberal_arts/new_module.html',
+  manualUrl: 'https://chess-r-quarto.github.io/liberal_arts/docs/new_module_manual.html',
+  icon: <BookIcon />
+}
+```
+
+### 3. マニュアルの作成とレンダリング
+1. `docs/` ディレクトリに、新規アプリの `_manual.qmd` ファイルを作成します。既存の `.qmd` ファイルのYAMLフロントマター（theme, css等）を踏襲してください。
+2. ターミナルで `quarto render docs/new_module_manual.qmd` を実行し、HTMLを生成します。
+
+### 4. デプロイ
+すべての変更（`.html`, `.qmd`）をGitに追加し、`main` ブランチにコミット＆プッシュします。GitHub Pagesが自動的に更新を反映します。
+
+> [!TIP]
+> **AIアシスタントへの指示のコツ**
+> 「新規モジュールの追加をお願いします。アーキテクチャ・マニュアル（`docs/architecture_manual.qmd`）の手順に従って、アプリ開発からnaviの更新、Quartoマニュアルの作成とPushまで一貫して実行してください」と指示すれば、エージェントが完璧に作業を代行します。
