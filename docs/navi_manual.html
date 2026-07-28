@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>navi_manual</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="navi_manual_files/libs/clipboard/clipboard.min.js"></script>
+<script src="navi_manual_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="navi_manual_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="navi_manual_files/libs/quarto-html/popper.min.js"></script>
+<script src="navi_manual_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="navi_manual_files/libs/quarto-html/anchor.min.js"></script>
+<link href="navi_manual_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="navi_manual_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="navi_manual_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="navi_manual_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="navi_manual_files/libs/bootstrap/bootstrap-c2e55264ed47ce3b2e0326a2269f9400.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#liberal-arts-navigator-公式マニュアル" id="toc-liberal-arts-navigator-公式マニュアル" class="nav-link active" data-scroll-target="#liberal-arts-navigator-公式マニュアル">Liberal Arts Navigator 公式マニュアル</a>
+  <ul class="collapse">
+  <li><a href="#アプリの目的と概要-overview" id="toc-アプリの目的と概要-overview" class="nav-link" data-scroll-target="#アプリの目的と概要-overview">アプリの目的と概要 (Overview)</a></li>
+  <li><a href="#主な機能と特徴-key-features" id="toc-主な機能と特徴-key-features" class="nav-link" data-scroll-target="#主な機能と特徴-key-features">主な機能と特徴 (Key Features)</a></li>
+  <li><a href="#背後にある学習ロジック-learning-logic" id="toc-背後にある学習ロジック-learning-logic" class="nav-link" data-scroll-target="#背後にある学習ロジック-learning-logic">背後にある学習ロジック (Learning Logic)</a></li>
+  <li><a href="#使い方ガイド-usage-guide" id="toc-使い方ガイド-usage-guide" class="nav-link" data-scroll-target="#使い方ガイド-usage-guide">使い方ガイド (Usage Guide)</a>
+  <ul class="collapse">
+  <li><a href="#アプリケーションの起動" id="toc-アプリケーションの起動" class="nav-link" data-scroll-target="#アプリケーションの起動">1. アプリケーションの起動</a></li>
+  <li><a href="#環境environmentの確認" id="toc-環境environmentの確認" class="nav-link" data-scroll-target="#環境environmentの確認">2. 環境（Environment）の確認</a></li>
+  <li><a href="#モジュールの詳細設定settings" id="toc-モジュールの詳細設定settings" class="nav-link" data-scroll-target="#モジュールの詳細設定settings">3. モジュールの詳細設定（Settings）</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="liberal-arts-navigator-公式マニュアル" class="level1">
+<h1>Liberal Arts Navigator 公式マニュアル</h1>
+<section id="アプリの目的と概要-overview" class="level2">
+<h2 class="anchored" data-anchor-id="アプリの目的と概要-overview">アプリの目的と概要 (Overview)</h2>
+<p><strong>Liberal Arts Navigator</strong>は、論理学・数学・統計学などのリベラルアーツ学習モジュール群を統合的に管理・起動するためのポータルダッシュボードです。 分散しがちな学習用アプリを一つのインターフェースに集約し、学習者が迷うことなく目的の学習コンテンツ（Logic, Math, Statistics 等）へシームレスにアクセスできる環境を提供します。洗練されたUIにより、毎日の学習開始のハードルを下げ、モチベーションの維持をサポートします。</p>
+</section>
+<section id="主な機能と特徴-key-features" class="level2">
+<h2 class="anchored" data-anchor-id="主な機能と特徴-key-features">主な機能と特徴 (Key Features)</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">機能名</th>
+<th style="text-align: left;">概要</th>
+<th style="text-align: left;">ユーザーへのメリット</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>統合ダッシュボード</strong></td>
+<td style="text-align: left;">全ての学習アプリ（全5種）をカード型UIで一覧表示します。</td>
+<td style="text-align: left;">目的のアプリを視覚的に素早く探し出し、ワンクリックで起動できます。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>レスポンシブデザイン</strong></td>
+<td style="text-align: left;">PC、タブレット、スマートフォンなど、あらゆる画面サイズに最適化されています。</td>
+<td style="text-align: left;">デバイスを問わず、快適なナビゲーション体験を提供します。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>環境（Environment）切替</strong></td>
+<td style="text-align: left;">ヘッダーのセレクトボックスから、対象とするリポジトリ環境を切り替え可能です（現在 <code>liberal_arts (base)</code> 対応）。</td>
+<td style="text-align: left;">複数の学習リポジトリやバージョンを管理する際の手間を削減します。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>バージョン・説明の明示</strong></td>
+<td style="text-align: left;">各アプリのバージョン情報と、直感的な概要（Description）をカード内に表示。</td>
+<td style="text-align: left;">そのモジュールで「何を学べるか」を起動前に正確に把握できます。</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="背後にある学習ロジック-learning-logic" class="level2">
+<h2 class="anchored" data-anchor-id="背後にある学習ロジック-learning-logic">背後にある学習ロジック (Learning Logic)</h2>
+<p>本アプリは、学習前の<strong>「認知負荷（Cognitive Load）の削減」</strong>を目的として設計されています。 複数のURLを管理する手間を省き、以下のようなハブとして機能します。</p>
+<pre class="mermaid"><code>graph TD
+    A[Liberal Arts Navigator] --&gt; B(Logic Basic&lt;br&gt;論理学の基礎)
+    A --&gt; C(Logic Terminology&lt;br&gt;論理学・集合論 用語集)
+    A --&gt; D(Math Terminology&lt;br&gt;数学用語 リファレンス)
+    A --&gt; E(Stat Terminology 1&lt;br&gt;統計学 記述統計・確率)
+    A --&gt; F(Stat Terminology 2&lt;br&gt;統計学 推測統計・回帰分析)
+    
+    style A fill:#43b02a,stroke:#333,stroke-width:2px,color:#fff
+    style B fill:#f8fafc,stroke:#cbd5e1
+    style C fill:#f8fafc,stroke:#cbd5e1
+    style D fill:#f8fafc,stroke:#cbd5e1
+    style E fill:#f8fafc,stroke:#cbd5e1
+    style F fill:#f8fafc,stroke:#cbd5e1</code></pre>
+<blockquote class="blockquote">
+<p>[!NOTE] <strong>学習の一元化</strong> 異なるジャンルの学習を一つのポータルから開始することで、分野を横断した「リベラルアーツ」としての総合的な学びの意識を自然と醸成します。</p>
+</blockquote>
+</section>
+<section id="使い方ガイド-usage-guide" class="level2">
+<h2 class="anchored" data-anchor-id="使い方ガイド-usage-guide">使い方ガイド (Usage Guide)</h2>
+<section id="アプリケーションの起動" class="level3">
+<h3 class="anchored" data-anchor-id="アプリケーションの起動">1. アプリケーションの起動</h3>
+<ol type="1">
+<li>画面中央のグリッド上に並んだ各アプリケーションのカードを確認します。</li>
+<li>学びたいモジュールのカード内にある緑色の <strong>[Launch]</strong> ボタンをクリックします。</li>
+<li>アプリケーションが新しいタブで起動し、すぐに学習を開始できます。</li>
+</ol>
+</section>
+<section id="環境environmentの確認" class="level3">
+<h3 class="anchored" data-anchor-id="環境environmentの確認">2. 環境（Environment）の確認</h3>
+<ul>
+<li>画面上部のヘッダーバーにある「Environment:」のドロップダウンを確認してください。</li>
+<li>デフォルトでは <code>liberal_arts (base)</code> が選択されています。将来的に複数の学習セットが提供された場合は、ここから切り替えが可能です。</li>
+</ul>
+</section>
+<section id="モジュールの詳細設定settings" class="level3">
+<h3 class="anchored" data-anchor-id="モジュールの詳細設定settings">3. モジュールの詳細設定（Settings）</h3>
+<ul>
+<li>各カードの [Launch] ボタンの右側にある <strong>歯車（Settings）アイコン</strong> をクリックすることで、モジュール個別の設定や情報にアクセスできます。（※将来の拡張機能として予約されています）</li>
+</ul>
+<blockquote class="blockquote">
+<p>[!TIP] <strong>日々の学習ルーティン化</strong> この <code>navi.html</code> をブラウザのブックマークバーやスタートページに登録しておくことを強くお勧めします。1クリックで全教材へアクセスできるため、学習の習慣化に大きく貢献します。</p>
+</blockquote>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

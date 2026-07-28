@@ -1,0 +1,33 @@
+/* docs/styles.css */
+body {
+  background-color: #fdf6e3; /* Solarized Light background */
+  color: #1a2a40; /* Royal Blue / Blue Black */
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; /* Fountain pen / high quality paper feel */
+  line-height: 1.8;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #0d1b2a;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  border-bottom-color: rgba(26, 42, 64, 0.2);
+}
+
+a {
+  color: #2b6cb0;
+}
+
+.alert {
+  background-color: rgba(253, 246, 227, 0.9);
+  border-left-color: #1a2a40;
+}
+
+table {
+  background-color: transparent;
+}
+th {
+  background-color: rgba(26, 42, 64, 0.05);
+  color: #0d1b2a;
+}
+td {
+  border-color: rgba(26, 42, 64, 0.1);
+}
