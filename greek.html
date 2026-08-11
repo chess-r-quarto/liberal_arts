@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="ja" class="h-full bg-slate-900 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ギリシャ文字の書き順 & 数学・統計学活用ガイド</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter & Noto Sans JP -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    }
+
+    /* アニメーション用ストロークスタイル */
+    .stroke-path {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      transition: stroke-dashoffset 0.1s linear;
+    }
+
+    @keyframes strokeDraw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    .animate-draw {
+      animation: strokeDraw 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    /* カスタムスクロールバー */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1e293b;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #475569;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col md:flex-row overflow-hidden bg-slate-950 text-slate-100">
+
+  <!-- 画面左側: ギリシャ文字選択リスト ＆ フィルター -->
+  <aside class="w-full md:w-80 lg:w-96 bg-slate-900/90 border-r border-slate-800 flex flex-col h-auto md:h-full z-10 shadow-xl">
+    <!-- ヘッダー -->
+    <div class="p-4 border-b border-slate-800 bg-slate-900/50 backdrop-blur">
+      <div class="flex items-center space-x-3 mb-3">
+        <div class="p-2.5 bg-indigo-600/20 text-indigo-400 rounded-xl border border-indigo-500/30">
+          <i class="fa-solid font-bold text-xl">αβ</i>
+        </div>
+        <div>
+          <h1 class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-sky-300 to-emerald-400">
+            ギリシャ文字書き順ガイド
+          </h1>
+          <p class="text-xs text-slate-400">数学・統計学の記号と書き順マスター</p>
+        </div>
+      </div>
+
+      <!-- 検索・フィルター -->
+      <div class="space-y-2">
+        <div class="relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+          <input type="text" id="searchInput" placeholder="文字名、読み、記号で検索 (例: alpha, 偏差)..." 
+            class="w-full bg-slate-950 text-sm text-slate-200 placeholder-slate-500 pl-9 pr-3 py-2 rounded-lg border border-slate-800 focus:outline-none focus:border-indigo-500 transition-colors">
+        </div>
+        
+        <div class="flex gap-1 text-xs p-1 bg-slate-950/80 rounded-lg border border-slate-800/80">
+          <button id="filterAll" class="filter-btn active flex-1 py-1 px-2 rounded-md font-medium text-center transition-all bg-indigo-600 text-white shadow">すべて</button>
+          <button id="filterLower" class="filter-btn flex-1 py-1 px-2 rounded-md font-medium text-center text-slate-400 hover:text-slate-200 transition-all">小文字</button>
+          <button id="filterUpper" class="filter-btn flex-1 py-1 px-2 rounded-md font-medium text-center text-slate-400 hover:text-slate-200 transition-all">大文字</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 文字リスト (スクロール領域) -->
+    <div id="greekList" class="flex-1 overflow-y-auto p-3 space-y-2">
+      <!-- JavaScriptでリスト要素を動的生成 -->
+    </div>
+  </aside>
+
+  <!-- 画面右側: 詳細・書き順表示メイン領域 -->
+  <main class="flex-1 flex flex-col h-full overflow-y-auto bg-slate-950 relative">
+    
+    <!-- 背景装飾グリッド -->
+    <div class="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:24px_24px] opacity-20 pointer-events-none"></div>
+
+    <!-- メインコンテンツ領域 -->
+    <div class="relative z-10 p-4 md:p-8 max-w-5xl mx-auto w-full space-y-6 flex-1 flex flex-col justify-between">
+      
+      <div>
+        <!-- ヘッダーカード (選択中文字) -->
+        <div id="charHeaderCard" class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-6 backdrop-blur-md shadow-2xl flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6">
+          <div class="flex items-center space-x-6">
+            <div id="mainSymbolDisplay" class="w-24 h-24 rounded-2xl bg-gradient-to-br from-indigo-950 to-slate-900 border border-indigo-500/30 flex items-center justify-center text-6xl font-serif text-indigo-300 shadow-inner">
+              α
+            </div>
+            <div>
+              <div class="flex items-center space-x-3">
+                <h2 id="mainEnglishName" class="text-3xl font-bold tracking-tight text-white">Alpha</h2>
+                <span id="mainCaseBadge" class="text-xs px-2.5 py-0.5 rounded-full font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">小文字</span>
+              </div>
+              <p id="mainJapaneseReading" class="text-lg text-slate-300 mt-1">アルファ</p>
+              <p id="mainGreekSpelling" class="text-xs text-slate-500 font-mono mt-0.5">ギリシャ語: άλφα</p>
+            </div>
+          </div>
+
+          <!-- 対になる大文字/小文字へのクイック切替 -->
+          <div id="pairToggleContainer" class="flex items-center bg-slate-950/80 p-2 rounded-xl border border-slate-800 text-center sm:text-right">
+            <button id="pairToggleBtn" class="flex items-center space-x-2 text-xs text-indigo-400 hover:text-indigo-300 transition-colors px-3 py-1.5 rounded-lg bg-indigo-950/40 border border-indigo-900/50">
+              <span id="pairToggleText">大文字 (Α) を見る</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- メイングリッド: 書き順キャンバス ＆ 数学・統計での使用例 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
+          
+          <!-- 左側: 書き順インタラクティブ表示 (7カラム) -->
+          <div class="lg:col-span-7 bg-slate-900/80 border border-slate-800/80 rounded-2xl p-6 backdrop-blur-md shadow-xl flex flex-col items-center justify-between">
+            <div class="w-full flex justify-between items-center mb-4">
+              <h3 class="text-sm font-semibold text-slate-300 flex items-center gap-2">
+                <i class="fa-solid fa-pen-nib text-indigo-400"></i> 書き順アニメーション
+              </h3>
+              <div class="text-xs text-slate-400 flex items-center gap-2">
+                <span id="strokeCountBadge" class="bg-slate-800 px-2 py-1 rounded text-slate-300 font-mono">1 画</span>
+              </div>
+            </div>
+
+            <!-- SVG 描画キャンバス領域 -->
+            <div class="relative w-64 h-64 md:w-72 md:h-72 bg-slate-950 rounded-2xl border border-slate-800 flex items-center justify-center p-4 shadow-inner overflow-hidden group">
+              
+              <!-- 方眼ガイド線 -->
+              <svg class="absolute inset-0 w-full h-full stroke-slate-800/50 stroke-1 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="50%" y1="0" x2="50%" y2="100%" stroke-dasharray="4" />
+                <line x1="0" y1="50%" x2="100%" y2="50%" stroke-dasharray="4" />
+                <rect x="10%" y="10%" width="80%" height="80%" fill="none" stroke-dasharray="2" class="opacity-30" />
+              </svg>
+
+              <!-- 動的描画 SVG -->
+              <svg id="strokeSvg" viewBox="0 0 200 200" class="w-full h-full relative z-10">
+                <!-- JavaScriptでパスと番号マーカーを差し込み -->
+              </svg>
+
+              <!-- 再生アニメーションオーバーレイガイド -->
+              <div id="playingGuide" class="absolute bottom-3 left-3 right-3 text-center bg-slate-900/90 border border-slate-700/50 text-slate-300 text-xs py-1.5 px-3 rounded-lg opacity-0 transition-opacity duration-300 pointer-events-none">
+                書き順再生中...
+              </div>
+            </div>
+
+            <!-- 操作コントロール -->
+            <div class="w-full mt-6 space-y-3">
+              <div class="flex items-center justify-center gap-3">
+                <button id="btnPlayAnimation" class="flex-1 py-2.5 px-4 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-medium text-sm rounded-xl transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-play text-xs"></i> 書き順再生
+                </button>
+                <button id="btnStepNext" class="py-2.5 px-4 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 font-medium text-sm rounded-xl border border-slate-700 transition-all flex items-center justify-center gap-2" title="1画ずつ進む">
+                  <i class="fa-solid fa-forward-step text-xs"></i> 1画進む
+                </button>
+                <button id="btnResetCanvas" class="py-2.5 px-3 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-400 hover:text-slate-200 rounded-xl border border-slate-700 transition-all" title="リセット">
+                  <i class="fa-solid fa-rotate-left text-xs"></i>
+                </button>
+              </div>
+
+              <!-- スピード調整 slider -->
+              <div class="flex items-center justify-between text-xs text-slate-400 px-1 pt-1">
+                <span>速度:</span>
+                <div class="flex items-center gap-2 w-2/3">
+                  <span class="text-[10px]">遅い</span>
+                  <input type="range" id="speedSlider" min="0.5" max="2.5" step="0.25" value="1" class="w-full accent-indigo-500 h-1 bg-slate-800 rounded-lg appearance-none cursor-pointer">
+                  <span class="text-[10px]">速い</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右側: 数学・統計学での意味・解説 (5カラム) -->
+          <div class="lg:col-span-5 space-y-6 flex flex-col justify-between">
+            
+            <!-- 数学での意味 -->
+            <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 backdrop-blur-md shadow-xl flex-1 border-l-4 border-l-emerald-500">
+              <div class="flex items-center space-x-2 text-emerald-400 mb-2">
+                <i class="fa-solid fa-square-root-variable"></i>
+                <h3 class="text-sm font-bold uppercase tracking-wider">数学での主な意味</h3>
+              </div>
+              <div id="mathMeaningBox" class="text-sm text-slate-300 space-y-2 leading-relaxed">
+                <!-- 動的表示 -->
+              </div>
+            </div>
+
+            <!-- 統計学での意味 -->
+            <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 backdrop-blur-md shadow-xl flex-1 border-l-4 border-l-sky-500">
+              <div class="flex items-center space-x-2 text-sky-400 mb-2">
+                <i class="fa-solid fa-chart-line"></i>
+                <h3 class="text-sm font-bold uppercase tracking-wider">統計学での主な意味</h3>
+              </div>
+              <div id="statMeaningBox" class="text-sm text-slate-300 space-y-2 leading-relaxed">
+                <!-- 動的表示 -->
+              </div>
+            </div>
+
+            <!-- 補足・トリビア -->
+            <div class="bg-slate-900/40 border border-slate-800/50 rounded-2xl p-4 text-xs text-slate-400 space-y-1">
+              <div class="flex items-center gap-1.5 text-amber-400 font-medium mb-1">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>書き方のワンポイントアドバイス</span>
+              </div>
+              <p id="tipBox" class="leading-relaxed">
+                <!-- 動的表示 -->
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- フッター -->
+      <footer class="mt-8 pt-4 border-t border-slate-800/60 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <p>ギリシャ文字 書き順ガイド — 数学・データサイエンス・統計学の学習サポート</p>
+        <p class="text-slate-600">※使用分野や文献によって表記ルールが一部異なる場合があります。</p>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    /**
+     * ギリシャ文字のマスターデータ定義
+     * SVG書き順用パスデータ(strokes)および数学・統計での用途解説
+     */
+    const GREEK_DATA = [
+      {
+        id: 'alpha-lower',
+        symbol: 'α',
+        name: 'Alpha',
+        reading: 'アルファ',
+        greekSpelling: 'άλφα',
+        isUpper: false,
+        pairId: 'alpha-upper',
+        strokes: [
+          "M 160 60 C 130 110, 80 160, 50 120 C 20 80, 70 50, 110 80 C 140 100, 150 130, 165 160"
+        ],
+        math: "・平面角、角度を表す標準的な記号（α, β, γ）<br>・二次方程式の根 (α, β)<br>・熱膨張率や微細構造定数",
+        stat: "・第一種の過誤の確率（有意水準 α = 0.05 など）<br>・回帰分析の切片（y = α + βx）<br>・クロンプラグのα係数（信頼性分析）",
+        tip: "右上の端からスタートし、左下へ丸みを描いてループしてから右下へ抜けます。「fish（魚）」の形を意識すると綺麗に書けます。"
+      },
+      {
+        id: 'alpha-upper',
+        symbol: 'Α',
+        name: 'Alpha',
+        reading: 'アルファ (大文字)',
+        greekSpelling: 'Άλφα',
+        isUpper: true,
+        pairId: 'alpha-lower',
+        strokes: [
+          "M 100 30 L 40 170",
+          "M 100 30 L 160 170",
+          "M 65 120 L 135 120"
+        ],
+        math: "アルファベットの「A」と同じ形状。<br>数学記号としてはラテン文字の「A」と区別がつきにくいため、あまり単独では使われません。",
+        stat: "大文字のAと混同されるため、統計記号として使用される頻度は極めて低いです。",
+        tip: "英大文字の「A」と全く同じ書き順で問題ありません。"
+      },
+      {
+        id: 'beta-lower',
+        symbol: 'β',
+        name: 'Beta',
+        reading: 'ベータ',
+        greekSpelling: 'βήτα',
+        isUpper: false,
+        pairId: 'beta-upper',
+        strokes: [
+          "M 60 170 L 60 40",
+          "M 60 40 C 100 30, 140 55, 120 90 C 90 110, 70 100, 60 100",
+          "M 60 100 C 100 95, 150 115, 130 150 C 110 180, 70 175, 60 160"
+        ],
+        math: "・2番目の角（αに次ぐ）<br>・ベータ関数 B(x, y)<br>・方程式の第2の解",
+        stat: "・第二種の過誤の確率（検出力 1 - β）<br>・回帰分析の回帰係数（傾き）<br>・標準化標準回帰係数（ベータ値）",
+        tip: "下から上へまっすぐ縦線を伸ばし、一度戻って上の膨らみ、下の膨らみを連続して描きます。"
+      },
+      {
+        id: 'beta-upper',
+        symbol: 'Β',
+        name: 'Beta',
+        reading: 'ベータ (大文字)',
+        greekSpelling: 'Βήτα',
+        isUpper: true,
+        pairId: 'beta-lower',
+        strokes: [
+          "M 50 30 L 50 170",
+          "M 50 30 C 120 20, 130 90, 50 90",
+          "M 50 90 C 130 90, 140 170, 50 170"
+        ],
+        math: "ベータ関数 $B(x,y)$ の表現として大文字が用いられます。",
+        stat: "英大文字「B」と同形のため単独変数は少ないですが、行列やベータ関数関連で登場します。",
+        tip: "英大文字の「B」と同じ書き順です。"
+      },
+      {
+        id: 'gamma-lower',
+        symbol: 'γ',
+        name: 'Gamma',
+        reading: 'ガンマ',
+        greekSpelling: 'γάμμα',
+        isUpper: false,
+        pairId: 'gamma-upper',
+        strokes: [
+          "M 60 50 C 80 80, 100 130, 90 170 C 80 190, 60 160, 80 120 C 100 80, 130 50, 150 50"
+        ],
+        math: "・オイラーの定数 γ ≈ 0.57721...<br>・ガンマ関数 Γ(x) の小文字表現<br>・3番目の角度",
+        stat: "・ガンマ分布のパラメータ<br>・グッドマン・クラスカルのγ（順序相関係数）",
+        tip: "左上から滑らかに下降し、下で小さなループ（交差）を作って右上へ跳ね上げます。"
+      },
+      {
+        id: 'gamma-upper',
+        symbol: 'Γ',
+        name: 'Gamma',
+        reading: 'ガンマ (大文字)',
+        greekSpelling: 'Γάμμα',
+        isUpper: true,
+        pairId: 'gamma-lower',
+        strokes: [
+          "M 60 40 L 60 170",
+          "M 50 40 L 150 40"
+        ],
+        math: "・ガンマ関数 Γ(z)（階乗の一般化）<br>・微分幾何学のクリストッフェル記号",
+        stat: "・ガンマ分布 Γ(α, β)<br>・多次元ガンマ関数",
+        tip: "縦棒を上から下に引いた後、上の横棒を左から右へ引きます。"
+      },
+      {
+        id: 'delta-lower',
+        symbol: 'δ',
+        name: 'Delta',
+        reading: 'デルタ',
+        greekSpelling: 'δέλτα',
+        isUpper: false,
+        pairId: 'delta-upper',
+        strokes: [
+          "M 120 40 C 90 30, 60 60, 80 90 C 100 110, 130 110, 130 140 C 130 175, 70 175, 60 140 C 50 100, 110 80, 120 40"
+        ],
+        math: "・微小な変化量（イプシロン・デルタ論法）<br>・クロネッカーのデルタ δ_ij<br>・ディラックのデルタ関数 δ(x)",
+        stat: "・非心度パラメータ（非心分布）<br>・微小な差分",
+        tip: "上部のヒゲ（渦）から時計回りに滑らかに円を描くように一筆で書きます。"
+      },
+      {
+        id: 'delta-upper',
+        symbol: 'Δ',
+        name: 'Delta',
+        reading: 'デルタ (大文字)',
+        greekSpelling: 'Δέλτα',
+        isUpper: true,
+        pairId: 'delta-lower',
+        strokes: [
+          "M 100 30 L 30 170",
+          "M 30 170 L 170 170",
+          "M 170 170 L 100 30"
+        ],
+        math: "・変化量・差分（Δx = x2 - x1）<br>・二次方程式の判別式 D や Δ<br>・ラプラシアン演算子 ∇²",
+        stat: "・差分演算子<br>・効果量（Delta）",
+        tip: "頂点から左下へ下り、底辺を右へ引き、最後に右下から頂点へ戻る三角形です。"
+      },
+      {
+        id: 'epsilon-lower',
+        symbol: 'ε',
+        name: 'Epsilon',
+        reading: 'イプシロン',
+        greekSpelling: 'έψιλον',
+        isUpper: false,
+        pairId: 'epsilon-upper',
+        strokes: [
+          "M 140 60 C 100 30, 50 50, 60 90 C 70 100, 110 100, 110 100",
+          "M 100 100 C 110 100, 60 100, 60 135 C 60 170, 110 180, 140 150"
+        ],
+        math: "・任意の極小な正の数（ε-δ論法）<br>・エディントンの Levi-Civita 記号<br>・誘電率",
+        stat: "・誤差項（Error term: e や ε）<br>・回帰モデルの残差",
+        tip: "数字の「3」を左右反転させたような形です。上の弧を描いて中央で折り返し、下の弧を描きます。"
+      },
+      {
+        id: 'theta-lower',
+        symbol: 'θ',
+        name: 'Theta',
+        reading: 'シータ',
+        greekSpelling: 'θήτα',
+        isUpper: false,
+        pairId: 'theta-upper',
+        strokes: [
+          "M 100 30 C 50 30, 40 170, 100 170 C 160 170, 150 30, 100 30 Z",
+          "M 55 100 L 145 100"
+        ],
+        math: "・角度を表す最も代表的な記号（sin θ, cos θ）<br>・極座標系 (r, θ)",
+        stat: "・未知のパラメータ（母数）の総称<br>・推定対象の真の値 θ",
+        tip: "まず縦長で綺麗な楕円を描き、その中央を横切る水平線を左から右へ引きます。"
+      },
+      {
+        id: 'theta-upper',
+        symbol: 'Θ',
+        name: 'Theta (大文字)',
+        reading: 'シータ (大文字)',
+        greekSpelling: 'Θήτα',
+        isUpper: true,
+        pairId: 'theta-lower',
+        strokes: [
+          "M 100 25 C 40 25, 30 175, 100 175 C 170 175, 160 25, 100 25 Z",
+          "M 50 100 L 150 100"
+        ],
+        math: "・ランダウの記号 (ビッグサークル/ランダウのΘ記法)<br>・母数空間 (Parameter space Θ)",
+        stat: "・すべての可能パラメータの集合（母数空間 Θ）",
+        tip: "小文字のθよりも全体的にひとまわり大きく、力強く書きます。"
+      },
+      {
+        id: 'lambda-lower',
+        symbol: 'λ',
+        name: 'Lambda',
+        reading: 'ラムダ',
+        greekSpelling: 'λάμδα',
+        isUpper: false,
+        pairId: 'lambda-upper',
+        strokes: [
+          "M 140 40 L 60 170",
+          "M 75 100 L 140 170"
+        ],
+        math: "・行列の固有値（Eigenvalue）<br>・波長（物理学）<br>・ラムダ計算（計算機科学）",
+        stat: "・ポアソン分布の発生率パラメータ λ<br>・Box-Cox変換の変換パラメータ<br>・ウィルクスのラムダ（Multivariate）",
+        tip: "右上から左下へ向かう長い斜線を先に引き、その途中から右下へ足を伸ばします。"
+      },
+      {
+        id: 'lambda-upper',
+        symbol: 'Λ',
+        name: 'Lambda (大文字)',
+        reading: 'ラムダ (大文字)',
+        greekSpelling: 'Λάμδα',
+        isUpper: true,
+        pairId: 'lambda-lower',
+        strokes: [
+          "M 100 30 L 35 170",
+          "M 100 30 L 165 170"
+        ],
+        math: "・対角行列（固有値行列）<br>・論理学の連言・最大公約数",
+        stat: "・対数尤度比検定の統計量 Λ",
+        tip: "英大文字「A」から中央の横棒を取り除いた「山」の形です。"
+      },
+      {
+        id: 'mu-lower',
+        symbol: 'μ',
+        name: 'Mu',
+        reading: 'ミュー',
+        greekSpelling: 'μυ',
+        isUpper: false,
+        pairId: 'mu-upper',
+        strokes: [
+          "M 60 70 L 60 170",
+          "M 60 110 C 60 80, 100 80, 120 110 L 120 170"
+        ],
+        math: "・マイクロ（10⁻⁶）<br>・測度論における「測度 μ」<br>・摩擦係数",
+        stat: "・母平均（Population mean μ）<br>・確率分布の期待値 E[X] = μ",
+        tip: "左側の足（しっぽ）を下まで深く降ろしてから、Uの字を描いて右側の足を作ります。"
+      },
+      {
+        id: 'pi-lower',
+        symbol: 'π',
+        name: 'Pi',
+        reading: 'パイ',
+        greekSpelling: 'πι',
+        isUpper: false,
+        pairId: 'pi-upper',
+        strokes: [
+          "M 40 60 L 160 60",
+          "M 75 60 L 75 160",
+          "M 125 60 C 125 110, 130 140, 145 160"
+        ],
+        math: "・円周率（π ≈ 3.14159...）<br>・素数計数関数 π(x)",
+        stat: "・母比率（Population proportion）<br>・マルコフ鎖の定常分布 π",
+        tip: "上の横棒を左から右に引いた後、左足（垂直線）を伸ばし、最後に右足を少し外側に跳ねるように描きます。"
+      },
+      {
+        id: 'pi-upper',
+        symbol: 'Π',
+        name: 'Pi (大文字)',
+        reading: 'パイ (大文字)',
+        greekSpelling: 'Πι',
+        isUpper: true,
+        pairId: 'pi-lower',
+        strokes: [
+          "M 35 40 L 165 40",
+          "M 60 40 L 60 170",
+          "M 140 40 L 140 170"
+        ],
+        math: "・総積記号（Product symbol $\\prod_{i=1}^n x_i$）",
+        stat: "・複数の確率の積（尤度関数の定義など）",
+        tip: "鳥居のような形です。上の屋根を伸ばし、左右2本の柱をまっすぐ下に降ろします。"
+      },
+      {
+        id: 'rho-lower',
+        symbol: 'ρ',
+        name: 'Rho',
+        reading: 'ロー',
+        greekSpelling: 'ρω',
+        isUpper: false,
+        pairId: 'rho-lower',
+        strokes: [
+          "M 65 170 L 65 60 C 65 30, 135 30, 135 75 C 135 120, 65 110, 65 110"
+        ],
+        math: "・極座標の距離 r や ρ<br>・密度（Density）",
+        stat: "・母相関係数（Population correlation coefficient ρ）<br>・スピアマンの順位相関係数",
+        tip: "下から上へ垂直に線を伸ばし、そのまま勢いよく右上の円を描いて軸に接続します（数字の「6」を逆から書くイメージ）。"
+      },
+      {
+        id: 'sigma-lower',
+        symbol: 'σ',
+        name: 'Sigma',
+        reading: 'シグマ',
+        greekSpelling: 'σίγμα',
+        isUpper: false,
+        pairId: 'sigma-upper',
+        strokes: [
+          "M 150 55 L 90 55 C 50 60, 45 140, 95 140 C 135 140, 145 100, 100 100"
+        ],
+        math: "・置換（Symmetric group）<br>・シグマ代数（σ-algebra）",
+        stat: "・母標準偏差（Standard deviation σ）<br>・分散は σ²",
+        tip: "上の横棒を右から左へ引き、そのまま円を描いて下からクルッと戻します（アルファベットの'o'にヒゲがついた形）。"
+      },
+      {
+        id: 'sigma-upper',
+        symbol: 'Σ',
+        name: 'Sigma (大文字)',
+        reading: 'シグマ (大文字)',
+        greekSpelling: 'Σίγμα',
+        isUpper: true,
+        pairId: 'sigma-lower',
+        strokes: [
+          "M 160 40 L 50 40",
+          "M 50 40 L 105 100",
+          "M 105 100 L 50 160",
+          "M 50 160 L 160 160"
+        ],
+        math: "・総和記号（Summation $\\sum_{i=1}^n$）",
+        stat: "・合計値の計算<br>・分散共分散行列 Σ",
+        tip: "上の横線 → 斜め左下 → 斜め右下 → 下の横線の順で折り曲げて書きます。"
+      },
+      {
+        id: 'phi-lower',
+        symbol: 'φ',
+        name: 'Phi',
+        reading: 'ファイ',
+        greekSpelling: 'φι',
+        isUpper: false,
+        pairId: 'phi-upper',
+        strokes: [
+          "M 100 30 L 100 170",
+          "M 100 60 C 50 60, 50 140, 100 140 C 150 140, 150 60, 100 60 Z"
+        ],
+        math: "・黄金比 φ = (1 + √5)/2 ≈ 1.618...<br>・オイラーのトーシェント関数 φ(n)<br>・平面の位相・角度",
+        stat: "・標準正規分布の確率密度関数 (PDF) φ(z)<br>・φ係数（2×2分割表の関連度）",
+        tip: "中央の縦棒を上から下に突き刺すように引いてから、丸（円）を描くか、先に丸を描いてから縦棒を引きます。"
+      },
+      {
+        id: 'phi-upper',
+        symbol: 'Φ',
+        name: 'Phi (大文字)',
+        reading: 'ファイ (大文字)',
+        greekSpelling: 'Φι',
+        isUpper: true,
+        pairId: 'phi-lower',
+        strokes: [
+          "M 100 20 L 100 180",
+          "M 100 45 C 40 45, 40 155, 100 155 C 160 155, 160 45, 100 45 Z"
+        ],
+        math: "・全束・磁束（物理）",
+        stat: "・標準正規分布の累積分布関数 (CDF) Φ(z)",
+        tip: "小文字よりも縦長で堂々とした大円を縦棒が貫く形です。"
+      },
+      {
+        id: 'chi-lower',
+        symbol: 'χ',
+        name: 'Chi',
+        reading: 'カイ（カイ二乗のカイ）',
+        greekSpelling: 'χι',
+        isUpper: false,
+        pairId: 'chi-lower',
+        strokes: [
+          "M 50 40 C 80 80, 110 130, 150 170",
+          "M 150 40 C 120 90, 80 140, 50 170"
+        ],
+        math: "・グラフの染色数 χ(G)<br>・オイラー標数",
+        stat: "・カイ二乗分布（χ²分布）<br>・カイ二乗検定（適合度検定・独立性の検定）",
+        tip: "「X」に似ていますが、左上からの線は少しカーブ（S字）を描くように優美に流します。"
+      },
+      {
+        id: 'omega-lower',
+        symbol: 'ω',
+        name: 'Omega',
+        reading: 'オメガ',
+        greekSpelling: 'ωμέγα',
+        isUpper: false,
+        pairId: 'omega-upper',
+        strokes: [
+          "M 45 90 C 45 150, 95 150, 100 110 C 105 150, 155 150, 155 90"
+        ],
+        math: "・角速度（Angular velocity）<br>・1の虚数立方根 ω = (-1 + √3i)/2",
+        stat: "・標本空間（全事象の集合 Ω の要素 ω ∈ Ω）",
+        tip: "アルファベットの「w」を丸く丸めた形です。左のコップから右のコップへ繋げるイメージで描きます。"
+      },
+      {
+        id: 'omega-upper',
+        symbol: 'Ω',
+        name: 'Omega (大文字)',
+        reading: 'オメガ (大文字)',
+        greekSpelling: 'Ωμέγα',
+        isUpper: true,
+        pairId: 'omega-lower',
+        strokes: [
+          "M 40 160 L 70 160 C 60 80, 140 80, 130 160 L 160 160"
+        ],
+        math: "・電気抵抗の単位 オーム (Ω)<br>・計算量のオーダー（ビッグオメガ記法）",
+        stat: "・全事象・全事象集合（全確率 1 の全体集合 Ω）",
+        tip: "左の台座から始まり、大きな馬蹄（アーチ）を描いて右の台座に着地します。"
+      }
+    ];
+
+    // アプリケーション状態変数
+    let currentData = GREEK_DATA[0];
+    let filterMode = 'all'; // 'all', 'lower', 'upper'
+    let searchQuery = '';
+    let isAnimating = false;
+    let animationTimer = null;
+    let currentStep = 0;
+    let playbackSpeed = 1.0;
+
+    // DOM要素参照
+    const greekListEl = document.getElementById('greekList');
+    const searchInput = document.getElementById('searchInput');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    
+    // 詳細エリアDOM
+    const mainSymbolDisplay = document.getElementById('mainSymbolDisplay');
+    const mainEnglishName = document.getElementById('mainEnglishName');
+    const mainJapaneseReading = document.getElementById('mainJapaneseReading');
+    const mainGreekSpelling = document.getElementById('mainGreekSpelling');
+    const mainCaseBadge = document.getElementById('mainCaseBadge');
+    const pairToggleBtn = document.getElementById('pairToggleBtn');
+    const pairToggleText = document.getElementById('pairToggleText');
+    
+    const strokeSvg = document.getElementById('strokeSvg');
+    const strokeCountBadge = document.getElementById('strokeCountBadge');
+    const mathMeaningBox = document.getElementById('mathMeaningBox');
+    const statMeaningBox = document.getElementById('statMeaningBox');
+    const tipBox = document.getElementById('tipBox');
+    const playingGuide = document.getElementById('playingGuide');
+
+    // コントロールボタン
+    const btnPlayAnimation = document.getElementById('btnPlayAnimation');
+    const btnStepNext = document.getElementById('btnStepNext');
+    const btnResetCanvas = document.getElementById('btnResetCanvas');
+    const speedSlider = document.getElementById('speedSlider');
+
+    /**
+     * リストの更新描画
+     */
+    function renderList() {
+      greekListEl.innerHTML = '';
+
+      const filtered = GREEK_DATA.filter(item => {
+        // フィルターチェック
+        if (filterMode === 'lower' && item.isUpper) return false;
+        if (filterMode === 'upper' && !item.isUpper) return false;
+
+        // 検索クエリチェック
+        if (searchQuery) {
+          const q = searchQuery.toLowerCase();
+          const matchName = item.name.toLowerCase().includes(q);
+          const matchReading = item.reading.includes(q);
+          const matchSymbol = item.symbol.includes(q);
+          const matchMath = item.math.toLowerCase().includes(q);
+          const matchStat = item.stat.toLowerCase().includes(q);
+          return matchName || matchReading || matchSymbol || matchMath || matchStat;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        greekListEl.innerHTML = `
+          <div class="text-center py-8 text-slate-500 text-xs">
+            <i class="fa-solid fa-folder-open text-2xl mb-2"></i><br>
+            一致するギリシャ文字が見つかりません
+          </div>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const isActive = item.id === currentData.id;
+        const card = document.createElement('div');
+        card.className = `p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between group ${
+          isActive 
+            ? 'bg-indigo-950/60 border-indigo-500/80 text-white shadow-lg shadow-indigo-950/50' 
+            : 'bg-slate-950/50 border-slate-800/80 hover:border-slate-700 hover:bg-slate-900/60 text-slate-300'
+        }`;
+
+        card.innerHTML = `
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-lg ${isActive ? 'bg-indigo-600 text-white' : 'bg-slate-900 text-indigo-400 group-hover:bg-slate-800'} flex items-center justify-center font-serif text-2xl font-bold border border-indigo-500/20">
+              ${item.symbol}
+            </div>
+            <div>
+              <div class="font-bold text-sm leading-none flex items-center gap-1.5">
+                <span>${item.name}</span>
+                <span class="text-[10px] px-1.5 py-0.2 rounded ${item.isUpper ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-indigo-500/20 text-indigo-300'}">
+                  ${item.isUpper ? '大' : '小'}
+                </span>
+              </div>
+              <div class="text-xs text-slate-400 mt-1">${item.reading}</div>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right text-xs ${isActive ? 'text-indigo-400' : 'text-slate-600 group-hover:text-slate-400'}"></i>
+        `;
+
+        card.addEventListener('click', () => {
+          selectCharacter(item);
+        });
+
+        greekListEl.appendChild(card);
+      });
+    }
+
+    /**
+     * 文字詳細の選択＆表示更新
+     */
+    function selectCharacter(item) {
+      currentData = item;
+      stopAnimation();
+      
+      // UIヘッダーの更新
+      mainSymbolDisplay.textContent = item.symbol;
+      mainEnglishName.textContent = item.name;
+      mainJapaneseReading.textContent = item.reading;
+      mainGreekSpelling.textContent = `ギリシャ語: ${item.greekSpelling}`;
+      mainCaseBadge.textContent = item.isUpper ? '大文字' : '小文字';
+      mainCaseBadge.className = `text-xs px-2.5 py-0.5 rounded-full font-semibold ${
+        item.isUpper ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
+      }`;
+
+      // ペア切替ボタン
+      const pairItem = GREEK_DATA.find(p => p.id === item.pairId);
+      if (pairItem) {
+        pairToggleBtn.style.display = 'flex';
+        pairToggleText.textContent = `${pairItem.isUpper ? '大文字' : '小文字'} (${pairItem.symbol}) を見る`;
+        pairToggleBtn.onclick = () => selectCharacter(pairItem);
+      } else {
+        pairToggleBtn.style.display = 'none';
+      }
+
+      // 解説・意味の更新
+      strokeCountBadge.textContent = `${item.strokes.length} 画`;
+      mathMeaningBox.innerHTML = item.math;
+      statMeaningBox.innerHTML = item.stat;
+      tipBox.textContent = item.tip;
+
+      // リスト再描画 (アクティブ強調のため)
+      renderList();
+
+      // SVG描画の初期化
+      resetSvgCanvas();
+      playStrokeAnimation();
+    }
+
+    /**
+     * SVGキャンバスをデータに基づいて再構築
+     */
+    function resetSvgCanvas() {
+      stopAnimation();
+      currentStep = 0;
+      strokeSvg.innerHTML = '';
+
+      // 画数ガイド用パスとストロークの描画
+      currentData.strokes.forEach((d, idx) => {
+        // 背景のガイド薄線（書き順の全体構造）
+        const bgPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        bgPath.setAttribute('d', d);
+        bgPath.setAttribute('fill', 'none');
+        bgPath.setAttribute('stroke', '#334155'); // slate-700
+        bgPath.setAttribute('stroke-width', '12');
+        bgPath.setAttribute('stroke-linecap', 'round');
+        bgPath.setAttribute('stroke-linejoin', 'round');
+        strokeSvg.appendChild(bgPath);
+
+        // アニメーション用実線パス
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', d);
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', '#818cf8'); // indigo-400
+        path.setAttribute('stroke-width', '10');
+        path.setAttribute('stroke-linecap', 'round');
+        path.setAttribute('stroke-linejoin', 'round');
+        path.classList.add('stroke-path');
+        path.id = `stroke-path-${idx}`;
+        strokeSvg.appendChild(path);
+
+        // 書き始めの番号バッジ（数字マーカー）
+        const firstPoint = getFirstPointFromPath(d);
+        if (firstPoint) {
+          const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          group.setAttribute('id', `marker-${idx}`);
+          group.style.opacity = '1';
+
+          const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          circle.setAttribute('cx', firstPoint.x);
+          circle.setAttribute('cy', firstPoint.y);
+          circle.setAttribute('r', '11');
+          circle.setAttribute('fill', '#6366f1'); // indigo-500
+          circle.setAttribute('stroke', '#ffffff');
+          circle.setAttribute('stroke-width', '2');
+
+          const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          text.setAttribute('x', firstPoint.x);
+          text.setAttribute('y', firstPoint.y + 4);
+          text.setAttribute('fill', '#ffffff');
+          text.setAttribute('font-size', '11');
+          text.setAttribute('font-weight', 'bold');
+          text.setAttribute('text-anchor', 'middle');
+          text.textContent = (idx + 1).toString();
+
+          group.appendChild(circle);
+          group.appendChild(text);
+          strokeSvg.appendChild(group);
+        }
+      });
+    }
+
+    /**
+     * パス文字列 M x y からスタート座標を抽出
+     */
+    function getFirstPointFromPath(d) {
+      const match = d.match(/M\s*([\d.-]+)\s+([\d.-]+)/i);
+      if (match) {
+        return { x: parseFloat(match[1]), y: parseFloat(match[2]) };
+      }
+      return { x: 100, y: 100 };
+    }
+
+    /**
+     * 書き順全自動アニメーションの再生
+     */
+    function playStrokeAnimation() {
+      resetSvgCanvas();
+      isAnimating = true;
+      playingGuide.style.opacity = '1';
+
+      const paths = strokeSvg.querySelectorAll('.stroke-path');
+      let strokeIndex = 0;
+
+      function animateNextStroke() {
+        if (strokeIndex >= paths.length) {
+          isAnimating = false;
+          playingGuide.style.opacity = '0';
+          return;
+        }
+
+        const path = paths[strokeIndex];
+        const length = path.getTotalLength();
+        
+        // アニメーション設定
+        path.style.strokeDasharray = length;
+        path.style.strokeDashoffset = length;
+        
+        // 速度に応じたアニメーション時間計算
+        const duration = (1.0 / playbackSpeed) * 0.8;
+        path.style.transition = `stroke-dashoffset ${duration}s cubic-bezier(0.4, 0, 0.2, 1)`;
+
+        // 描画開始
+        requestAnimationFrame(() => {
+          path.style.strokeDashoffset = '0';
+        });
+
+        strokeIndex++;
+        animationTimer = setTimeout(animateNextStroke, duration * 1000 + 150);
+      }
+
+      animateNextStroke();
+    }
+
+    /**
+     * 1画ずつ手動で進める
+     */
+    function stepNextStroke() {
+      if (isAnimating) stopAnimation();
+
+      const paths = strokeSvg.querySelectorAll('.stroke-path');
+      if (currentStep >= paths.length) {
+        // すべて描画済みの場合は最初に戻す
+        resetSvgCanvas();
+        currentStep = 0;
+      }
+
+      const path = paths[currentStep];
+      const length = path.getTotalLength();
+      path.style.strokeDasharray = length;
+      path.style.strokeDashoffset = length;
+      
+      requestAnimationFrame(() => {
+        path.style.transition = 'stroke-dashoffset 0.4s ease-out';
+        path.style.strokeDashoffset = '0';
+      });
+
+      currentStep++;
+    }
+
+    /**
+     * アニメーションの停止
+     */
+    function stopAnimation() {
+      isAnimating = false;
+      if (animationTimer) clearTimeout(animationTimer);
+      playingGuide.style.opacity = '0';
+    }
+
+    // イベントリスナーの登録
+    function setupEventListeners() {
+      // 検索入力
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        renderList();
+      });
+
+      // フィルターボタン
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          filterBtns.forEach(b => {
+            b.classList.remove('bg-indigo-600', 'text-white', 'shadow');
+            b.classList.add('text-slate-400');
+          });
+          e.target.classList.add('bg-indigo-600', 'text-white', 'shadow');
+          e.target.classList.remove('text-slate-400');
+
+          if (e.target.id === 'filterAll') filterMode = 'all';
+          if (e.target.id === 'filterLower') filterMode = 'lower';
+          if (e.target.id === 'filterUpper') filterMode = 'upper';
+
+          renderList();
+        });
+      });
+
+      // アニメーション制御ボタン
+      btnPlayAnimation.addEventListener('click', playStrokeAnimation);
+      btnStepNext.addEventListener('click', stepNextStroke);
+      btnResetCanvas.addEventListener('click', resetSvgCanvas);
+
+      // 速度スライダー
+      speedSlider.addEventListener('input', (e) => {
+        playbackSpeed = parseFloat(e.target.value);
+      });
+    }
+
+    // 初期化実行
+    window.addEventListener('DOMContentLoaded', () => {
+      setupEventListeners();
+      renderList();
+      selectCharacter(GREEK_DATA[0]);
+    });
+  </script>
+</body>
+</html>
