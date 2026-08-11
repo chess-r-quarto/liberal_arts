@@ -4,11 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ギリシャ文字の書き順 & 数学・統計学活用ガイド</title>
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts: Inter & Noto Sans JP -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 
   <style>
@@ -70,31 +67,31 @@
     }
   </style>
 </head>
-<body class="h-full flex flex-col md:flex-row overflow-hidden bg-slate-950 text-slate-100">
+<body class="h-[100dvh] w-full flex flex-row overflow-hidden bg-slate-950 text-slate-100">
 
   <!-- 画面左側: ギリシャ文字選択リスト ＆ フィルター -->
-  <aside class="w-full md:w-80 lg:w-96 bg-slate-900/90 border-r border-slate-800 flex flex-col h-auto md:h-full z-10 shadow-xl">
+  <aside class="w-16 sm:w-24 md:w-80 lg:w-96 bg-slate-900/90 border-r border-slate-800 flex flex-col h-full z-20 shadow-xl flex-shrink-0">
     <!-- ヘッダー -->
-    <div class="p-4 border-b border-slate-800 bg-slate-900/50 backdrop-blur">
-      <div class="flex items-center space-x-3 mb-3">
-        <div class="p-2.5 bg-indigo-600/20 text-indigo-400 rounded-xl border border-indigo-500/30">
-          <span class="font-bold text-xl" aria-hidden="true">αβ</span>
+    <div class="p-2 md:p-4 border-b border-slate-800 bg-slate-900/50 backdrop-blur flex flex-col items-center md:items-stretch">
+      <div class="flex items-center space-x-0 md:space-x-3 mb-0 md:mb-3 justify-center md:justify-start w-full">
+        <div class="p-2 md:p-2.5 bg-indigo-600/20 text-indigo-400 rounded-xl border border-indigo-500/30 flex-shrink-0">
+          <span class="font-bold text-base md:text-xl" aria-hidden="true">αβ</span>
         </div>
-        <div>
-          <h1 class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-sky-300 to-emerald-400">
+        <div class="hidden md:block">
+          <h1 class="text-base md:text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-sky-300 to-emerald-400 leading-tight">
             ギリシャ文字書き順ガイド
           </h1>
-          <p class="text-xs text-slate-400">数学・統計学の記号と書き順マスター</p>
+          <p class="text-[10px] md:text-xs text-slate-400 mt-0.5">数学・統計学の記号と書き順マスター</p>
         </div>
       </div>
 
-      <!-- 検索・フィルター -->
-      <div class="space-y-2">
+      <!-- 検索・フィルター (スマホでは非表示) -->
+      <div class="hidden md:block space-y-2 w-full">
         <div class="relative">
           <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm" aria-hidden="true"></i>
           <label for="searchInput" class="sr-only">文字名、読み、記号で検索</label>
-          <input type="text" id="searchInput" placeholder="文字名、読み、記号で検索 (例: alpha, 偏差)..." 
-            class="w-full bg-slate-950 text-sm text-slate-200 placeholder-slate-500 pl-9 pr-3 py-2 rounded-lg border border-slate-800 focus:outline-none focus:border-indigo-500 transition-colors">
+          <input type="text" id="searchInput" placeholder="検索 (例: alpha, 偏差)..." 
+            class="w-full bg-slate-950 text-xs md:text-sm text-slate-200 placeholder-slate-500 pl-9 pr-3 py-1.5 md:py-2 rounded-lg border border-slate-800 focus:outline-none focus:border-indigo-500 transition-colors">
         </div>
         
         <div class="flex gap-1 text-xs p-1 bg-slate-950/80 rounded-lg border border-slate-800/80" role="group" aria-label="表示フィルター">
@@ -106,40 +103,40 @@
     </div>
 
     <!-- 文字リスト (スクロール領域) -->
-    <div id="greekList" class="flex-1 overflow-y-auto p-3 space-y-2">
+    <div id="greekList" class="flex-1 overflow-y-auto p-1.5 md:p-3 space-y-1 md:space-y-2 custom-scrollbar">
       <!-- JavaScriptでリスト要素を動的生成 -->
     </div>
   </aside>
 
   <!-- 画面右側: 詳細・書き順表示メイン領域 -->
-  <main class="flex-1 flex flex-col h-full overflow-y-auto bg-slate-950 relative">
+  <main id="mainContent" class="flex-1 h-full flex flex-col overflow-y-auto overflow-x-hidden bg-slate-950 relative scroll-smooth">
     
     <!-- 背景装飾グリッド -->
     <div class="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:24px_24px] opacity-20 pointer-events-none"></div>
 
     <!-- メインコンテンツ領域 -->
-    <div class="relative z-10 p-4 md:p-8 max-w-5xl mx-auto w-full space-y-6 flex-1 flex flex-col justify-between">
+    <div class="relative z-10 p-3 sm:p-4 md:p-8 max-w-5xl mx-auto w-full space-y-4 md:space-y-6 flex-1 flex flex-col justify-between">
       
       <div>
         <!-- ヘッダーカード (選択中文字) -->
-        <div id="charHeaderCard" class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-6 backdrop-blur-md shadow-2xl flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6">
-          <div class="flex items-center space-x-6">
-            <div id="mainSymbolDisplay" class="w-24 h-24 rounded-2xl bg-gradient-to-br from-indigo-950 to-slate-900 border border-indigo-500/30 flex items-center justify-center text-6xl font-serif text-indigo-300 shadow-inner" aria-hidden="true">
+        <div id="charHeaderCard" class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-3 sm:p-4 md:p-6 backdrop-blur-md shadow-2xl flex flex-col sm:flex-row items-center sm:items-start justify-between gap-4 md:gap-6">
+          <div class="flex flex-col sm:flex-row items-center gap-4 sm:space-x-6 w-full text-center sm:text-left">
+            <div id="mainSymbolDisplay" class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl bg-gradient-to-br from-indigo-950 to-slate-900 border border-indigo-500/30 flex items-center justify-center text-4xl sm:text-5xl md:text-6xl font-serif text-indigo-300 shadow-inner flex-shrink-0" aria-hidden="true">
               α
             </div>
-            <div>
-              <div class="flex items-center space-x-3">
-                <h2 id="mainEnglishName" class="text-3xl font-bold tracking-tight text-white">Alpha</h2>
-                <span id="mainCaseBadge" class="text-xs px-2.5 py-0.5 rounded-full font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">小文字</span>
+            <div class="flex-1">
+              <div class="flex flex-col sm:flex-row items-center sm:items-end sm:space-x-3 gap-2 sm:gap-0">
+                <h2 id="mainEnglishName" class="text-2xl md:text-3xl font-bold tracking-tight text-white leading-none">Alpha</h2>
+                <span id="mainCaseBadge" class="text-xs px-2.5 py-0.5 rounded-full font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 self-center sm:self-auto">小文字</span>
               </div>
-              <p id="mainJapaneseReading" class="text-lg text-slate-300 mt-1">アルファ</p>
-              <p id="mainGreekSpelling" class="text-xs text-slate-500 font-mono mt-0.5">ギリシャ語: άλφα</p>
+              <p id="mainJapaneseReading" class="text-base md:text-lg text-slate-300 mt-1 md:mt-2">アルファ</p>
+              <p id="mainGreekSpelling" class="text-[10px] md:text-xs text-slate-500 font-mono mt-0.5">ギリシャ語: άλφα</p>
             </div>
           </div>
 
           <!-- 対になる大文字/小文字へのクイック切替 -->
-          <div id="pairToggleContainer" class="flex items-center bg-slate-950/80 p-2 rounded-xl border border-slate-800 text-center sm:text-right">
-            <button id="pairToggleBtn" class="flex items-center space-x-2 text-xs text-indigo-400 hover:text-indigo-300 transition-colors px-3 py-1.5 rounded-lg bg-indigo-950/40 border border-indigo-900/50">
+          <div id="pairToggleContainer" class="flex items-center justify-center w-full sm:w-auto bg-slate-950/80 p-2 rounded-xl border border-slate-800 text-center sm:text-right mt-2 sm:mt-0">
+            <button id="pairToggleBtn" class="flex items-center justify-center space-x-2 text-xs text-indigo-400 hover:text-indigo-300 transition-colors px-3 py-1.5 rounded-lg bg-indigo-950/40 border border-indigo-900/50 w-full sm:w-auto">
               <span id="pairToggleText">大文字 (Α) を見る</span>
               <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
             </button>
@@ -147,10 +144,10 @@
         </div>
 
         <!-- メイングリッド: 書き順キャンバス ＆ 数学・統計での使用例 -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6 mt-4 md:mt-6">
           
           <!-- 左側: 書き順インタラクティブ表示 (7カラム) -->
-          <div class="lg:col-span-7 bg-slate-900/80 border border-slate-800/80 rounded-2xl p-6 backdrop-blur-md shadow-xl flex flex-col items-center justify-between">
+          <div class="lg:col-span-7 bg-slate-900/80 border border-slate-800/80 rounded-2xl p-4 md:p-6 backdrop-blur-md shadow-xl flex flex-col items-center justify-between">
             <div class="w-full flex justify-between items-center mb-4">
               <h3 class="text-sm font-semibold text-slate-300 flex items-center gap-2">
                 <i class="fa-solid fa-pen-nib text-indigo-400" aria-hidden="true"></i> 書き順アニメーション
@@ -161,7 +158,7 @@
             </div>
 
             <!-- SVG 描画キャンバス領域 -->
-            <div class="relative w-64 h-64 md:w-72 md:h-72 bg-slate-950 rounded-2xl border border-slate-800 flex items-center justify-center p-4 shadow-inner overflow-hidden group">
+            <div class="relative w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 bg-slate-950 rounded-2xl border border-slate-800 flex items-center justify-center p-3 md:p-4 shadow-inner overflow-hidden group">
               
               <!-- 方眼ガイド線 -->
               <svg class="absolute inset-0 w-full h-full stroke-slate-800/50 stroke-1 pointer-events-none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -259,10 +256,6 @@
     /**
      * ギリシャ文字のマスターデータ定義
      * SVG書き順用パスデータ(strokes)および数学・統計での用途解説
-     *
-     * 修正メモ:
-     *  - rho / chi の pairId 自己参照バグを修正し、対応する大文字エントリを新規追加
-     *  - zeta / eta / iota / kappa / nu / xi / omicron / tau / upsilon (大小) を追加し、全24文字を網羅
      */
     const GREEK_DATA = [
       {
@@ -306,13 +299,11 @@
         isUpper: false,
         pairId: 'beta-upper',
         strokes: [
-          "M 60 170 L 60 40",
-          "M 60 40 C 100 30, 140 55, 120 90 C 90 110, 70 100, 60 100",
-          "M 60 100 C 100 95, 150 115, 130 150 C 110 180, 70 175, 60 160"
+          "M 60 170 L 60 40 C 100 30, 130 60, 110 90 C 90 105, 60 100, 60 100 C 60 100, 110 95, 130 130 C 140 160, 100 175, 60 160"
         ],
         math: "・2番目の角（αに次ぐ）<br>・ベータ関数 B(x, y)<br>・方程式の第2の解",
         stat: "・第二種の過誤の確率（検出力 1 - β）<br>・回帰分析の回帰係数（傾き）<br>・標準化回帰係数（ベータ値）",
-        tip: "下から上へまっすぐ縦線を伸ばし、一度戻って上の膨らみ、下の膨らみを連続して描きます。"
+        tip: "下から上へまっすぐ縦線を伸ばし、筆を離さずにそのまま上の膨らみ、下の膨らみを連続して一筆で描きます。"
       },
       {
         id: 'beta-upper',
@@ -371,11 +362,11 @@
         isUpper: false,
         pairId: 'delta-upper',
         strokes: [
-          "M 120 40 C 90 30, 60 60, 80 90 C 100 110, 130 110, 130 140 C 130 175, 70 175, 60 140 C 50 100, 110 80, 120 40"
+          "M 130 40 C 110 40, 80 55, 70 95 C 60 150, 110 175, 130 140 C 145 110, 120 85, 90 105 C 75 115, 65 125, 70 140"
         ],
         math: "・微小な変化量（イプシロン・デルタ論法）<br>・クロネッカーのデルタ δ_ij<br>・ディラックのデルタ関数 δ(x)",
         stat: "・非心度パラメータ（非心分布）<br>・微小な差分",
-        tip: "上部のヒゲ（渦）から時計回りに滑らかに円を描くように一筆で書きます。"
+        tip: "右上の端（ヒゲ）からスタートし、左下にカーブして下部で丸を作り、元の線を越えて左上へ抜けるように一筆で書きます。"
       },
       {
         id: 'delta-upper',
@@ -386,13 +377,11 @@
         isUpper: true,
         pairId: 'delta-lower',
         strokes: [
-          "M 100 30 L 30 170",
-          "M 30 170 L 170 170",
-          "M 170 170 L 100 30"
+          "M 100 30 L 30 170 L 170 170 Z"
         ],
         math: "・変化量・差分（Δx = x2 - x1）<br>・二次方程式の判別式 D や Δ<br>・ラプラシアン演算子 ∇²",
         stat: "・差分演算子<br>・効果量（Delta）",
-        tip: "頂点から左下へ下り、底辺を右へ引き、最後に右下から頂点へ戻る三角形です。"
+        tip: "頂点から左下へ下り、底辺を右へ引き、最後に右下から頂点へ戻る三角形を一筆で描きます。"
       },
       {
         id: 'epsilon-lower',
@@ -403,12 +392,11 @@
         isUpper: false,
         pairId: 'epsilon-upper',
         strokes: [
-          "M 140 60 C 100 30, 50 50, 60 90 C 70 100, 110 100, 110 100",
-          "M 100 100 C 110 100, 60 100, 60 135 C 60 170, 110 180, 140 150"
+          "M 140 50 C 100 30, 55 50, 70 90 C 80 105, 110 100, 110 100 C 110 100, 80 105, 70 120 C 50 160, 100 180, 140 150"
         ],
         math: "・任意の極小な正の数（ε-δ論法）<br>・Levi-Civita記号<br>・誘電率",
         stat: "・誤差項（Error term: e や ε）<br>・回帰モデルの残差",
-        tip: "数字の「3」を左右反転させたような形です。上の弧を描いて中央で折り返し、下の弧を描きます。"
+        tip: "数字の「3」を左右反転させたような形です。上の弧を描いて中央で折り返し、そのまま下の弧を一筆で描きます。"
       },
       {
         id: 'epsilon-upper',
@@ -437,12 +425,11 @@
         isUpper: false,
         pairId: 'zeta-upper',
         strokes: [
-          "M 60 45 C 90 35, 130 35, 140 50 C 145 60, 110 70, 90 78",
-          "M 90 78 C 115 92, 135 112, 100 132 C 78 145, 62 152, 72 170 C 78 184, 100 180, 112 170"
+          "M 60 45 C 100 35, 130 35, 140 50 C 145 65, 110 70, 90 78 C 115 92, 135 115, 100 135 C 75 150, 60 155, 72 170 C 80 185, 105 180, 115 170"
         ],
         math: "・リーマンのゼータ関数 ζ(s)（素数分布と深く関係）<br>・複素解析における特殊関数",
         stat: "・Zipf分布（ゼータ分布）の形状パラメータとして使用されることがある",
-        tip: "上部で横に短くジグザグしてから、下部で大きく渦を巻くように一筆で書き下ろします。"
+        tip: "上部で横に短くジグザグしてから、そのまま筆を離さずに下部で大きく渦を巻くように一筆で書き下ろします。"
       },
       {
         id: 'zeta-upper',
@@ -599,12 +586,12 @@
         isUpper: false,
         pairId: 'lambda-upper',
         strokes: [
-          "M 140 40 L 60 170",
-          "M 75 100 L 140 170"
+          "M 70 40 C 90 90, 110 130, 140 170",
+          "M 105 105 C 90 130, 70 150, 50 170"
         ],
         math: "・行列の固有値（Eigenvalue）<br>・波長（物理学）<br>・ラムダ計算（計算機科学）",
         stat: "・ポアソン分布の発生率パラメータ λ<br>・Box-Cox変換の変換パラメータ<br>・ウィルクスのラムダ（Multivariate）",
-        tip: "右上から左下へ向かう長い斜線を先に引き、その途中から右下へ足を伸ばします。"
+        tip: "左上から右下へ向かう長い斜線を先に引き、その途中から左下へ向かう短い足を伸ばします。"
       },
       {
         id: 'lambda-upper',
@@ -632,11 +619,11 @@
         pairId: 'mu-upper',
         strokes: [
           "M 60 70 L 60 170",
-          "M 60 110 C 60 80, 100 80, 120 110 L 120 170"
+          "M 60 100 C 60 150, 130 150, 130 100 L 130 140"
         ],
         math: "・マイクロ（10⁻⁶）<br>・測度論における「測度 μ」<br>・摩擦係数",
         stat: "・母平均（Population mean μ）<br>・確率分布の期待値 E[X] = μ",
-        tip: "左側の足（しっぽ）を下まで深く降ろしてから、Uの字を描いて右側の足を作ります。"
+        tip: "左側の足（しっぽ）を下まで深く降ろしてから、一度戻ってUの字を描き、右側の足を作ります。"
       },
       {
         id: 'mu-upper',
@@ -697,8 +684,7 @@
         isUpper: false,
         pairId: 'xi-upper',
         strokes: [
-          "M 130 40 C 90 30, 60 45, 75 65 C 90 80, 120 75, 110 95 C 100 110, 70 105, 70 105",
-          "M 70 105 C 100 100, 140 120, 120 145 C 100 170, 60 165, 55 180"
+          "M 130 40 C 100 30, 70 45, 80 65 C 90 80, 130 75, 110 100 C 90 120, 70 110, 80 115 C 100 125, 140 135, 115 160 C 95 180, 60 170, 50 180"
         ],
         math: "・一般的な確率変数・未知変数の表記に使われることがある",
         stat: "・確率変数の一般表記 ξ（クサイ）としてしばしば使用<br>・確率過程の状態変数",
@@ -720,6 +706,36 @@
         math: "分配関数やグランドカノニカル分布の記号として物理学で使用されることがあります。",
         stat: "統計学での単独使用は稀です。",
         tip: "長さの異なる3本の横棒を上から順に引きます（中央の棒はやや短めに）。"
+      },
+      {
+        id: 'omicron-lower',
+        symbol: 'ο',
+        name: 'Omicron',
+        reading: 'オミクロン',
+        greekSpelling: 'όμικρον',
+        isUpper: false,
+        pairId: 'omicron-upper',
+        strokes: [
+          "M 100 60 C 60 60, 55 140, 100 140 C 140 140, 145 60, 100 60 Z"
+        ],
+        math: "ラテン文字「o」と同形のため、単独の数学記号としてはほぼ使用されません。",
+        stat: "統計学ではほとんど使用されません。",
+        tip: "縦長の楕円を一筆で描くだけのシンプルな文字です。"
+      },
+      {
+        id: 'omicron-upper',
+        symbol: 'Ο',
+        name: 'Omicron',
+        reading: 'オミクロン (大文字)',
+        greekSpelling: 'Όμικρον',
+        isUpper: true,
+        pairId: 'omicron-lower',
+        strokes: [
+          "M 100 30 C 50 30, 45 170, 100 170 C 150 170, 155 30, 100 30 Z"
+        ],
+        math: "ラテン文字「O」・数字の「0」と混同されやすいため、単独記号としてはほぼ使用されません。",
+        stat: "統計学では使用されません。",
+        tip: "小文字よりもひとまわり大きな楕円を描きます。"
       },
       {
         id: 'pi-lower',
@@ -795,11 +811,11 @@
         isUpper: false,
         pairId: 'sigma-upper',
         strokes: [
-          "M 150 55 L 90 55 C 50 60, 45 140, 95 140 C 135 140, 145 100, 100 100"
+          "M 150 50 L 90 50 C 50 50, 40 145, 95 145 C 140 145, 140 80, 90 50"
         ],
         math: "・置換（Symmetric group）<br>・シグマ代数（σ-algebra）",
         stat: "・母標準偏差（Standard deviation σ）<br>・分散は σ²",
-        tip: "上の横棒を右から左へ引き、そのまま円を描いて下からクルッと戻します（アルファベットの'o'にヒゲがついた形）。"
+        tip: "上の横棒を右から左へ引き、そのまま円を描いて下からクルッと戻し、元の地点で閉じます（アルファベットの'o'にヒゲがついた形）。"
       },
       {
         id: 'sigma-upper',
@@ -810,14 +826,11 @@
         isUpper: true,
         pairId: 'sigma-lower',
         strokes: [
-          "M 160 40 L 50 40",
-          "M 50 40 L 105 100",
-          "M 105 100 L 50 160",
-          "M 50 160 L 160 160"
+          "M 160 40 L 50 40 L 105 100 L 50 160 L 160 160"
         ],
         math: "・総和記号（Summation、Σ記法）",
         stat: "・合計値の計算<br>・分散共分散行列 Σ",
-        tip: "上の横線 → 斜め左下 → 斜め右下 → 下の横線の順で折り曲げて書きます。"
+        tip: "上の横線 → 斜め左下 → 斜め右下 → 下の横線の順で、折り曲げながら一筆書きで書きます。"
       },
       {
         id: 'tau-lower',
@@ -1012,41 +1025,6 @@
       }
     ];
 
-    // omicron は形状がラテン文字「o」と完全に同一で数学・統計での実用例がほぼ皆無のため、
-    // 資料としての体裁を保ちつつ最小限のエントリのみ追加する
-    GREEK_DATA.splice(GREEK_DATA.findIndex(d => d.id === 'xi-upper') + 1, 0,
-      {
-        id: 'omicron-lower',
-        symbol: 'ο',
-        name: 'Omicron',
-        reading: 'オミクロン',
-        greekSpelling: 'όμικρον',
-        isUpper: false,
-        pairId: 'omicron-upper',
-        strokes: [
-          "M 100 60 C 60 60, 55 140, 100 140 C 140 140, 145 60, 100 60 Z"
-        ],
-        math: "ラテン文字「o」と同形のため、単独の数学記号としてはほぼ使用されません。",
-        stat: "統計学ではほとんど使用されません。",
-        tip: "縦長の楕円を一筆で描くだけのシンプルな文字です。"
-      },
-      {
-        id: 'omicron-upper',
-        symbol: 'Ο',
-        name: 'Omicron',
-        reading: 'オミクロン (大文字)',
-        greekSpelling: 'Όμικρον',
-        isUpper: true,
-        pairId: 'omicron-lower',
-        strokes: [
-          "M 100 30 C 50 30, 45 170, 100 170 C 150 170, 155 30, 100 30 Z"
-        ],
-        math: "ラテン文字「O」・数字の「0」と混同されやすいため、単独記号としてはほぼ使用されません。",
-        stat: "統計学では使用されません。",
-        tip: "小文字よりもひとまわり大きな楕円を描きます。"
-      }
-    );
-
     // アプリケーション状態変数
     let currentData = GREEK_DATA[0];
     let filterMode = 'all'; // 'all', 'lower', 'upper'
@@ -1120,7 +1098,7 @@
         const isActive = item.id === currentData.id;
         const card = document.createElement('button');
         card.type = 'button';
-        card.className = `char-card p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between group ${
+        card.className = `char-card p-1.5 md:p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-center md:justify-between group ${
           isActive 
             ? 'bg-indigo-950/60 border-indigo-500/80 text-white shadow-lg shadow-indigo-950/50' 
             : 'bg-slate-950/50 border-slate-800/80 hover:border-slate-700 hover:bg-slate-900/60 text-slate-300'
@@ -1129,21 +1107,21 @@
         card.setAttribute('aria-label', `${item.name}（${item.reading}）を表示`);
 
         card.innerHTML = `
-          <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-lg ${isActive ? 'bg-indigo-600 text-white' : 'bg-slate-900 text-indigo-400 group-hover:bg-slate-800'} flex items-center justify-center font-serif text-2xl font-bold border border-indigo-500/20" aria-hidden="true">
+          <div class="flex items-center justify-center md:justify-start w-full md:w-auto md:space-x-3">
+            <div class="w-10 h-10 rounded-lg ${isActive ? 'bg-indigo-600 text-white' : 'bg-slate-900 text-indigo-400 group-hover:bg-slate-800'} flex items-center justify-center font-serif text-xl md:text-2xl font-bold border border-indigo-500/20 flex-shrink-0" aria-hidden="true">
               ${item.symbol}
             </div>
-            <div>
-              <div class="font-bold text-sm leading-none flex items-center gap-1.5">
+            <div class="hidden md:block text-left">
+              <div class="font-bold text-xs md:text-sm leading-none flex items-center gap-1.5">
                 <span>${item.name}</span>
-                <span class="text-[10px] px-1.5 py-0.2 rounded ${item.isUpper ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-indigo-500/20 text-indigo-300'}">
+                <span class="text-[9px] md:text-[10px] px-1 md:px-1.5 py-0.5 rounded ${item.isUpper ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-indigo-500/20 text-indigo-300'}">
                   ${item.isUpper ? '大' : '小'}
                 </span>
               </div>
-              <div class="text-xs text-slate-400 mt-1">${item.reading}</div>
+              <div class="text-[10px] md:text-xs text-slate-400 mt-1">${item.reading}</div>
             </div>
           </div>
-          <i class="fa-solid fa-chevron-right text-xs ${isActive ? 'text-indigo-400' : 'text-slate-600 group-hover:text-slate-400'}" aria-hidden="true"></i>
+          <i class="fa-solid fa-chevron-right text-[10px] md:text-xs hidden md:block ${isActive ? 'text-indigo-400' : 'text-slate-600 group-hover:text-slate-400'}" aria-hidden="true"></i>
         `;
 
         card.addEventListener('click', () => {
@@ -1189,6 +1167,12 @@
 
       // リスト再描画 (アクティブ強調のため)
       renderList();
+
+      // スマホ等で選択時にメイン領域のトップへスクロールする
+      const mainContent = document.getElementById('mainContent');
+      if (mainContent) {
+        mainContent.scrollTop = 0;
+      }
 
       // SVG描画とアニメーション再生（内部で resetSvgCanvas を呼ぶため、ここでは二重に呼ばない）
       playStrokeAnimation();
@@ -1270,11 +1254,9 @@
 
     /**
      * 書き順全自動アニメーションの再生
-     * currentStep を stepNextStroke() と共有することで、自動再生の途中で
-     * 手動送りに切り替えても進行状態がずれないようにする
      */
     function playStrokeAnimation() {
-      resetSvgCanvas(); // currentStep をここで 0 にリセットする
+      resetSvgCanvas();
       isAnimating = true;
       playingGuide.style.opacity = '1';
 
@@ -1311,14 +1293,13 @@
     }
 
     /**
-     * 1画ずつ手動で進める（currentStep を playStrokeAnimation と共有）
+     * 1画ずつ手動で進める
      */
     function stepNextStroke() {
       if (isAnimating) stopAnimation();
 
       const paths = strokeSvg.querySelectorAll('.stroke-path');
       if (currentStep >= paths.length) {
-        // すべて描画済みの場合は最初に戻す
         resetSvgCanvas();
       }
 
