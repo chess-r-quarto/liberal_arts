@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatQuest!!! 重要用語マスターノート (BAM!)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Noto Serif JP', 'Yu Mincho', 'MS PMincho', serif;
+            color: #111;
+            background: #fff;
+            line-height: 1.5;
+            padding: 20px 40px;
+            font-size: 11pt;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.2em;
+            border-bottom: 3px double #000;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.1em;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+
+        h2 {
+            border-left: 6px solid #000;
+            padding-left: 12px;
+            margin-top: 50px;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            page-break-after: avoid;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+            table-layout: fixed;
+            font-size: 10pt;
+        }
+
+        th, td {
+            border: 1px solid #444;
+            padding: 10px;
+            vertical-align: top;
+            word-wrap: break-word;
+        }
+
+        th {
+            color: #000;
+            font-weight: bold;
+            text-align: left;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        th:nth-child(1) { width: 18%; }
+        th:nth-child(2) { width: 18%; }
+        th:nth-child(3) { width: 22%; font-size: 0.9em; }
+        th:nth-child(4) { width: 42%; }
+
+        .en-term {
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .checkbox {
+            font-size: 1.2em;
+            margin-right: 5px;
+            color: #555;
+        }
+
+        .cat-1 th { background-color: #dbeafe; } /* 青 */
+        .cat-2 th { background-color: #dcfce7; } /* 緑 */
+        .cat-3 th { background-color: #fee2e2; } /* 赤 */
+        .cat-4 th { background-color: #f3e8ff; } /* 紫 */
+        .cat-5 th { background-color: #ffedd5; } /* オレンジ */
+        .cat-6 th { background-color: #fef08a; } /* 黄色 */
+        .cat-7 th { background-color: #ccfbf1; } /* ターコイズ */
+        .cat-8 th { background-color: #e0e7ff; } /* 藍色 */
+        .cat-9 th { background-color: #fae8ff; } /* ピンク */
+        .cat-10 th { background-color: #fce7f3; } /* ローズ */
+        .cat-11 th { background-color: #e2e8f0; } /* グレー */
+        .cat-12 th { background-color: #fef9c3; } /* ゴールド */
+
+        @media print {
+            body { padding: 0; font-size: 9pt; }
+            tr { page-break-inside: avoid; }
+            h2 { page-break-after: avoid; margin-top: 30px; }
+            table { margin-bottom: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>StatQuest!!! 重要用語マスターノート (214語)</h1>
+    <p class="subtitle">BAM! 天才エデュケーターJoshが贈る、直感でわかる統計学・機械学習の壮大な旅</p>
+
+    <h2>01 Understanding Fundamental Concepts in Statistics!!! (統計の基本概念)</h2>
+    <table class="cat-1">
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>直感的なイメージ (BAM!)</th></tr>
+        <tr><td><span class="checkbox">☐</span> 平均</td><td class="en-term">Mean / Average</td><td>ラテン語「medianus」（中央）</td><td>みんなのお菓子を一度全部集めて、ピッタリ同じ数ずつ配り直した時の1人分の数。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 中央値</td><td class="en-term">Median</td><td>ラテン語「medianus」（真ん中）</td><td>背の順に並んだとき、ちょうどド真ん中に立っている人の身長（極端なデカさに引っ張られない）。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 最頻値</td><td class="en-term">Mode</td><td>フランス語「mode」（流行）</td><td>クラスで一番流行っている（人数が多い）スマホの機種。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 母集団</td><td class="en-term">Population</td><td>ラテン語「populus」（人々）</td><td>調べたいテーマに関する「この世の全てのデータ（現実には全部集めるのは無理ゲー）」。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 標本（サンプル）</td><td class="en-term">Sample</td><td>ラテン語「exemplum」（例）</td><td>スープの味見をするためにすくった「スプーン1杯分のスープ」。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 母数（パラメータ）</td><td class="en-term">Parameter</td><td>ギリシャ語「para」(横)+「metron」(測る)</td><td>神様しか知らない、母集団の「真の平均」や「真の分散」（僕らはこれを一生懸命推測する）。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 統計量</td><td class="en-term">Statistic</td><td>国家（State）のデータを扱う学問</td><td>手元のスプーン1杯のスープから計算した、「母集団の味を推測するためのスコア」。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 分散</td><td class="en-term">Variance</td><td>ラテン語「variare」（変化する）</td><td>みんなのデータが、平均から「どれくらい散らかっているか」の面積（2乗するから面積になる）。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 標準偏差</td><td class="en-term">Standard Deviation (SD)</td><td>カール・ピアソンが命名</td><td>分散（面積）のルートをとって元の単位に戻した、平均からの「平均的なズレの距離」。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 不偏分散</td><td class="en-term">Unbiased Variance</td><td>ベッセルが補正を考案</td><td>サンプルから真の分散を当てるとき、「n-1」で割ってちょっと大きめに補正した謙虚な見積もり。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 期待値</td><td class="en-term">Expected Value</td><td>パスカルとフェルマーの手紙(1654)</td><td>ガチャを無限に回し続けたとき、1回あたり「平均していくら損得するか」のリアルな数字。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 共分散</td><td class="en-term">Covariance</td><td>ピアソンらが定義</td><td>「気温」と「アイスの売上」のように、2つのものが「一緒にどう動くか」を示す計算の踏み台。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 相関係数</td><td class="en-term">Correlation Coefficient</td><td>ピアソンが数式化</td><td>共分散を-1から1の間にギュッと押し込めて、「2つの関係の強さ」を誰でも分かるようにした数字。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 四分位数</td><td class="en-term">Quartile</td><td>ラテン語「quartus」（4番目）</td><td>データを背の順に並べて、ちょうど4等分する3本のスライス線（25%、50%、75%のライン）。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 四分位範囲 (IQR)</td><td class="en-term">Interquartile Range</td><td>分散に代わる散らばりの指標</td><td>「上位25%の天才」と「下位25%の落ちこぼれ」を無視した、「普通の人たち（真ん中50%）」の幅。</td></tr>
+        <tr><td><span class="checkbox">☐</span> パーセンタイル</td><td class="en-term">Percentile</td><td>ラテン語「per centum」（100につき）</td><td>データを100個に切り分けた時の立ち位置（例：90パーセンタイル＝下から90%の超エリート）。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 外れ値</td><td class="en-term">Outlier</td><td>英語「outlie」（外に横たわる）</td><td>みんなの集まりからポツンと離れて存在する、超天才か、ただの計測ミスのヤバいデータ。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 範囲（レンジ）</td><td class="en-term">Range</td><td>統計の最もシンプルな散らばり指標</td><td>「一番デカい奴」から「一番チビな奴」を引いた、データの端から端までの距離。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 連続変数</td><td class="en-term">Continuous Variable</td><td>無限に細かく分割できる変数</td><td>「体重」や「時間」のように、少数点以下どこまでも細かく測れるヌルヌルしたデータ。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 離散変数</td><td class="en-term">Discrete Variable</td><td>飛び飛びの値をとる変数</td><td>「サイコロの目」や「子供の人数」のように、1.5人などの中間が存在しないカクカクしたデータ。</td></tr>
+        <tr><td><span class="checkbox">☐</span> カテゴリ変数</td><td class="en-term">Categorical Variable</td><td>分類を表す変数</td><td>「血液型」や「好きな動物」など、数字の大きさに意味がなく、ただのグループ分けのラベル。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 大数の法則</td><td class="en-term">Law of Large Numbers</td><td>ヤコブ・ベルヌーイが証明</td><td>サイコロを振りまくれば、最終的に平均は必ず「3.5」に落ち着くという、回数こそ正義の法則。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 単純無作為抽出</td><td class="en-term">Simple Random Sampling</td><td>サンプリングの基本</td><td>目隠ししてクジ引き箱からデータを引くような、完全に「えこひいき無し」のデータ収集法。</td></tr>
+    </table>
+
+    <h2>02 Visualizing Data and Calculating Probabilities with Histograms!!! (データ可視化とヒストグラム)</h2>
+    <table class="cat-2">
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>直感的なイメージ (BAM!)</th></tr>
+        <tr><td><span class="checkbox">☐</span> ヒストグラム</td><td class="en-term">Histogram</td><td>ピアソンがギリシャ語から造語</td><td>体重などを「〇kg〜〇kg」という箱（ビン）に投げ入れて作った、出現回数のタワー。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ビン（階級）</td><td class="en-term">Bin</td><td>英語「bin」（ゴミ箱や容器）</td><td>ヒストグラムを作るためにデータを分類する「仕切りカゴ」。幅がデカすぎると特徴が消える。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 棒グラフ</td><td class="en-term">Bar Chart</td><td>ウィリアム・プレイフェアが発明</td><td>「リンゴ」「バナナ」など別々のカテゴリの大きさを比べるための棒。ヒストグラムとは別物。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 円グラフ</td><td class="en-term">Pie Chart</td><td>ウィリアム・プレイフェアが発明</td><td>割合を見るグラフだけど、人間の目は角度の比較が苦手なので「棒グラフの方がマシ」と言われがち。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 箱ひげ図</td><td class="en-term">Boxplot</td><td>ジョン・テューキーが考案</td><td>データの「中央50%の塊（箱）」と「範囲（ヒゲ）」を一目でわかるようにした、比較に最強の図。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 歪度（わいど）</td><td class="en-term">Skewness</td><td>英語「skew」（斜め、歪む）</td><td>データの山が左右のどっちに「裾を長く引きずっているか」を示す数字。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 尖度（せんど）</td><td class="en-term">Kurtosis</td><td>ギリシャ語「kurtos」（膨らんだ）</td><td>データが平均の周りに「どれくらい鋭く尖って密集しているか（または裾が太いか）」を示す数字。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 散布図</td><td class="en-term">Scatter Plot</td><td>ルネ・デカルトの座標系に基づく</td><td>2つのデータの関係性（身長と体重など）を見るために、点々をプロットした星座のような図。</td></tr>
+        <tr><td><span class="checkbox">☐</span> バイオリン図</td><td class="en-term">Violin Plot</td><td>箱ひげ図と密度推定の合体</td><td>箱ひげ図の横に、ヒストグラム（確率密度）のシルエットをくっつけてバイオリンっぽくした図。</td></tr>
+        <tr><td><span class="checkbox">☐</span> スウォームプロット</td><td class="en-term">Swarm Plot</td><td>蜂の群れ（Swarm）に由来</td><td>データ点が重ならないように横に散らして描いた、虫の大群のように見える散布図。</td></tr>
+        <tr><td><span class="checkbox">☐</span> QQプロット</td><td class="en-term">Q-Q Plot</td><td>Quantile-Quantileの略</td><td>「このデータ、正規分布っぽい？」を確かめるために、理想の分布と実際のデータを戦わせるナナメの線。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 二峰性分布</td><td class="en-term">Bimodal Distribution</td><td>峰（モード）が2つあること</td><td>ラクダのコブのように、データに山が2つある状態（例：男性の身長と女性の身長を混ぜた時など）。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 経験的累積分布関数</td><td class="en-term">ECDF</td><td>データの累積割合を示す関数</td><td>データを小さい順に並べて、「ここ以下のデータは何%あるか」を階段状に登っていくグラフ。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 外れ値検出（テューキー法）</td><td class="en-term">Tukey's Outlier Rule</td><td>ジョン・テューキーのヒゲのルール</td><td>箱ひげ図の「ヒゲ（IQRの1.5倍）」からハミ出した奴らは全員「外れ値」としてドットで晒し上げるルール。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 相対度数</td><td class="en-term">Relative Frequency</td><td>全体を1（または100%）とした度数</td><td>ヒストグラムのタワーの高さを「人数」ではなく、「全体の何%か」に変換したもの。</td></tr>
+    </table>
+
+    <h2>03 Saving Time and Money with Probability Distributions and Models!!! (確率分布とモデル)</h2>
+    <table class="cat-3">
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>直感的なイメージ (BAM!)</th></tr>
+        <tr><td><span class="checkbox">☐</span> 確率分布</td><td class="en-term">Probability Distribution</td><td>ラテン語「distribuere」（割り当てる）</td><td>「どの値が、どれくらい出やすいか」のルールブック。ヒストグラムを滑らかな線にしたもの。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 正規分布</td><td class="en-term">Normal / Gaussian Distribution</td><td>ガウスとラプラスが発見</td><td>自然界で一番よく見る、平均を中心に左右対称に広がる「ごく普通のベル（鐘）型」カーブ。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 指数分布</td><td class="en-term">Exponential Distribution</td><td>ラテン語「exponere」（外に置く）</td><td>「次のLINEが来るまでの時間」など、待ち時間を予測するときに使う右肩下がりのすべり台。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ポアソン分布</td><td class="en-term">Poisson Distribution</td><td>シメオン・ポアソンが考案</td><td>「1時間に交通事故が何回起きるか」など、めったに起きないことが指定期間内に何回起きるかの山。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 一様分布</td><td class="en-term">Uniform Distribution</td><td>ラテン語「unus」(1) +「forma」(形)</td><td>サイコロの目のように、すべての出来事が「完全にえこひいき無し」で同じ確率で起こる平坦な線。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ベルヌーイ分布</td><td class="en-term">Bernoulli Distribution</td><td>ヤコブ・ベルヌーイにちなむ</td><td>「コインを1回だけ投げる」ような、成功（1）か失敗（0）かだけの最もシンプルな確率のルール。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 二項分布</td><td class="en-term">Binomial Distribution</td><td>ベルヌーイ分布の繰り返し</td><td>コインを10回投げて「表が何回出るか？」のような、成功/失敗の実験を繰り返した時の確率の山。</td></tr>
+        <tr><td><span class="checkbox">☐</span> t分布</td><td class="en-term">Student's t-distribution</td><td>W.ゴセット（ペンネームStudent）</td><td>正規分布より少し「裾が太い（太っちょ）」な分布。データが少ない時の自信のなさを裾の太さでカバー。</td></tr>
+        <tr><td><span class="checkbox">☐</span> カイ二乗分布</td><td class="en-term">Chi-square Distribution</td><td>カール・ピアソンが導入</td><td>ズレの2乗を足し合わせた時にできる、必ずプラス側だけで盛り上がる「ズレの大きさ」の分布。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 中心極限定理</td><td class="en-term">Central Limit Theorem (CLT)</td><td>ラプラス（1810）が証明</td><td>元のデータがどんな変な形でも、サンプルをたくさん取って平均を出せば「必ず正規分布の形になる」大魔法。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 確率密度関数 (PDF)</td><td class="en-term">Probability Density Function</td><td>連続変数の確率を表す関数</td><td>カーブの「高さ」のこと（確率はカーブの面積になるので、高さ自体は確率ではないことに注意！）。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 累積分布関数 (CDF)</td><td class="en-term">Cumulative Distribution Function</td><td>左から面積を足していく関数</td><td>「この値以下の確率は全部で何%か？」をS字カーブで教えてくれる便利なメーター。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 確率質量関数 (PMF)</td><td class="en-term">Probability Mass Function</td><td>離散変数の確率を表す関数</td><td>サイコロのように飛び飛びの値の時、その「高さがそのまま確率」になる分かりやすい棒。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 条件付き確率</td><td class="en-term">Conditional Probability</td><td>前提条件がある場合の確率</td><td>「雨が降っているとわかっている世界線」で、「傘が売れる確率」を計算する絞り込みテクニック。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ベイズの定理</td><td class="en-term">Bayes' Theorem</td><td>トーマス・ベイズ牧師が発見</td><td>「新しい証拠」を見つけるたびに、「最初の予想（事前確率）」をどんどんアップデートしていく最強の推論ツール。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 確率 vs 尤度（ゆうど）</td><td class="en-term">Probability vs Likelihood</td><td>R.A.フィッシャーが尤度を定義</td><td>確率は「設定が決まってる時に何が起きるか」。尤度は「起きた結果から、元の設定がどれだけもっともらしいか」。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 最尤推定（さいゆうすいてい）</td><td class="en-term">Maximum Likelihood Estimation</td><td>R.A.フィッシャーが提唱</td><td>手元のデータを見たとき、「このデータが生まれる確率が一番高くなるような神様の設定」を逆算して探すこと。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 対数尤度</td><td class="en-term">Log-Likelihood</td><td>計算を楽にするための魔法</td><td>尤度をかけ算していくとゼロに近づいて消滅するので、Logをとって「足し算」で計算できるようにした裏技。</td></tr>
+        <tr><td><span class="checkbox">☐</span> オッズ</td><td class="en-term">Odds</td><td>古ノルド語「oddi」（不均等）</td><td>確率ではなく「（勝つ確率）÷（負ける確率）」で表した、ギャンブラーが好む勝ち負けの比率。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 対数オッズ</td><td class="en-term">Log-Odds</td><td>モデリングで数学的に扱いやすいため</td><td>オッズにLogの魔法をかけて、左右対称で綺麗な「正規分布っぽい形」に無理やり変形させたもの。</td></tr>
+        <tr><td><span class="checkbox">☐</span> オッズ比</td><td class="en-term">Odds Ratio</td><td>医療統計でリスクを比較するため</td><td>「薬を飲んだ人のオッズ」と「飲んでない人のオッズ」の割り算。1より大きければ薬が効いてる証拠。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 独立性</td><td class="en-term">Independence</td><td>事象同士が無関係であること</td><td>「サイコロで6が出ること」と「明日の天気」のように、お互いに全く影響を与え合わない関係。</td></tr>
+    </table>
+
+    <h2>04 Making Decisions with Hypothesis Testing and the Null Hypothesis!!! (仮説検定と帰無仮説)</h2>
+    <table class="cat-4">
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>直感的なイメージ (BAM!)</th></tr>
+        <tr><td><span class="checkbox">☐</span> 仮説検定</td><td class="en-term">Hypothesis Testing</td><td>ネイマンとピアソンが枠組み構築</td><td>自分の主張（新薬が効く！）が、偶然じゃなくて本当に意味があるのかを数学的に白黒つける裁判。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 帰無仮説</td><td class="en-term">Null Hypothesis (H0)</td><td>R.A.フィッシャーが命名</td><td>「新薬も偽薬も効果は同じ（差はないよ）」という、僕らが全力で論破（棄却）したい退屈な仮説。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 対立仮説</td><td class="en-term">Alternative Hypothesis (H1)</td><td>ネイマンとピアソンが導入</td><td>「やっぱり新薬の方が効くじゃん！」という、僕らが本当に証明したいワクワクする主張。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 検定統計量</td><td class="en-term">Test Statistic</td><td>各種検定の考案者</td><td>手元のデータを、基準となる分布（裁判官）と照らし合わせるために変換した「証拠のスコア」。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 片側検定</td><td class="en-term">One-tailed Test</td><td>分布の片方の尻尾（tail）</td><td>「新薬は絶対に従来薬より『良い』はずだ！」と、一方向の変化だけを狙い撃ちするテスト。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 両側検定</td><td class="en-term">Two-tailed Test</td><td>分布の両方の尻尾（tail）</td><td>「新薬は良くなるかもしれないし、逆に悪化するかもしれない」と、両方の変化に警戒する安全なテスト。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 棄却域（臨界域）</td><td class="en-term">Rejection Region</td><td>検定の境界線</td><td>このエリアにデータが落ちたら「はい、偶然じゃない！帰無仮説はウソ！」と即座に有罪判決を下すレッドゾーン。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 第一種の過誤（偽陽性）</td><td class="en-term">Type I Error (False Positive)</td><td>検定理論から。別名アルファエラー</td><td>本当は差がないのに、焦って「差がある！」と勘違いして大騒ぎしてしまう、オオカミ少年のやらかし。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 第二種の過誤（偽陰性）</td><td class="en-term">Type II Error (False Negative)</td><td>検定理論から。別名ベータエラー</td><td>本当は画期的な差があるのに、データ不足で見逃して「差がない」と諦めてしまう、悲しい見落とし。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 真陽性</td><td class="en-term">True Positive</td><td>分類タスクの正解</td><td>「病気の人」をちゃんと「病気です」と正しく見抜いた、お医者さんのファインプレー。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 感度（リコール）</td><td class="en-term">Sensitivity (Recall)</td><td>見逃さない能力</td><td>本当に病気の人たちのうち、何%をちゃんと見つけ出せたか。「見落とし厳禁！」な時に重視するスコア。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 特異度</td><td class="en-term">Specificity</td><td>勘違いしない能力</td><td>健康な人たちのうち、何%をちゃんと「健康」と判定できたか。「誤診でビビらせない」ためのスコア。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 適合率（プレシジョン）</td><td class="en-term">Precision</td><td>オオカミ少年にならない能力</td><td>「あなたは病気です！」と警告した人の中で、本当に病気だった人の割合。「誤報を減らす」ためのスコア。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 正解率（アキュラシー）</td><td class="en-term">Accuracy</td><td>全体的な正しさ</td><td>全員の中で、正しく判定できた（病気を当てた＋健康を当てた）人の割合。一番シンプルだけど偏りに弱い。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 混同行列</td><td class="en-term">Confusion Matrix</td><td>予測と結果のクロス集計表</td><td>「当たった！」「見逃した…」「勘違いした…」のパターンを4マスの表に整理して、AIの弱点をあぶり出す図。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ROC曲線</td><td class="en-term">ROC Curve</td><td>レーダーの開発に由来</td><td>「見逃さない力」と「勘違いしない力」のバランスをグラフにしたもの。左上にポッコリ膨らむほど優秀。</td></tr>
+        <tr><td><span class="checkbox">☐</span> AUC</td><td class="en-term">Area Under the Curve (AUC)</td><td>ROC曲線の下の面積</td><td>ROC曲線の膨らみ具合を100点満点のスコアにしたもの。1に近いほど「完璧な判定マシン」。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 対照群（コントロール）</td><td class="en-term">Control Group</td><td>実験の比較基準</td><td>薬の効果を確かめるために、あえて「偽薬（プラセボ）」を飲まされる基準となるグループ。</td></tr>
+        <tr><td><span class="checkbox">☐</span> プラセボ効果</td><td class="en-term">Placebo Effect</td><td>ラテン語「私は喜ばせるだろう」</td><td>「これ効くよ！」と言われて小麦粉を飲んだら、思い込みのパワーで本当に痛みが消えちゃう魔法。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 二重盲検法</td><td class="en-term">Double-Blind Experiment</td><td>バイアスを排除する究極の実験</td><td>患者も、薬を渡すお医者さんも、どっちが本物の薬か知らない状態で行う、ガチで公平なテスト。</td></tr>
+    </table>
+
+    <h2>05 Quantifying Confidence in our Decisions with p-values!!! (p値と信頼区間)</h2>
+    <table class="cat-5">
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>直感的なイメージ (BAM!)</th></tr>
+        <tr><td><span class="checkbox">☐</span> p値（ピーち）</td><td class="en-term">p-value (Probability value)</td><td>R.A.フィッシャーが普及</td><td>帰無仮説が正しい世界線で、今回みたいに極端なデータが「たまたま」出ちゃう確率。小さいほど奇跡的！</td></tr>
+        <tr><td><span class="checkbox">☐</span> 有意水準（アルファ）</td><td class="en-term">Significance Level (Alpha)</td><td>フィッシャーが5%を多用</td><td>「これより確率が低かったら、もう偶然とは呼ばない！」と決める合格ライン。普通は0.05（5%）。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 信頼区間</td><td class="en-term">Confidence Interval (CI)</td><td>イェジ・ネイマンが提唱</td><td>「神様しか知らない真の平均値は、おそらくこの幅（区間）のどこかにあるはず！」という予想範囲。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 誤差範囲</td><td class="en-term">Margin of Error</td><td>推定値の不確実性の幅</td><td>テレビの視聴率調査などで「プラマイ3%の誤差があります」と言う時の、そのズレの許容範囲。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 点推定</td><td class="en-term">Point Estimation</td><td>区間推定（CI）の対義語</td><td>「真の平均値はズバリ 42 だ！」と、自信満々にピンポイントの数字1つだけで当てること。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ブートストラップ法</td><td class="en-term">Bootstrapping</td><td>ブラッドリー・エフロン考案</td><td>手元の少数のデータから「引いては戻す」を繰り返し、無限にダミーのデータ集団を生み出す錬金術。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 標準誤差 (SE)</td><td class="en-term">Standard Error (SE)</td><td>平均値のばらつきの標準</td><td>データを何度もサンプリングしたときの「平均値たちの標準偏差」。つまり「平均値の信頼できなさ具合」。</td></tr>
+        <tr><td><span class="checkbox">☐</span> リサンプリング</td><td class="en-term">Resampling</td><td>ブートストラップや並べ替えの総称</td><td>手元のデータを何度もシャッフルして、コンピュータの計算力に物を言わせてp値を作るゴリ押し戦法。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 順列検定（パーミュテーション）</td><td class="en-term">Permutation Test</td><td>R.A.フィッシャーが考案</td><td>薬を飲んだグループと飲まないグループのラベルを全部シャッフルして、「偶然でもこの差は出る？」を確かめるテスト。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 68-95-99.7ルール</td><td class="en-term">Empirical Rule</td><td>正規分布の魔法の数字</td><td>正規分布なら、平均から標準偏差1個分に68%、2個分に95%、3個分に99.7%のデータが収まるという絶対ルール。</td></tr>
+        <tr><td><span class="checkbox">☐</span> Zスコア（標準化変数）</td><td class="en-term">Z-score</td><td>データを標準化するスコア</td><td>「君のテストの点は、平均から標準偏差何個分離れてる？」を計算し、異なるテストでも実力を比べられるようにした値。</td></tr>
+        <tr><td><span class="checkbox">☐</span> フィッシャーの正確確率検定</td><td class="en-term">Fisher's Exact Test</td><td>フィッシャーの「紅茶サイエンティスト」から</td><td>データが少なすぎて普通の検定が使えない時に、すべてのパターンの確率をガチで全計算する最強の検定。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ロバスト性（頑健性）</td><td class="en-term">Robustness</td><td>英語「robust」（強靭な）</td><td>データにヤバい外れ値が混ざっていても、計算結果がそれに引っ張られずにビクともしないタフさ。</td></tr>
+        <tr><td><span class="checkbox">☐</span> パラメトリック検定</td><td class="en-term">Parametric Test</td><td>t検定やANOVAなど</td><td>「データは綺麗な正規分布に従っているはずだ！」という前提（お約束）のもとで強力に判定するテスト。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ノンパラメトリック検定</td><td class="en-term">Non-parametric Test</td><td>マン・ホイットニーのU検定など</td><td>「データの形なんて知らん！」という前提で、実際の値ではなく「背の順（順位）」を使って戦う泥臭いテスト。</td></tr>
+        <tr><td><span class="checkbox">☐</span> マン・ホイットニーのU検定</td><td class="en-term">Mann-Whitney U Test</td><td>2つの独立サンプルのノンパラ検定</td><td>正規分布じゃない怪しい2つのグループを比較する時、値を全部「順位」に変換してから勝敗を決める検定。</td></tr>
+    </table>
+
+    <h2>06 Using a Single Variable to Make Predictions and Decisions with Linear Regression!!! (単回帰分析)</h2>
+    <table class="cat-6">
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>直感的なイメージ (BAM!)</th></tr>
+        <tr><td><span class="checkbox">☐</span> 単回帰分析</td><td class="en-term">Simple Linear Regression</td><td>ゴルトン「平均への回帰」から</td><td>「体重」から「身長」を予測するなど、散らばった点たちの真ん中に「イケてる1本の直線」を引く技術。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 最小二乗法 (OLS)</td><td class="en-term">Ordinary Least Squares</td><td>ルジャンドルとガウスが発見</td><td>データ点と直線の「ズレの2乗の合計」が一番小さくなるような、ベストな直線の引き方。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 説明変数（独立変数）</td><td class="en-term">Explanatory Variable (X)</td><td>原因となる変数</td><td>「身長」を予測するために使う「体重」など、予測のヒントになるX軸のデータ。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 目的変数（従属変数）</td><td class="en-term">Objective Variable (Y)</td><td>結果となる変数</td><td>僕らが最終的に予測して当てたい、Y軸のデータ。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 残差（ざんさ）</td><td class="en-term">Residual</td><td>ラテン語「residuus」（残されたもの）</td><td>予測した直線と、実際のデータ点との間にある「縦方向のズレ」。これが小さいほど優秀な直線。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 残差平方和 (SSR)</td><td class="en-term">Sum of Squared Residuals</td><td>ズレの面積の合計</td><td>直線がどれくらいデータを予測し損ねているかを表す、ダメ出しの合計点数。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 決定係数 (R二乗)</td><td class="en-term">R-squared</td><td>相関係数(r)の2乗</td><td>その直線が「どれくらい見事にデータを説明できているか」のテストの点数（0から1の間、1が満点）。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 傾き</td><td class="en-term">Slope</td><td>直線の角度</td><td>「Xが1歩進んだら、Yは階段を何段上るか（下るか）」を表す、直線の角度。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 切片（せっぺん）</td><td class="en-term">y-intercept</td><td>Y軸との交点</td><td>Xがゼロ（スタート地点）のとき、直線がY軸のどこに突き刺さっているかを示す高さ。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ピアソンの相関係数</td><td class="en-term">Pearson Correlation</td><td>直線的な関係の強さ</td><td>データがどれくらい「綺麗な一直線」に並んでいるかを示す、最もポピュラーな相関の数字。</td></tr>
+        <tr><td><span class="checkbox">☐</span> スピアマンの順位相関</td><td class="en-term">Spearman's Rank Correlation</td><td>順位に基づく相関</td><td>データがカーブしていても、「Xが増えればYも増える」なら高評価をくれる、背の順を使った相関。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 外挿（がいそう）</td><td class="en-term">Extrapolation</td><td>データ範囲外の予測</td><td>手元のデータがない「未知の領域」まで直線を勝手に伸ばして予測する、ちょっと危険な賭け。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 内挿（ないそう）</td><td class="en-term">Interpolation</td><td>データ範囲内の予測</td><td>手元のデータの範囲内で「この隙間はどうなってるかな？」と安全に予測すること。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 等分散性</td><td class="en-term">Homoscedasticity</td><td>分散が均一であること</td><td>Xが大きくなっても小さくなっても、残差（ズレ）のばらつきがメガホンみたいに広がらず一定であるという理想。</td></tr>
+        <tr><td><span class="checkbox">☐</span> てこ比（レバレッジ）</td><td class="en-term">Leverage</td><td>てこの原理に由来</td><td>X軸の端っこにいるデータが持つ、直線の傾きをグイッとねじ曲げてしまう「てこ」のような強い影響力。</td></tr>
+        <tr><td><span class="checkbox">☐</span> クックの距離</td><td class="en-term">Cook's Distance</td><td>デニス・クックが提唱</td><td>「もしこのデータ点を消したら、直線がどれくらい激しく動くか？」を測る、ヤバい外れ値の発見器。</td></tr>
+        <tr><td><span class="checkbox">☐</span> アンスコムの例解</td><td class="en-term">Anscombe's Quartet</td><td>統計学者アンスコムの警告</td><td>平均も分散も相関係数も全部同じなのに、グラフに描くと形が全く違う4つのデータセット。「グラフ見ろ！」の教訓。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 標準化（Zスコア化）</td><td class="en-term">Standardization</td><td>平均0、分散1にする変換</td><td>「身長（cm）」と「体重（kg）」など単位が違うものを、同じ土俵で戦わせるために単位を消し去る魔法。</td></tr>
+    </table>
+
+    <h2>07 Using More Variables to Make Predictions and Decisions with Multiple Regression!!! (重回帰分析)</h2>
+    <table class="cat-7">
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>直感的なイメージ (BAM!)</th></tr>
+        <tr><td><span class="checkbox">☐</span> 重回帰分析</td><td class="en-term">Multiple Regression</td><td>変数が複数（Multiple）</td><td>「体重」だけでなく「年齢」や「身長」も使って予測するような、多次元空間に下敷き（平面）を張る技術。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 自由度を調整したR二乗</td><td class="en-term">Adjusted R-squared</td><td>R²のズルを防ぐ補正</td><td>予測に関係ないゴミ変数（星座など）を追加した時にペナルティを与えて計算する、厳しい決定係数。</td></tr>
+        <tr><td><span class="checkbox">☐</span> デザイン行列</td><td class="en-term">Design Matrix</td><td>実験計画法から</td><td>数式をコンピュータに計算させるために、どのデータがどのグループかを1と0で整理したクールな表。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 自由度</td><td class="en-term">Degrees of Freedom</td><td>フィッシャーが概念を整備</td><td>自由に動かせるデータの数。変数を1つ増やすごとに自由度が1つ減って、計算が窮屈になる。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 多重共線性（マルチコ）</td><td class="en-term">Multicollinearity</td><td>予測変数同士の強い相関</td><td>「右足の長さ」と「左足の長さ」を両方変数に入れると、コンピュータが混乱して係数がバグる罠。</td></tr>
+        <tr><td><span class="checkbox">☐</span> VIF（分散拡大係数）</td><td class="en-term">Variance Inflation Factor</td><td>マルチコを検知する指標</td><td>「この変数、他の変数と似すぎじゃない？」を数値化したもの。10を超えたらリストラの対象。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ダミー変数</td><td class="en-term">Dummy Variable</td><td>カテゴリを数字に変換</td><td>「男・女」のような文字データを、コンピュータが計算できるように「1と0」のスイッチに変換した変数。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 交差項（相互作用項）</td><td class="en-term">Interaction Term</td><td>変数同士の化学反応</td><td>「メントス」と「コーラ」のように、単体では普通でも、組み合わさると予測結果が爆発する関係性を捉える変数。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 交絡変数（交絡因子）</td><td class="en-term">Confounding Variable</td><td>隠れた黒幕</td><td>「アイスの売上」と「水難事故」の両方を裏で操っている「夏の気温」のような、因果関係を勘違いさせるお邪魔虫。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ステップワイズ法</td><td class="en-term">Stepwise Regression</td><td>変数選択のアルゴリズム</td><td>AIが自動で「この変数いる」「これいらない」と抜き差ししながら、ベストな変数の組み合わせを探す手法。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 過学習（オーバーフィッティング）</td><td class="en-term">Overfitting</td><td>訓練データへの適応しすぎ</td><td>過去問の答えを丸暗記しすぎて、本番のテスト（未知のデータ）で全く点が取れなくなってしまった状態。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 未学習（アンダーフィッティング）</td><td class="en-term">Underfitting</td><td>モデルが単純すぎること</td><td>モデルがバカすぎて、手元のデータの特徴すら全然捉えられていない残念な状態。</td></tr>
+        <tr><td><span class="checkbox">☐</span> バイアス・バリアンスのジレンマ</td><td class="en-term">Bias-Variance Tradeoff</td><td>機械学習の永遠の課題</td><td>モデルを複雑にすると過学習（バリアンス大）になり、単純にすると未学習（バイアス大）になる痛し痒し。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 交差検証（クロスバリデーション）</td><td class="en-term">Cross-Validation</td><td>過学習を防ぐテスト法</td><td>データをいくつかのグループに分け、「学習」と「テスト」の役割を交代しながらモデルの真の実力を測る特訓。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 正則化</td><td class="en-term">Regularization</td><td>モデルの複雑さに罰則を与える</td><td>過学習を防ぐため、「あまり複雑な式を作ったら減点するぞ！」とペナルティを与えてモデルをシンプルに保つ技。</td></tr>
+        <tr><td><span class="checkbox">☐</span> リッジ回帰 (L2正則化)</td><td class="en-term">Ridge Regression</td><td>重みの2乗をペナルティにする</td><td>係数がデカくなりすぎるのを抑え込む正則化。マルチコ対策に強いが、変数は捨てない。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ラッソ回帰 (L1正則化)</td><td class="en-term">Lasso Regression</td><td>重みの絶対値をペナルティにする</td><td>いらない変数の係数を容赦なく「ゼロ」にして、自動で変数をリストラしてくれる冷酷な正則化。</td></tr>
+    </table>
+
+    <h2>08 Testing for Differences with t-tests!!! (t検定による差異の検定)</h2>
+    <table class="cat-8">
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>直感的なイメージ (BAM!)</th></tr>
+        <tr><td><span class="checkbox">☐</span> t検定</td><td class="en-term">t-test</td><td>W.ゴセット（Student）考案</td><td>データが少ない時に、「2つのグループの平均値」が本当に違うのかどうかを確かめる王道のテスト。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 1標本t検定</td><td class="en-term">One-sample t-test</td><td>1つのサンプルと基準値の比較</td><td>「この工場のネジ、本当に規定の平均5cmになってる？」と、手元のサンプルを絶対的な基準と比べる検定。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 2標本t検定</td><td class="en-term">Two-sample t-test</td><td>独立した2グループの比較</td><td>「A組のテストの平均」と「B組のテストの平均」のように、全く別の2つのグループの差を比べる検定。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 対応のあるt検定</td><td class="en-term">Paired t-test</td><td>同一人物の前後を比べる</td><td>「ダイエット前のAさん」と「ダイエット後のAさん」のように、ペアになったデータの変化量を調べる検定。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ウェルチのt検定</td><td class="en-term">Welch's t-test</td><td>バーナード・ウェルチ考案</td><td>2つのグループの「ばらつき（分散）」が全然違う時でも、何とか計算できるように改良されたスーパーt検定。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 正規性の仮定</td><td class="en-term">Assumption of Normality</td><td>t検定を使うためのお約束</td><td>「データが正規分布っぽい形をしていること」という、t検定を正しく使うための入場条件。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 等分散性の仮定</td><td class="en-term">Homogeneity of Variance</td><td>普通のt検定のお約束</td><td>「比べる2つのグループの散らばり具合（分散）がだいたい同じであること」という条件。ダメならウェルチを使う。</td></tr>
+        <tr><td><span class="checkbox">☐</span> シャピロ・ウィルク検定</td><td class="en-term">Shapiro-Wilk Test</td><td>正規性をチェックする検定</td><td>「このデータ、正規分布って名乗っていい？」を判定する厳格なドアマン。p<0.05だと「正規分布じゃない！」と弾かれる。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ルビーン検定</td><td class="en-term">Levene's Test</td><td>等分散性をチェックする検定</td><td>「2つのグループのばらつき、同じくらい？」を確かめる検定。ここで差が出たらウェルチのt検定へGO。</td></tr>
+        <tr><td><span class="checkbox">☐</span> プールされた分散</td><td class="en-term">Pooled Variance</td><td>2つの分散をガッチャンコする</td><td>2つのグループの分散を、それぞれの人数（自由度）で重み付けして「えいやっ！」と1つにまとめた平均的な分散。</td></tr>
+        <tr><td><span class="checkbox">☐</span> コーエンのd</td><td class="en-term">Cohen's d</td><td>t検定の効果量</td><td>「平均値の差」が「標準偏差」の何個分あるかを示したスコア。0.8以上なら「誰が見てもデカい差」。</td></tr>
+    </table>
+
+    <h2>09 Determining How Much Data to Collect with Power and Power Analyses!!! (検出力とサンプルサイズ)</h2>
+    <table class="cat-9">
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>直感的なイメージ (BAM!)</th></tr>
+        <tr><td><span class="checkbox">☐</span> 検出力（パワー）</td><td class="en-term">Statistical Power (1 - Beta)</td><td>ネイマン＝ピアソンの検定理論</td><td>「本当に差があるときに、ちゃんとそれを見逃さずに『差がある！』と気づける能力（確率）」。普通は80%を目指す。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 検出力分析</td><td class="en-term">Power Analysis</td><td>実験を失敗させないための事前見積もり</td><td>実験を始める前に、「どれくらいデータ（サンプル数）を集めれば、ちゃんとパワーが出るか」を逆算する儀式。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 効果量</td><td class="en-term">Effect Size</td><td>ジェイコブ・コーエンらが指標化</td><td>p値とは別物で、「結局、2つのグループの差は『どれくらいインパクトがデカいか』」という実質的な大きさ。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 最小検出可能効果 (MDE)</td><td class="en-term">Minimum Detectable Effect</td><td>ビジネスのA/Bテスト等で多用</td><td>「これより小さい差なら、ビジネス的に意味ないから見逃してもいいや」と割り切る、最小限キャッチしたい差の大きさ。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 技術的繰り返し</td><td class="en-term">Technical Replicates</td><td>実験手技の精度確認</td><td>「同じマウスの血」から3回測定すること。機械やピペットの精度はわかるけど、マウス全体の特徴は語れない。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 生物的繰り返し</td><td class="en-term">Biological Replicates</td><td>生物個体の多様性確認</td><td>「別々の3匹のマウス」を1回ずつ測定すること。これで初めて「マウスという種族全体」のストーリーが語れる。</td></tr>
+        <tr><td><span class="checkbox">☐</span> A/Bテスト</td><td class="en-term">A/B Testing</td><td>Webマーケティングの用語</td><td>「青いボタン」と「赤いボタン」のどっちがクリックされるか、ユーザーを半分に分けてリアルタイムで行うランダム化比較試験。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 逐次検定</td><td class="en-term">Sequential Testing</td><td>データを見ながら止める検定</td><td>データを集めるたびに検定を繰り返し、「有意差が出た瞬間に実験を止めてコストを浮かす」高度なテクニック。</td></tr>
+        <tr><td><span class="checkbox">☐</span> サンプルサイズ不足</td><td class="en-term">Underpowered</td><td>検出力不足の悲劇</td><td>データをケチったせいでパワーが足りず、本当は差があるのに「差なし」と判定されてしまう無駄な実験。</td></tr>
+    </table>
+
+    <h2>10 Avoiding p-value Pitfalls!!! (p値の落とし穴を避ける)</h2>
+    <table class="cat-10">
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>直感的なイメージ (BAM!)</th></tr>
+        <tr><td><span class="checkbox">☐</span> pハッキング</td><td class="en-term">p-hacking</td><td>不正操作のスラング</td><td>p値が0.05を切るまで、手当たり次第にデータを削ったり色々なテストを試したりする「絶対やってはいけないズル」。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 多重検定の問題</td><td class="en-term">Multiple Testing Problem</td><td>検定を繰り返すことで生じる</td><td>「当たるまでガチャを引き続ければいつかはSSRが出る」のと同じで、検定を繰り返すと偶然の偽発見が爆増する罠。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 偽発見率 (FDR)</td><td class="en-term">False Discovery Rate</td><td>ベンジャミニとホッチバーグ考案</td><td>大量の遺伝子を調べて「有意だ！」と喜んだ結果の中に、「実は偶然の偽物」が混ざっている割合。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ベンジャミニ・ホッチバーグ法</td><td class="en-term">Benjamini-Hochberg Method</td><td>FDRを制御する手法</td><td>大量のp値を小さい順に並べてナナメの線を引き、「ここまでは信じてヨシ！」と判定する、FDRコントロールの賢いやり方。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ボンフェローニ補正</td><td class="en-term">Bonferroni Correction</td><td>多重検定の最も厳しいガード</td><td>罠を防ぐため、有意水準を「テストの回数」で割ってメチャクチャ厳しくする、超保守的（見落としが増える）な手法。</td></tr>
+        <tr><td><span class="checkbox">☐</span> HARKing（ハーキング）</td><td class="en-term">HARKing</td><td>結果を見てから仮説を後付けする</td><td>ダーツを投げてから、刺さった場所に的を描いて「最初からここを狙ってました！」と嘘をつくダサい行為。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 出版バイアス</td><td class="en-term">Publication Bias</td><td>学術誌の闇</td><td>「差がありました！」という派手な論文ばかりが世に出て、「差がありませんでした」という地味な研究が闇に葬られる現象。</td></tr>
+        <tr><td><span class="checkbox">☐</span> お蔵入り問題</td><td class="en-term">File Drawer Problem</td><td>出版バイアスの別名</td><td>失敗した（有意差が出なかった）99個の実験結果が、誰にも知られず研究室の引き出し（File Drawer）に眠っている問題。</td></tr>
+        <tr><td><span class="checkbox">☐</span> チェリーピッキング</td><td class="en-term">Cherry Picking</td><td>都合のいいデータだけつまみ食い</td><td>自分の主張をサポートする「美味しいデータ」だけを選び出し、都合の悪いデータを無視する詐欺師のテクニック。</td></tr>
+        <tr><td><span class="checkbox">☐</span> シンプソンのパラドックス</td><td class="en-term">Simpson's Paradox</td><td>全体と部分で傾向が逆転するバグ</td><td>グループごとに見ると「Aの方が優秀」なのに、全員まとめると「Bの方が優秀」に逆転してしまう、データの魔の錯覚。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 生存者バイアス</td><td class="en-term">Survivorship Bias</td><td>生き残った者だけを見る罠</td><td>「成功したIT社長の朝の習慣」だけを調べて、「早起きすれば成功する」と勘違いすること（失敗した早起きおじさんを無視している）。</td></tr>
+    </table>
+
+    <h2>11 Testing for More Differences with ANOVA and ANCOVA!!! (ANOVAとANCOVA)</h2>
+    <table class="cat-11">
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>直感的なイメージ (BAM!)</th></tr>
+        <tr><td><span class="checkbox">☐</span> 分散分析 (ANOVA)</td><td class="en-term">Analysis of Variance</td><td>R.A.フィッシャーが農業で開発</td><td>3つ以上のグループがあるとき、「グループ間の違い」が「グループ内のバラつき」を圧倒しているか調べるテスト。</td></tr>
+        <tr><td><span class="checkbox">☐</span> F値（F統計量）</td><td class="en-term">F-statistic</td><td>スネデカーがフィッシャーに敬意を表して命名</td><td>「説明できる分散（差）」を「説明できない分散（ノイズ）」で割ったスコア。これがデカいと「差がある！」と判定される。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 1元配置分散分析</td><td class="en-term">One-way ANOVA</td><td>1つの要因の影響を見る</td><td>「朝食（パン、ご飯、抜き）」という1つのテーマで、テストの点数に違いが出るかを調べるシンプルなANOVA。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 2元配置分散分析</td><td class="en-term">Two-way ANOVA</td><td>2つの要因の影響を見る</td><td>「朝食の種類」と「睡眠時間」という2つのテーマが、同時にテストの点数にどう影響するかを調べるANOVA。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 交互作用</td><td class="en-term">Interaction Effect</td><td>要因同士の相乗効果</td><td>「パンにはコーヒー」「ご飯には味噌汁」のように、組み合わせることで初めて生まれる特別な効果。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 群間変動</td><td class="en-term">Between-Group Variance</td><td>グループ同士の違い</td><td>「Aクラスの平均」と「全体の平均」がどれくらい離れているか。これがデカいほど、クラス間の学力差がある証拠。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 群内変動</td><td class="en-term">Within-Group Variance</td><td>グループ内部のノイズ</td><td>「Aクラスの中での、生徒それぞれの点数のばらつき」。これがデカいと、クラス間の違いがノイズに埋もれてしまう。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 共分散分析 (ANCOVA)</td><td class="en-term">Analysis of Covariance</td><td>ANOVAに連続変数を合体</td><td>薬の効果を比べたいけど、患者の「年齢（連続データ）」というお邪魔虫の影響を数学的に取り除いてから比較するスゴ技。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 一般線形モデル (GLM)</td><td class="en-term">General Linear Model</td><td>統計の巨匠たちが築き上げた統合モデル</td><td>「t検定」も「回帰分析」も「ANOVA」も、中身は全部このGLMという一つの計算式（パラメーター調整）で説明できるという真実。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 事後検定（ポストホック）</td><td class="en-term">Post-hoc Test</td><td>ANOVAの後の犯人探し</td><td>ANOVAで「どこかに差がある！」と分かった後、「じゃあ具体的にAとB？それともBとC？」と総当たりで調べる検定。</td></tr>
+        <tr><td><span class="checkbox">☐</span> テューキーのHSD検定</td><td class="en-term">Tukey's HSD Test</td><td>事後検定の定番</td><td>多重検定の罠（偽発見）を避けながら、すべてのグループの組み合わせを安全に総当たり比較するポピュラーな手法。</td></tr>
+        <tr><td><span class="checkbox">☐</span> クラスカル・ウォリス検定</td><td class="en-term">Kruskal-Wallis Test</td><td>ノンパラ版のANOVA</td><td>データが正規分布じゃない時に、値を「順位（背の順）」に変換してから3つ以上のグループを比較する泥臭いANOVA。</td></tr>
+    </table>
+
+    <h2>12 StatQuest Classics & Machine Learning Extras!!! (機械学習とその他の重要用語)</h2>
+    <table class="cat-12">
+        <tr><th>日本語</th><th>英語</th><th>語源・由来・人物</th><th>直感的なイメージ (BAM!)</th></tr>
+        <tr><td><span class="checkbox">☐</span> BAM!</td><td class="en-term">BAM!</td><td>Josh Starmerの魂の叫び</td><td>退屈な用語や難しい数式を乗り越え、「なるほど！」と本質を理解した瞬間に放たれる最高にAwesomeな呪文。</td></tr>
+        <tr><td><span class="checkbox">☐</span> Double BAM!</td><td class="en-term">Double BAM!</td><td>2倍のAwesome</td><td>1つの概念を理解した直後に、それが別の重要な概念と完璧に繋がった時に放たれる、知的好奇心の爆発。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ロジスティック回帰</td><td class="en-term">Logistic Regression</td><td>D.R.コックスが定式化</td><td>データが「病気か健康か」の2択のとき、S字カーブ（ロジスティック曲線）を当てはめて確率（0%〜100%）を予測する手法。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 決定木</td><td class="en-term">Decision Tree</td><td>条件分岐が樹木に見えるため</td><td>「しっぽはある？YES/NO」のように、アキネーター形式で質問を繰り返してデータを分類・予測する直感的なモデル。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ランダムフォレスト</td><td class="en-term">Random Forest</td><td>レオ・ブレイマン考案</td><td>少しずつ違うヘッポコな決定木を大量（森）に作り、みんなで多数決をとることで最強の予測力を生むアンサンブル手法。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 主成分分析 (PCA)</td><td class="en-term">Principal Component Analysis</td><td>ピアソンとホテリング考案</td><td>変数が多すぎてカオスな時、データの特徴をなるべく殺さずに「2次元や3次元にギュッと圧縮」して可視化する魔法。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 勾配降下法</td><td class="en-term">Gradient Descent</td><td>最適化アルゴリズムの王様</td><td>目隠しをして山を下る時、「足元の傾き」だけを頼りに、一番深い谷底（誤差が最小の場所）を探し当てるアルゴリズム。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 学習率（ラーニングレート）</td><td class="en-term">Learning Rate</td><td>勾配降下法の歩幅</td><td>山を下る時の「歩幅」。デカすぎると谷底を飛び越えて遭難し、小さすぎると谷底に着く前に寿命が尽きる。</td></tr>
+        <tr><td><span class="checkbox">☐</span> サポートベクターマシン (SVM)</td><td class="en-term">Support Vector Machine</td><td>境界線のマージンを最大化</td><td>2つのグループの間に「できるだけ幅の広い道路（境界線）」を引いて、未知のデータも安全に分類できるようにする手法。</td></tr>
+        <tr><td><span class="checkbox">☐</span> K近傍法 (KNN)</td><td class="en-term">K-Nearest Neighbors</td><td>怠け者の学習アルゴリズム</td><td>「類は友を呼ぶ」の法則。新しいデータが来たら、近くにいるK人のご近所さんの多数決で自分の属性を決める手法。</td></tr>
+        <tr><td><span class="checkbox">☐</span> K平均法 (K-means)</td><td class="en-term">K-means Clustering</td><td>教師なし学習の代表格</td><td>バラバラのデータを「とりあえずK個のグループに分けよう」と、リーダーを動かしながら似た者同士を自動でまとめる手法。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ニューラルネットワーク</td><td class="en-term">Neural Network</td><td>脳の神経回路を模倣</td><td>データを受け取る入力層、ゴチャゴチャ計算する隠れ層、結果を出す出力層で構成された、ディープラーニングの基礎。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 活性化関数</td><td class="en-term">Activation Function</td><td>ニューロンの発火条件</td><td>脳の神経細胞が「次の細胞にシグナルを伝えるか？」を決めるスイッチ。これがないと複雑な表現ができない。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ReLU（レル）</td><td class="en-term">Rectified Linear Unit</td><td>現在最強の活性化関数</td><td>「マイナスの入力は全部ゼロ！プラスの入力はそのまま通す！」という、シンプルだけど計算が爆速になる最強のスイッチ。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ソフトマックス関数</td><td class="en-term">Softmax Function</td><td>出力を確率に変換</td><td>ニューラルネットワークの最後の答えを、「犬80%、猫15%、鳥5%」のように、合計100%の綺麗な確率に変換する関数。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 損失関数（コスト関数）</td><td class="en-term">Loss Function</td><td>AIのダメ出しスコア</td><td>AIの予測が「正解からどれくらいズレているか」を計算するペナルティ点数。AIはこれをゼロにしようと学習する。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 交差エントロピー</td><td class="en-term">Cross-Entropy Loss</td><td>分類タスクの損失関数</td><td>分類タスクで「正解は犬なのに、猫の確率を高く出しちゃった」時のダメ出しの度合い。自信満々で間違えるとペナルティ大。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 情報利得 (Information Gain)</td><td class="en-term">Information Gain</td><td>決定木の分岐の基準</td><td>「しっぽはある？」と質問したことで、データのごちゃ混ぜ具合（エントロピー）がどれくらいスッキリ綺麗に分かれたかを示す量。</td></tr>
+        <tr><td><span class="checkbox">☐</span> ジニ不純度</td><td class="en-term">Gini Impurity</td><td>CARTアルゴリズムで使用</td><td>決定木でグループを分けた時、「そのグループに違う種類がどれくらい混ざってしまっているか」を示す汚れ度合い。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 固有ベクトル</td><td class="en-term">Eigenvector</td><td>PCAの主成分の向き</td><td>行列（データ）の力学によって引っ張られても「向きが変わらない特別な軸」。データの散らばりが最大の方向を指す。</td></tr>
+        <tr><td><span class="checkbox">☐</span> 固有値</td><td class="en-term">Eigenvalue</td><td>主成分の重要度</td><td>固有ベクトルの方向に、データが「どれくらい強く引き伸ばされているか」を示す長さ。これがデカい軸ほど重要。</td></tr>
+        <tr><td><span class="checkbox">☐</span> スクリープロット</td><td class="en-term">Scree Plot</td><td>PCAの成分選択のグラフ</td><td>主成分の「固有値（重要度）」を大きい順に並べた崖のようなグラフ。崖がなだらかになる手前までを採用する。</td></tr>
+    </table>
+
+</body>
+</html>
