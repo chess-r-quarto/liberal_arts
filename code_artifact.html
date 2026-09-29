@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学習インプット過程・理解定着シミュレーター</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN for clean, reactive curve visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts: Inter & Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth transition animations for metrics */
+        .metric-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .metric-card:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans min-h-screen flex flex-col">
+
+    <!-- Header navigation -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-indigo-100">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight">学習定着・忘却曲線シミュレーター</h1>
+                    <p class="text-xs text-slate-500 hidden sm:block">テキスト精読型 vs 重ね塗り往復型のインプット減衰比較モデル</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 text-xs text-slate-600">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 font-medium">
+                    放送大学・自学自習特化モデル
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+        <!-- Intro overview banner -->
+        <div class="bg-gradient-to-r from-indigo-900 via-slate-900 to-indigo-950 rounded-2xl p-6 text-white shadow-xl">
+            <div class="max-w-3xl space-y-3">
+                <span class="inline-block text-xs uppercase tracking-wider font-semibold text-indigo-300 bg-indigo-900/60 px-2.5 py-0.5 rounded-full border border-indigo-700/50">
+                    認知心理学 × エビングハウスの忘却曲線拡張モデル
+                </span>
+                <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white">
+                    「初見1回だけの全力精読」はなぜ忘却が速いのか？
+                </h2>
+                <p class="text-sm text-slate-300 leading-relaxed">
+                    初見のテキストを1回で完璧に読もうとすると、初期負荷が高い割に脳内シナプスの結合強度（記憶の半減期）が育ちません。
+                    一方で<strong>「粗読み（下地）→ 放送講義（マルチモーダル刺激）→ 演習（想起テスト）」</strong>の薄い往復を重ねると、
+                    忘却曲線の傾きが劇的に緩やかになり、試験期（30日後）まで高い解像度が維持されます。
+                </p>
+            </div>
+        </div>
+
+        <!-- Preset comparison selector -->
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                <div>
+                    <h3 class="font-bold text-slate-900 text-sm sm:text-base">インプット戦略モデルの比較</h3>
+                    <p class="text-xs text-slate-500">代表的な学習スタイルを選択して、保持率と理解度の推移曲線を比較します</p>
+                </div>
+                <div class="flex flex-wrap gap-1.5" id="presetButtonsContainer">
+                    <!-- Preset buttons injected via JS -->
+                </div>
+            </div>
+
+            <!-- Model descriptions card -->
+            <div id="modelDescriptionCard" class="bg-slate-50 rounded-xl p-4 border border-slate-200/60 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+
+        <!-- Metrics Dashboard Row -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm metric-card">
+                <div class="text-xs font-medium text-slate-500">30日後の記憶保持率</div>
+                <div class="mt-1.5 flex items-baseline space-x-2">
+                    <span id="metricRetention30" class="text-2xl font-bold text-indigo-600">--%</span>
+                    <span id="metricRetentionDiff" class="text-xs font-semibold text-emerald-600"></span>
+                </div>
+                <div class="mt-1 text-[11px] text-slate-400">試験直前の推定残存知識量</div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm metric-card">
+                <div class="text-xs font-medium text-slate-500">理解の構造化・解像度</div>
+                <div class="mt-1.5 flex items-baseline space-x-2">
+                    <span id="metricDepth" class="text-2xl font-bold text-slate-800">--/100</span>
+                </div>
+                <div class="mt-1 text-[11px] text-slate-400">応用問題・記述への対応深度</div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm metric-card">
+                <div class="text-xs font-medium text-slate-500">総投下学習時間</div>
+                <div class="mt-1.5 flex items-baseline space-x-2">
+                    <span id="metricTime" class="text-2xl font-bold text-slate-800">-- 分</span>
+                </div>
+                <div class="mt-1 text-[11px] text-slate-400">1回あたりの往復総所要時間</div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm metric-card">
+                <div class="text-xs font-medium text-slate-500">タイムパフォーマンス (ROI)</div>
+                <div class="mt-1.5 flex items-baseline space-x-2">
+                    <span id="metricEfficiency" class="text-2xl font-bold text-emerald-600">--</span>
+                </div>
+                <div class="mt-1 text-[11px] text-slate-400">定着率 ÷ 時間効率指標</div>
+            </div>
+        </div>
+
+        <!-- Graph & Interactive controls workspace -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Left 2 Cols: Main Chart Area -->
+            <div class="lg:col-span-2 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-sm sm:text-base flex items-center space-x-2">
+                            <span>定着曲線シミュレーション (時間推移: 0〜30日)</span>
+                        </h3>
+                        <p class="text-xs text-slate-500">日数の経過に伴う記憶残存率の変化と反復インプットによる傾き緩和</p>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs">
+                        <label class="flex items-center space-x-1.5 cursor-pointer text-slate-600">
+                            <input type="checkbox" id="toggleBaselineCompare" checked class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+                            <span>「1回きり精読」を薄く重ねて比較</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Canvas Wrapper with explicit aspect ratio -->
+                <div class="relative w-full h-[320px] sm:h-[380px]">
+                    <canvas id="retentionChart"></canvas>
+                </div>
+
+                <!-- Graph Legend helper -->
+                <div class="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between text-xs text-slate-500 gap-2">
+                    <div class="flex items-center space-x-3">
+                        <span class="inline-flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-indigo-600 mr-1.5"></span>選択中モデルの保持率 (%)</span>
+                        <span class="inline-flex items-center text-slate-400"><span class="w-2.5 h-0.5 bg-slate-300 mr-1.5"></span>初見1回のみ (ベースライン)</span>
+                    </div>
+                    <span class="italic text-[11px]">※指数減衰モデル R(t) = R₀・e^(-t / S) に反復強度ボーナスを適用</span>
+                </div>
+            </div>
+
+            <!-- Right Col: Interactive Intervention Builder -->
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col space-y-4">
+                <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">学習イベント（往復手順）の調整</h4>
+                        <p class="text-xs text-slate-500">各ステップの有無を切り替えて効果を確認</p>
+                    </div>
+                    <button id="resetToPresetBtn" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">
+                        プリセットに戻す
+                    </button>
+                </div>
+
+                <!-- Steps List -->
+                <div id="stepsList" class="space-y-3 flex-1 overflow-y-auto max-h-[360px] pr-1">
+                    <!-- Event items dynamically loaded here -->
+                </div>
+
+                <!-- Add quick step tool -->
+                <div class="pt-3 border-t border-slate-100">
+                    <button id="addReviewStepBtn" class="w-full py-2 px-3 rounded-xl border border-dashed border-indigo-300 text-indigo-600 hover:bg-indigo-50 font-medium text-xs flex items-center justify-center space-x-1.5 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                        <span>追加の分散復習ステップ (7日後 15分) を挿入</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theoretical Comparison & Key takeaways -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-2">
+                <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-sm">
+                    1
+                </div>
+                <h4 class="font-bold text-slate-900 text-sm">初期認知負荷の罠</h4>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    初見のテキストを1行目から完璧に理解しようとすると、ワーキングメモリが飽和（認知オーバーロード）します。「粗読み」で全体の見出しや用語の枠組みだけを先に入れておくことで、脳が「受け入れ態勢」を作ることができます。
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-2">
+                <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">
+                    2
+                </div>
+                <h4 class="font-bold text-slate-900 text-sm">デュアルコーディング効果</h4>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    文字（視覚言語）だけで覚えるより、講師の解説・声のトーン・スライド図解（聴覚＋動的視覚）が組み合わさることで、脳内の想起ルートが多重化。放送大学特有の「印刷教材×放送」の相乗効果がここにあります。
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-2">
+                <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">
+                    3
+                </div>
+                <h4 class="font-bold text-slate-900 text-sm">忘却曲線の「傾き（減衰率）」変化</h4>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    1回のインプットでは忘却の速度は急峻ですが、翌日や数日後にわずか10〜15分の想起（通信指導を解く・章末確認）を行うだけで、曲線の傾きが劇的に緩やかになり、知識の半減期が数倍〜十数倍に延長されます。
+                </p>
+            </div>
+        </div>
+
+        <!-- Actionable tips footer -->
+        <div class="bg-indigo-50/70 border border-indigo-100 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="space-y-1">
+                <h4 class="font-bold text-indigo-900 text-sm">実践へのアクション指針</h4>
+                <p class="text-xs text-indigo-700">「1回でわかろうとしない」勇気を持ち、まずは1章15分の下見と45分の講義視聴を1セットとして回してみましょう。</p>
+            </div>
+            <div class="text-xs bg-white text-indigo-800 font-semibold px-4 py-2 rounded-xl border border-indigo-200 shadow-sm whitespace-nowrap">
+                目標: 1科目の1章あたり 3往復
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-400">
+            学習科学・認知心理学モデルに基づく自学自習シミュレーター
+        </div>
+    </footer>
+
+    <script>
+        // Preset Models Definition
+        const PRESETS = {
+            heavy_single: {
+                id: 'heavy_single',
+                name: '初見1回の全力精読',
+                subtitle: '1回で完璧に読み切ろうとする非推奨スタイル',
+                description: '初見でテキストを辞書を片手に120分かけて精読。放送は見ないか、疲れてスキップ。初期理解度は高いものの、反復刺激がないためエビングハウスの忘却曲線に沿って急速に減衰し、30日後にはほとんど残りません。',
+                steps: [
+                    { day: 0, title: 'テキスト全力精読（1回のみ）', time: 120, boostInitial: 85, boostStability: 1.8, depth: 40, active: true }
+                ]
+            },
+            ouou_standard: {
+                id: 'ouou_standard',
+                name: '3段階重ね塗り往復（推奨）',
+                subtitle: '粗読み ➔ 放送視聴 ➔ ピンポイント確認',
+                description: '【第1段階】テキスト見出しと章末の粗読み（20分）で輪郭を掴む。【第2段階】放送講義（45分）で講師の解説とスライドを浴びる。【第3段階】翌日〜数日後に通信指導や章末問題を解いてピンポイント精読（25分）。時間対効果が最大化します。',
+                steps: [
+                    { day: 0, title: 'テキスト粗読み（見出し・太字）', time: 20, boostInitial: 40, boostStability: 2.2, depth: 30, active: true },
+                    { day: 1, title: '放送授業視聴（45分）', time: 45, boostInitial: 45, boostStability: 5.5, depth: 40, active: true },
+                    { day: 3, title: '章末問題・通信指導で確認精読', time: 25, boostInitial: 20, boostStability: 9.0, depth: 25, active: true }
+                ]
+            },
+            broadcast_only: {
+                id: 'broadcast_only',
+                name: '放送聞き流しのみ',
+                subtitle: 'テキストを開かず受動視聴のみ',
+                description: '移動中などに放送だけを45分視聴。理解した感覚（流暢性の錯覚）は得やすいものの、自発的なテキスト読解やアウトプットがないため定着強度が極めて低く、数日で急降下します。',
+                steps: [
+                    { day: 0, title: '放送授業の聞き流し視聴', time: 45, boostInitial: 50, boostStability: 1.5, depth: 25, active: true }
+                ]
+            },
+            spaced_mastery: {
+                id: 'spaced_mastery',
+                name: '分散復習＋過去問強化型',
+                subtitle: '単位認定試験でA・◯Aを狙うハイエンド型',
+                description: '3段階往復に加え、7日後と21日後に10分間の過去問・想起テストを実施。忘却の変曲点に合わせて最小限の刺激を当てることで、試験直前まで80%以上の定着率を維持します。',
+                steps: [
+                    { day: 0, title: 'テキスト下見（粗読み）', time: 15, boostInitial: 35, boostStability: 2.0, depth: 25, active: true },
+                    { day: 1, title: '放送授業の視聴＆重要点メモ', time: 45, boostInitial: 45, boostStability: 5.0, depth: 40, active: true },
+                    { day: 3, title: '通信指導問題を解く（想起練習）', time: 20, boostInitial: 20, boostStability: 8.0, depth: 25, active: true },
+                    { day: 10, title: '過去問該当問のチェック（10分）', time: 10, boostInitial: 12, boostStability: 14.0, depth: 10, active: true }
+                ]
+            }
+        };
+
+        // App state
+        let currentPresetKey = 'ouou_standard';
+        let currentSteps = JSON.parse(JSON.stringify(PRESETS[currentPresetKey].steps));
+        let chartInstance = null;
+        let compareWithBaseline = true;
+
+        /**
+         * Calculates retention rate at time t (in days) using cumulative learning events.
+         * Modeled after Ebbinghaus decay with power-law stability scaling:
+         * R(t) = sum of interventions decay, or cumulative stability S.
+         */
+        function calculateTimelineCurves(steps, maxDays = 30) {
+            const timePoints = [];
+            const dataPoints = [];
+            const baselinePoints = [];
+
+            // Calculate active steps sorted by day
+            const activeSteps = steps.filter(s => s.active).sort((a, b) => a.day - b.day);
+
+            // Baseline standard curve: 1 single heavy reading on day 0
+            const baselineSteps = PRESETS.heavy_single.steps;
+
+            for (let day = 0; day <= maxDays; day += 0.5) {
+                timePoints.push(day === Math.floor(day) ? `${day}日` : '');
+
+                // Calculate for current customized active steps
+                const retention = evaluateRetentionAtDay(activeSteps, day);
+                dataPoints.push(Math.round(retention * 10) / 10);
+
+                // Calculate baseline
+                const baselineRetention = evaluateRetentionAtDay(baselineSteps, day);
+                baselinePoints.push(Math.round(baselineRetention * 10) / 10);
+            }
+
+            return { timePoints, dataPoints, baselinePoints };
+        }
+
+        /**
+         * Evaluates memory retention % (0 to 100) at a specific day
+         */
+        function evaluateRetentionAtDay(steps, currentDay) {
+            if (steps.length === 0) return 0;
+
+            let currentLevel = 0;
+            let currentStability = 1.0; // Half-life proxy in days
+            let lastEventDay = 0;
+
+            for (const step of steps) {
+                if (step.day <= currentDay) {
+                    // Decay from lastEventDay to step.day
+                    const deltaT = step.day - lastEventDay;
+                    if (currentLevel > 0) {
+                        currentLevel = currentLevel * Math.exp(-deltaT / currentStability);
+                    }
+
+                    // Apply boost from new event
+                    currentLevel = Math.min(100, currentLevel + step.boostInitial);
+                    // Stability multiplier: spaced repetition increases memory half-life
+                    currentStability = currentStability * 1.4 + (step.boostStability || 2.0);
+                    lastEventDay = step.day;
+                } else {
+                    break;
+                }
+            }
+
+            // Decay from last recorded event to currentDay
+            const remainingDelta = currentDay - lastEventDay;
+            if (lastEventDay <= currentDay && currentLevel > 0) {
+                currentLevel = currentLevel * Math.exp(-remainingDelta / currentStability);
+            }
+
+            return Math.max(0, Math.min(100, currentLevel));
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('retentionChart').getContext('2d');
+            const { timePoints, dataPoints, baselinePoints } = calculateTimelineCurves(currentSteps);
+
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: timePoints,
+                    datasets: [
+                        {
+                            label: '現在の学習プランの定着率 (%)',
+                            data: dataPoints,
+                            borderColor: '#4f46e5',
+                            backgroundColor: 'rgba(79, 70, 229, 0.08)',
+                            fill: true,
+                            tension: 0.25,
+                            borderWidth: 3,
+                            pointRadius: (ctx) => {
+                                const index = ctx.dataIndex;
+                                return (index % 2 === 0 && index <= 10) ? 3 : 0;
+                            },
+                            pointHoverRadius: 6,
+                            pointBackgroundColor: '#4f46e5',
+                            pointBorderColor: '#ffffff',
+                            pointBorderWidth: 2
+                        },
+                        {
+                            label: '初見1回きり精読（ベースライン）',
+                            data: baselinePoints,
+                            borderColor: '#cbd5e1',
+                            backgroundColor: 'transparent',
+                            borderDash: [5, 5],
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            hidden: !compareWithBaseline,
+                            tension: 0.25
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            titleFont: { size: 12, family: 'Noto Sans JP' },
+                            bodyFont: { size: 12, family: 'Noto Sans JP' },
+                            padding: 10,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.parsed.y}%`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 100,
+                            ticks: {
+                                stepSize: 20,
+                                callback: value => `${value}%`,
+                                font: { size: 11, family: 'Noto Sans JP' }
+                            },
+                            grid: {
+                                color: '#f1f5f9'
+                            },
+                            title: {
+                                display: true,
+                                text: '記憶の残存率 / 定着度',
+                                font: { size: 11 }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                maxRotation: 0,
+                                autoSkip: true,
+                                maxTicksLimit: 12,
+                                font: { size: 10 }
+                            },
+                            title: {
+                                display: true,
+                                text: '経過日数（0日 = 学習開始）',
+                                font: { size: 11 }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateDashboard() {
+            const { timePoints, dataPoints, baselinePoints } = calculateTimelineCurves(currentSteps);
+
+            // Update Chart
+            if (chartInstance) {
+                chartInstance.data.labels = timePoints;
+                chartInstance.data.datasets[0].data = dataPoints;
+                chartInstance.data.datasets[1].data = baselinePoints;
+                chartInstance.data.datasets[1].hidden = !compareWithBaseline;
+                chartInstance.update();
+            }
+
+            // Calculations for metrics
+            const finalRetention = dataPoints[dataPoints.length - 1];
+            const baselineFinal = baselinePoints[baselinePoints.length - 1];
+            const activeSteps = currentSteps.filter(s => s.active);
+
+            // Total time spent
+            const totalTime = activeSteps.reduce((acc, cur) => acc + (cur.time || 0), 0);
+
+            // Calculated depth score (cumulative mental model structure)
+            const totalDepth = Math.min(100, activeSteps.reduce((acc, cur) => acc + (cur.depth || 15), 0));
+
+            // ROI efficiency: retention % divided by (time in hours)
+            const hours = Math.max(0.5, totalTime / 60);
+            const efficiencyScore = Math.round((finalRetention / hours) * 10) / 10;
+
+            // DOM updates
+            document.getElementById('metricRetention30').textContent = `${finalRetention}%`;
+            
+            const diffEl = document.getElementById('metricRetentionDiff');
+            const diff = Math.round((finalRetention - baselineFinal) * 10) / 10;
+            if (diff >= 0) {
+                diffEl.textContent = `+${diff}% vs 1回精読`;
+                diffEl.className = 'text-xs font-semibold text-emerald-600';
+            } else {
+                diffEl.textContent = `${diff}% vs 1回精読`;
+                diffEl.className = 'text-xs font-semibold text-rose-500';
+            }
+
+            document.getElementById('metricDepth').textContent = `${totalDepth} / 100`;
+            document.getElementById('metricTime').textContent = `${totalTime} 分`;
+            document.getElementById('metricEfficiency').textContent = `${efficiencyScore} pt`;
+        }
+
+        function renderPresetButtons() {
+            const container = document.getElementById('presetButtonsContainer');
+            container.innerHTML = '';
+
+            Object.keys(PRESETS).forEach(key => {
+                const preset = PRESETS[key];
+                const isSelected = key === currentPresetKey;
+                const btn = document.createElement('button');
+                btn.className = `px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+                    isSelected 
+                        ? 'bg-indigo-600 text-white shadow-sm' 
+                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                }`;
+                btn.textContent = preset.name;
+                btn.onclick = () => selectPreset(key);
+                container.appendChild(btn);
+            });
+
+            // Update description card
+            const current = PRESETS[currentPresetKey];
+            document.getElementById('modelDescriptionCard').innerHTML = `
+                <div class="font-bold text-slate-900 mb-1 flex items-center justify-between">
+                    <span>${current.name}</span>
+                    <span class="text-xs text-indigo-600 font-normal">${current.subtitle}</span>
+                </div>
+                <p>${current.description}</p>
+            `;
+        }
+
+        function renderStepsEditor() {
+            const container = document.getElementById('stepsList');
+            container.innerHTML = '';
+
+            currentSteps.forEach((step, idx) => {
+                const item = document.createElement('div');
+                item.className = `p-3 rounded-xl border transition ${
+                    step.active ? 'bg-slate-50 border-slate-200' : 'bg-slate-100/50 border-dashed border-slate-200 opacity-60'
+                }`;
+
+                item.innerHTML = `
+                    <div class="flex items-start justify-between gap-2">
+                        <label class="flex items-start space-x-2.5 cursor-pointer">
+                            <input type="checkbox" data-index="${idx}" class="step-toggle mt-0.5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" ${step.active ? 'checked' : ''}>
+                            <div>
+                                <span class="text-xs font-bold text-slate-800">${step.day}日目: ${step.title}</span>
+                                <div class="text-[11px] text-slate-500 flex items-center space-x-2 mt-0.5">
+                                    <span>⏱️ 所要 ${step.time}分</span>
+                                    <span>•</span>
+                                    <span>初期付与 +${step.boostInitial}%</span>
+                                </div>
+                            </div>
+                        </label>
+                        <button data-delete="${idx}" class="text-slate-400 hover:text-rose-500 p-1 text-xs" title="削除">
+                            ✕
+                        </button>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+
+            // Attach toggle handlers
+            container.querySelectorAll('.step-toggle').forEach(input => {
+                input.addEventListener('change', (e) => {
+                    const index = parseInt(e.target.dataset.index);
+                    currentSteps[index].active = e.target.checked;
+                    updateDashboard();
+                    renderStepsEditor();
+                });
+            });
+
+            // Attach delete handlers
+            container.querySelectorAll('[data-delete]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = parseInt(e.currentTarget.dataset.delete);
+                    currentSteps.splice(index, 1);
+                    updateDashboard();
+                    renderStepsEditor();
+                });
+            });
+        }
+
+        function selectPreset(presetKey) {
+            currentPresetKey = presetKey;
+            currentSteps = JSON.parse(JSON.stringify(PRESETS[presetKey].steps));
+            renderPresetButtons();
+            renderStepsEditor();
+            updateDashboard();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderPresetButtons();
+            renderStepsEditor();
+            initChart();
+            updateDashboard();
+
+            // Toggle baseline comparison
+            document.getElementById('toggleBaselineCompare').addEventListener('change', (e) => {
+                compareWithBaseline = e.target.checked;
+                updateDashboard();
+            });
+
+            // Reset button
+            document.getElementById('resetToPresetBtn').addEventListener('click', () => {
+                currentSteps = JSON.parse(JSON.stringify(PRESETS[currentPresetKey].steps));
+                renderStepsEditor();
+                updateDashboard();
+            });
+
+            // Add custom review step
+            document.getElementById('addReviewStepBtn').addEventListener('click', () => {
+                currentSteps.push({
+                    day: 7,
+                    title: '7日後の分散復習（章末・メモ確認）',
+                    time: 15,
+                    boostInitial: 15,
+                    boostStability: 12.0,
+                    depth: 15,
+                    active: true
+                });
+                renderStepsEditor();
+                updateDashboard();
+            });
+        });
+    </script>
+</body>
+</html>
