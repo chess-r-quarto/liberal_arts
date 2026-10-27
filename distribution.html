@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>統計学の3大標本分布：カイ二乗・t・F分布 徹底解説</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- KaTeX for beautiful math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap');
+    body {
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      scroll-behavior: smooth;
+    }
+    .latex-eq {
+      font-size: 1.05rem;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-500 selection:text-white">
+
+  <!-- ナビゲーションバー -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+          <i class="fa-solid fa-chart-line"></i>
+        </span>
+        <span class="font-extrabold text-slate-900 tracking-tight text-lg">StatGuide</span>
+        <span class="hidden sm:inline-block text-xs font-semibold px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-800">3大標本分布ハンドブック</span>
+      </div>
+      <nav class="flex items-center space-x-1 sm:space-x-3 text-sm font-medium text-slate-600">
+        <a href="#overview" class="px-2.5 py-1.5 rounded-lg hover:text-indigo-600 hover:bg-slate-100 transition">全体像</a>
+        <a href="#chisq" class="px-2.5 py-1.5 rounded-lg hover:text-indigo-600 hover:bg-slate-100 transition">$\chi^2$分布</a>
+        <a href="#tdist" class="px-2.5 py-1.5 rounded-lg hover:text-indigo-600 hover:bg-slate-100 transition">$t$分布</a>
+        <a href="#fdist" class="px-2.5 py-1.5 rounded-lg hover:text-indigo-600 hover:bg-slate-100 transition">$F$分布</a>
+        <a href="#simulator" class="px-2.5 py-1.5 rounded-lg hover:text-indigo-600 hover:bg-slate-100 transition text-indigo-600 font-semibold">可視化シミュレーター</a>
+        <a href="#flowchart" class="hidden md:inline-block px-2.5 py-1.5 rounded-lg hover:text-indigo-600 hover:bg-slate-100 transition">実務診断</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ヒーローセクション -->
+  <section class="relative bg-gradient-to-b from-indigo-900 via-slate-900 to-slate-900 text-white py-16 sm:py-24 overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#818cf8_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 mb-6">
+        <i class="fa-solid fa-graduation-cap"></i> 推測統計学の核心を掴む
+      </span>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight sm:leading-snug">
+        なぜ、正規分布だけでは<br class="hidden sm:inline">不十分なのか？
+      </h1>
+      <p class="mt-6 text-base sm:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
+        現実の分析では母集団の真のばらつき（母分散）は分かりません。手元の限られた標本から真実を導くために生み出された
+        <strong class="text-white font-bold">カイ二乗分布</strong>、<strong class="text-white font-bold">$t$分布</strong>、<strong class="text-white font-bold">$F$分布</strong>の背景・数理・実例を整理した解説資料です。
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="#simulator" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-medium text-white shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
+          <i class="fa-solid fa-sliders"></i> 形状シミュレーターを試す
+        </a>
+        <a href="#overview" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 font-medium text-slate-200 border border-slate-700 transition">
+          数理的なつながりを見る
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+
+    <!-- セクション：全体像と相関関係 -->
+    <section id="overview" class="scroll-mt-20">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-xs uppercase tracking-widest font-bold text-indigo-600 mb-2">Architecture</h2>
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">すべては「標準正規分布」から派生する</h3>
+        <p class="mt-3 text-slate-600">3つの分布はバラバラではなく、標準正規変数 $Z \sim N(0, 1)$ の二乗や比率によって美しく繋がっています。</p>
+      </div>
+
+      <!-- 相関図カード -->
+      <div class="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200 shadow-sm">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+          
+          <!-- カイ二乗カード -->
+          <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-6 hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100 px-2.5 py-1 rounded-md">二乗の和</span>
+              <span class="text-2xl font-black text-amber-600">$\chi^2$</span>
+            </div>
+            <h4 class="text-lg font-bold text-slate-900">カイ二乗分布</h4>
+            <p class="text-xs text-slate-500 mt-1">Karl Pearson (1900)</p>
+            <div class="my-4 p-3 bg-white rounded-lg border border-amber-100 font-mono text-sm text-center text-slate-800">
+              $X = \sum_{i=1}^k Z_i^2$
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              正規分布に従う変数の<strong>二乗を $k$ 個足したもの</strong>。理論値と観測値の「ズレの総量」を評価する。
+            </p>
+          </div>
+
+          <!-- t分布カード -->
+          <div class="bg-sky-50/70 border border-sky-200 rounded-xl p-6 hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-sky-700 bg-sky-100 px-2.5 py-1 rounded-md">比（正規 / カイ二乗根）</span>
+              <span class="text-2xl font-black text-sky-600">$t$</span>
+            </div>
+            <h4 class="text-lg font-bold text-slate-900">$t$ 分布</h4>
+            <p class="text-xs text-slate-500 mt-1">Student / Gosset (1908)</p>
+            <div class="my-4 p-3 bg-white rounded-lg border border-sky-100 font-mono text-sm text-center text-slate-800">
+              $t = \frac{Z}{\sqrt{\chi^2 / k}}$
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              母分散が未知のとき、<strong>標本分散で標準化した平均値</strong>が従う分布。サンプル数が少なくても正確に判定可能。
+            </p>
+          </div>
+
+          <!-- F分布カード -->
+          <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-6 hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-md">カイ二乗の比</span>
+              <span class="text-2xl font-black text-emerald-600">$F$</span>
+            </div>
+            <h4 class="text-lg font-bold text-slate-900">$F$ 分布</h4>
+            <p class="text-xs text-slate-500 mt-1">Fisher (1924) & Snedecor (1934)</p>
+            <div class="my-4 p-3 bg-white rounded-lg border border-emerald-100 font-mono text-sm text-center text-slate-800">
+              $F = \frac{\chi_1^2 / k_1}{\chi_2^2 / k_2}$
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              <strong>2つの独立したばらつき（分散）の比率</strong>。要因による差が、偶然の誤差より何倍大きいかを判定する。
+            </p>
+          </div>
+
+        </div>
+
+        <!-- 数理の結節点バナー -->
+        <div class="mt-8 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 bg-slate-50/60 p-4 rounded-xl">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-link text-indigo-500 text-sm"></i>
+            <span><strong>重要な数理関係：</strong> 自由度 $k$ の $t$分布の変数を2乗すると、分子自由度 $1$、分母自由度 $k$ の $F$分布に一致します（$t^2 = F(1, k)$）。</span>
+          </div>
+          <span class="text-slate-500 text-[11px] bg-slate-200/70 px-2.5 py-1 rounded-md">※等分散を仮定したStudentの2標本t検定 ＝ 2群の一元配置分散分析</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1. カイ二乗分布の詳細 -->
+    <section id="chisq" class="scroll-mt-20">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+          $\chi^2$
+        </span>
+        <div>
+          <h3 class="text-2xl font-extrabold text-slate-900">1. カイ二乗分布（Chi-Square Distribution）</h3>
+          <p class="text-xs text-slate-500">ピアソンが考案した「ズレの総量」を測る分布</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- 左：解説・背景 -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4">
+            <h4 class="font-bold text-slate-900 flex items-center gap-2">
+              <i class="fa-solid fa-book-open text-amber-500"></i> 背景と誕生のストーリー
+            </h4>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              1900年、<strong>カール・ピアソン（Karl Pearson）</strong>は「サイコロを振った結果が、理論通りの等確率（1/6ずつ）に従っているか」を客観的に判定したいと考えました。
+              観測度数 $O$ と期待度数 $E$ のズレは正負両方に出るため、そのまま足すと相殺されます。そこで<strong>「標準化したズレの2乗和」 $\sum \frac{(O-E)^2}{E}$</strong> を考案しました。
+            </p>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              本質的な定義は「独立な標準正規変数の二乗和」ですが、多項分布に従う度数データのズレも、サンプルサイズが大きいとき中心極限定理によって正規近似され、<strong>漸近的にカイ二乗分布に従う</strong>ことが数学的に証明されています。
+            </p>
+
+            <div class="bg-amber-50/80 rounded-xl p-4 border border-amber-200 text-sm text-amber-900 space-y-2">
+              <div class="font-semibold text-xs tracking-wide uppercase text-amber-800">主な性質</div>
+              <ul class="list-disc list-inside space-y-1 text-xs sm:text-sm">
+                <li>二乗の和なので、<strong>必ず0以上の値</strong>をとる（非負・右裾野）。</li>
+                <li><strong>平均（期待値）は $k$、最頻値（山の頂点）は $k - 2$</strong>（$k \ge 2$ のとき。$k=1$ では $0$ で発散、$k=2$ では $0$ が有限の最大値で単調減少）。</li>
+                <li>歪度は $\sqrt{8/k}$ であり、$k$ が大きくなるにつれて緩やかに正規分布へと漸近する。</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 実例カード -->
+          <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4">
+            <span class="inline-block px-2.5 py-1 rounded text-xs font-bold bg-amber-100 text-amber-800">実例で理解する</span>
+            <h4 class="text-lg font-bold text-slate-900">新フレーバー紅茶の「人気の偏り」検定（適合度検定）</h4>
+            <p class="text-sm text-slate-600">
+              60人に3つの新フレーバー（レモン、アップル、ピーチ）を試飲してもらい、1番好きなものを1つ選んでもらった。<br>
+              <span class="font-semibold text-slate-700">【帰無仮説 $H_0$】：</span>フレーバー間の好みに差はなく、母比率は均等（各 $1/3$、期待値各20人）である。
+            </p>
+
+            <div class="grid grid-cols-3 gap-2 text-center text-xs sm:text-sm pt-2">
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                <div class="text-slate-500">レモン</div>
+                <div class="text-base font-bold text-slate-800 mt-1">30人</div>
+                <div class="text-[11px] text-slate-400">期待値 20人</div>
+              </div>
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                <div class="text-slate-500">アップル</div>
+                <div class="text-base font-bold text-slate-800 mt-1">18人</div>
+                <div class="text-[11px] text-slate-400">期待値 20人</div>
+              </div>
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                <div class="text-slate-500">ピーチ</div>
+                <div class="text-base font-bold text-slate-800 mt-1">12人</div>
+                <div class="text-[11px] text-slate-400">期待値 20人</div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900 text-slate-100 p-4 rounded-xl text-xs sm:text-sm font-mono space-y-2">
+              <div class="text-slate-400">// ピアソンのカイ二乗統計量の計算</div>
+              <div>$\chi^2 = \frac{(30-20)^2}{20} + \frac{(18-20)^2}{20} + \frac{(12-20)^2}{20} = 5.0 + 0.2 + 3.2 = \mathbf{8.40}$</div>
+              <div class="pt-2 border-t border-slate-700 text-slate-300">
+                自由度 $3 - 1 = 2$ の有意水準5%臨界値は <strong class="text-amber-400">5.99</strong>。<br>
+                検定統計量 $8.40 > 5.99$ となり棄却域に入るため、<strong>有意水準5%で帰無仮説は棄却される</strong>。「味による人気の偏りがない（均等である）」とは言えず、好みに統計的に有意な差があると判断できる。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右：ポイント整理 -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-gradient-to-br from-amber-500 to-amber-600 text-white rounded-2xl p-6 sm:p-7 shadow-sm">
+            <h4 class="font-bold text-lg mb-2"><i class="fa-solid fa-crosshairs mr-2"></i>どんな時に使う？</h4>
+            <ul class="space-y-3 text-sm text-amber-50 leading-relaxed">
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-check mt-1"></i>
+                <span><strong>適合度検定：</strong> サイコロの出目や遺伝の法則など、理論通りの比率で生起しているかを大標本で検定する時。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-check mt-1"></i>
+                <span><strong>独立性の検定：</strong> アンケートのクロス集計表で、「性別」と「支持政党」など2つの質的属性に関連性があるか調べたい時。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-check mt-1"></i>
+                <span><strong>母分散の検定：</strong> 正規母集団を前提として、標本不偏分散から $\chi^2 = \frac{(n-1)s^2}{\sigma_0^2}$ を用いて検定する時（正規性の仮定に非常に敏感なため注意が必要）。</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm text-xs text-slate-600 space-y-3">
+            <div class="font-bold text-slate-800 text-sm">💡 実務のワンポイントアドバイス</div>
+            <p>カイ二乗検定は正規近似に基づくため、期待度数が5未満のセルが多いと精度が低下します。$2 \times 2$ 表ではフィッシャーの正確確率検定、一般の分割表ではカテゴリの統合や正確検定（Freeman-Halton検定）を検討します（※イェーツの連続補正は過度に保守的になりやすいため近年は慎重に扱われます）。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. t分布の詳細 -->
+    <section id="tdist" class="scroll-mt-20">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+          $t$
+        </span>
+        <div>
+          <h3 class="text-2xl font-extrabold text-slate-900">2. $t$ 分布（Student's t-Distribution）</h3>
+          <p class="text-xs text-slate-500">ギネスビールの醸造現場から生まれた「少標本」の救世主</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- 左：解説・背景 -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4">
+            <h4 class="font-bold text-slate-900 flex items-center gap-2">
+              <i class="fa-solid fa-beer-mug-empty text-sky-600"></i> 背景と誕生のストーリー
+            </h4>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              1908年、アイルランドのギネス醸造所で化学者・統計技師をしていた<strong>ウィリアム・ゴセット（W. S. Gosset）</strong>が考案しました。
+              大麦の品種改良実験などはコストや時間の制約で<strong>数個〜十数個程度の極めて小さな標本</strong>しか得られませんでした。
+            </p>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              従来のZ検定では母分散が既知である必要がありましたが、未知の母分散を標本分散で代用すると、少標本では推定誤差によって誤判定（第一種の過誤）が多発します。ゴセットはこの不確実性を組み込んだ分布を導き、ペンネーム<strong>「Student」</strong>で発表しました（後にロナルド・フィッシャーが自由度に基づく厳密な数学的定式化を与えました）。
+            </p>
+
+            <div class="bg-sky-50/80 rounded-xl p-4 border border-sky-200 text-sm text-sky-900 space-y-2">
+              <div class="font-semibold text-xs tracking-wide uppercase text-sky-800">主な性質</div>
+              <ul class="list-disc list-inside space-y-1 text-xs sm:text-sm">
+                <li>正規分布と同様に平均0で<strong>左右対称の釣鐘型</strong>。</li>
+                <li>分散は $df > 2$ のとき $\frac{df}{df-2}$（$df \le 2$ では分散は無限大、$df=1$ はコーシー分布となり期待値すら未定義）。</li>
+                <li>標本分散の不確実性を織り込んでいるため、<strong>正規分布よりも頂点が低く、両裾（Fat tail）が厚い</strong>。自由度が増大するにつれて標準正規分布 $N(0, 1)$ に漸近する。</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 実例カード -->
+          <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4">
+            <span class="inline-block px-2.5 py-1 rounded text-xs font-bold bg-sky-100 text-sky-800">実例で理解する</span>
+            <h4 class="text-lg font-bold text-slate-900">新レシピA vs 定番レシピBの味評価（2標本t検定）</h4>
+            <p class="text-sm text-slate-600">
+              各グループ独立な評価者5人ずつ（計10人、正規母集団・等分散を仮定）に10点満点で味を採点してもらった。<br>
+              <span class="font-semibold text-slate-700">【帰無仮説 $H_0$】：</span>両レシピの母平均に差はない（$\mu_A = \mu_B$）。
+            </p>
+
+            <div class="grid grid-cols-2 gap-3 text-center text-xs sm:text-sm pt-2">
+              <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                <div class="font-bold text-sky-700">新レシピ A（$n_A=5$）</div>
+                <div class="text-base font-extrabold text-slate-800 mt-1">平均 $\bar{X}_A = 8.0$ 点</div>
+                <div class="text-[11px] text-slate-500">不偏分散 $s_A^2 = 0.50$</div>
+              </div>
+              <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                <div class="font-bold text-slate-600">定番レシピ B（$n_B=5$）</div>
+                <div class="text-base font-extrabold text-slate-800 mt-1">平均 $\bar{X}_B = 6.0$ 点</div>
+                <div class="text-[11px] text-slate-500">不偏分散 $s_B^2 = 1.00$</div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900 text-slate-100 p-4 rounded-xl text-xs sm:text-sm font-mono space-y-2">
+              <div class="text-slate-400">// 等分散を仮定したプールした分散（pooled variance）の算出</div>
+              <div class="text-xs text-sky-300">$s_p^2 = \frac{(n_A-1)s_A^2 + (n_B-1)s_B^2}{n_A + n_B - 2} = \frac{4(0.50) + 4(1.00)}{8} = \mathbf{0.75}$</div>
+              <div class="text-slate-400 pt-1">// t統計量（平均差 / 推定標準誤差 SE）</div>
+              <div>$t = \frac{\bar{X}_A - \bar{X}_B}{\sqrt{s_p^2(1/n_A + 1/n_B)}} = \frac{8.0 - 6.0}{\sqrt{0.75/5 + 0.75/5}} = \frac{2.0}{\sqrt{0.30}} \approx \mathbf{3.65}$</div>
+              <div class="pt-2 border-t border-slate-700 text-slate-300">
+                自由度 $5+5-2 = 8$ の有意水準5%両側臨界値は <strong class="text-sky-400">$\pm 2.306$</strong>。<br>
+                計算値 $t = 3.65 > 2.306$ となり棄却域に入るため、<strong>帰無仮説は棄却される</strong>。正規性・等分散性の前提のもと、新レシピの平均評価が有意に高いと結論付けられる。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右：ポイント整理 -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-gradient-to-br from-sky-600 to-sky-700 text-white rounded-2xl p-6 sm:p-7 shadow-sm">
+            <h4 class="font-bold text-lg mb-2"><i class="fa-solid fa-scale-balanced mr-2"></i>どんな時に使う？</h4>
+            <ul class="space-y-3 text-sm text-sky-50 leading-relaxed">
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-check mt-1"></i>
+                <span><strong>1標本t検定：</strong> ある製品の平均重量が規定値 $\mu_0$ と等しいか検定したい時。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-check mt-1"></i>
+                <span><strong>2標本t検定（独立）：</strong> 2群の母平均を比較する時。※現代の実務では等分散性を仮定しない<strong>Welchのt検定</strong>が標準的に推奨されます。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-check mt-1"></i>
+                <span><strong>対応のあるt検定：</strong> 同一被験者に対する投薬前後の血圧変化など、差の平均を評価する時。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-check mt-1"></i>
+                <span><strong>回帰係数の検定：</strong> 回帰分析において各変数の傾き $\beta$ が統計的に有意か調べる時。</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm text-xs text-slate-600 space-y-3">
+            <div class="font-bold text-slate-800 text-sm">💡 「サンプルサイズ30の目安」の真実</div>
+            <p>「$n \ge 30$ で正規分布と見なせる」という俗説は、自由度30前後の両側5%点（$t_{0.025}(30) \approx 2.042$）が正規分布の $1.96$ と約4%しか離れなくなる実務上の経験則・便宜的な慣習に過ぎません。数学的には自由度の上昇に伴って連続的に正規分布へ漸近します。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. F分布の詳細 -->
+    <section id="fdist" class="scroll-mt-20">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+          $F$
+        </span>
+        <div>
+          <h3 class="text-2xl font-extrabold text-slate-900">3. $F$ 分布（Fisher-Snedecor Distribution）</h3>
+          <p class="text-xs text-slate-500">近代統計学の父フィッシャーが拓いた「分散の比較」</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- 左：解説・背景 -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4">
+            <h4 class="font-bold text-slate-900 flex items-center gap-2">
+              <i class="fa-solid fa-seedling text-emerald-600"></i> 背景と誕生のストーリー
+            </h4>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              1920年代、<strong>ロナルド・フィッシャー（Ronald A. Fisher）</strong>がロザムステッド農業試験場で、複数の異なる肥料や土壌による収穫量の差を評価するために創案しました（1924年に分散比の対数変換である $z$ 分布として提示され、1934年に<strong>ジョージ・スネデカー</strong>が扱いやすい分散比 $F$ として定式化・命名）。
+            </p>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              3つ以上のグループを比較する際、ペアごとに $t$検定を繰り返すと「偶然どれかが有意になってしまう確率（多重性の問題）」が跳ね上がります。そこでフィッシャーは全体のばらつきを「群間のばらつき」と「偶然の誤差ばらつき」に分解し、その比率（分散比）を一括評価する<strong>分散分析（ANOVA）</strong>を確立しました。
+            </p>
+
+            <div class="bg-emerald-50/80 rounded-xl p-4 border border-emerald-200 text-sm text-emerald-900 space-y-2">
+              <div class="font-semibold text-xs tracking-wide uppercase text-emerald-800">主な性質</div>
+              <ul class="list-disc list-inside space-y-1 text-xs sm:text-sm">
+                <li>正の値同士の比率であるため、<strong>必ず0以上の値</strong>をとる。</li>
+                <li>分母自由度 $d_2 > 2$ のとき期待値は $\frac{d_2}{d_2 - 2}$（帰無仮説が真のとき、分母自由度が大きければほぼ $1$ になる）。</li>
+                <li>分子自由度 $d_1 > 2$ のとき最頻値は $\frac{d_2(d_1 - 2)}{d_1(d_2 + 2)} < 1$ であり、山は1の左側に位置する。</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 実例カード -->
+          <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4">
+            <span class="inline-block px-2.5 py-1 rounded text-xs font-bold bg-emerald-100 text-emerald-800">実例で理解する</span>
+            <h4 class="text-lg font-bold text-slate-900">3台のコーヒー抽出機による濃度差（一元配置分散分析）</h4>
+            <p class="text-sm text-slate-600">
+              マシン1、マシン2、マシン3でそれぞれ4杯（$n=4$、計12杯）抽出し、抽出濃度の平均に差があるかを一括検定する。<br>
+              <span class="font-semibold text-slate-700">【帰無仮説 $H_0$】：</span>3台のマシンの母平均濃度はすべて等しい（$\mu_1 = \mu_2 = \mu_3$）。
+            </p>
+
+            <div class="grid grid-cols-3 gap-2 text-center text-xs sm:text-sm pt-2">
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                <div class="text-slate-500">マシン 1（4杯）</div>
+                <div class="font-bold text-slate-800 mt-1">平均 $\bar{X}_1 = 1.30\%$</div>
+                <div class="text-[10px] text-slate-400">群内不偏分散 0.020</div>
+              </div>
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                <div class="text-slate-500">マシン 2（4杯）</div>
+                <div class="font-bold text-slate-800 mt-1">平均 $\bar{X}_2 = 1.50\%$</div>
+                <div class="text-[10px] text-slate-400">群内不偏分散 0.030</div>
+              </div>
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                <div class="text-slate-500">マシン 3（4杯）</div>
+                <div class="font-bold text-slate-800 mt-1">平均 $\bar{X}_3 = 1.10\%$</div>
+                <div class="text-[10px] text-slate-400">群内不偏分散 0.025</div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900 text-slate-100 p-4 rounded-xl text-xs sm:text-sm font-mono space-y-2">
+              <div class="text-slate-400">// 分散分析表に基づくF値の導出（全体平均 $\bar{X}_{\cdot\cdot} = 1.30\%$）</div>
+              <div class="text-xs text-emerald-300">
+                群間平方和 $SS_B = 4 \times [(1.30-1.30)^2 + (1.50-1.30)^2 + (1.10-1.30)^2] = 0.320$<br>
+                群間平均平方 $MS_B = SS_B / (3 - 1) = 0.320 / 2 = \mathbf{0.160}$<br>
+                群内平均平方（プール誤差分散） $MS_W = \frac{0.020 + 0.030 + 0.025}{3} = \mathbf{0.025}$（$df_W = 12-3 = 9$）
+              </div>
+              <div class="pt-1">$F = \frac{MS_B}{MS_W} = \frac{0.160}{0.025} = \mathbf{6.40}$</div>
+              <div class="pt-2 border-t border-slate-700 text-slate-300">
+                分子自由度 $2$、分母自由度 $9$ の有意水準5%限界値は <strong class="text-emerald-400">4.26</strong>。<br>
+                $F = 6.40 > 4.26$ となり棄却域に入るため、<strong>帰無仮説は棄却される</strong>。単なる抽出ブレ（誤差）を超えて、マシン間で有意な濃度差が存在すると判断できる。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右：ポイント整理 -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-gradient-to-br from-emerald-600 to-emerald-700 text-white rounded-2xl p-6 sm:p-7 shadow-sm">
+            <h4 class="font-bold text-lg mb-2"><i class="fa-solid fa-diagram-project mr-2"></i>どんな時に使う？</h4>
+            <ul class="space-y-3 text-sm text-emerald-50 leading-relaxed">
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-check mt-1"></i>
+                <span><strong>一元・二元配置分散分析（ANOVA）：</strong> 3群以上の要因効果を一括検定する時（全体有意となった後は、Tukey-Kramer法などの<strong>多重比較</strong>で具体的にどのペアに差があるかを特定します）。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-check mt-1"></i>
+                <span><strong>重回帰分析のモデル適合度検定：</strong> 説明変数の組み合わせ全体が目的変数を有意に説明しているかを検定する時。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-check mt-1"></i>
+                <span><strong>等分散性の検定（F検定）：</strong> 2群の分散比を検定する手法。※ただし正規性の仮定からの逸脱に極端に弱いため、実務ではルビーン（Levene）検定などが推奨されます。</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm text-xs text-slate-600 space-y-3">
+            <div class="font-bold text-slate-800 text-sm">💡 実務の注意：2段階検定の回避</div>
+            <p>かつては「F検定で等分散を確認してからStudentかWelchかを決める」という手順が教えられていましたが、この2段階検定は全体の有意水準を歪める問題があるため、現代の統計学実務では<strong>最初からWelchのt検定を採用することが強く推奨</strong>されています。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. t分布の詳細 -->
+    <section id="tdist" class="scroll-mt-20">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+          $t$
+        </span>
+        <div>
+          <h3 class="text-2xl font-extrabold text-slate-900">2. $t$ 分布（Student's t-Distribution）</h3>
+          <p class="text-xs text-slate-500">ギネスビールの醸造現場から生まれた「少標本」の救世主</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- 左：解説・背景 -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4">
+            <h4 class="font-bold text-slate-900 flex items-center gap-2">
+              <i class="fa-solid fa-beer-mug-empty text-sky-600"></i> 背景と誕生のストーリー
+            </h4>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              1908年、アイルランドのギネス醸造所で化学者・統計技師をしていた<strong>ウィリアム・ゴセット（W. S. Gosset）</strong>が考案しました。
+              大麦の品種改良実験などはコストや時間の制約で<strong>数個〜十数個程度の極めて小さな標本</strong>しか得られませんでした。
+            </p>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              従来の正規分布（Z検定）では「母分散が既知」である必要がありましたが、未知の母分散を標本分散で代用すると、少標本では推定の誤差が大きすぎて誤判定を起こします。ゴセットは「標本分散の不確実性」そのものを数式に組み込み、ペンネーム<strong>「Student」</strong>で論文を発表しました。
+            </p>
+
+            <div class="bg-sky-50/80 rounded-xl p-4 border border-sky-200 text-sm text-sky-900 space-y-2">
+              <div class="font-semibold text-xs tracking-wide uppercase text-sky-800">主な性質</div>
+              <ul class="list-disc list-inside space-y-1 text-xs sm:text-sm">
+                <li>正規分布と同様に平均0で<strong>左右対称の釣鐘型</strong>。</li>
+                <li>標本分散のブレを織り込んでいるため、<strong>正規分布よりも山が低く、両裾野（Fat tail）が厚い</strong>。</li>
+                <li>自由度（サンプル数 $-1$）が大きくなると急速に標準正規分布 $N(0, 1)$ に一致する。</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 実例カード -->
+          <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4">
+            <span class="inline-block px-2.5 py-1 rounded text-xs font-bold bg-sky-100 text-sky-800">実例で理解する</span>
+            <h4 class="text-lg font-bold text-slate-900">新レシピA vs 定番レシピBの味評価（2標本t検定）</h4>
+            <p class="text-sm text-slate-600">
+              各グループたった5人（計10人）に10点満点で味を採点してもらい、差があるかを判定。
+            </p>
+
+            <div class="grid grid-cols-2 gap-3 text-center text-xs sm:text-sm pt-2">
+              <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                <div class="font-bold text-sky-700">新レシピ A（5人）</div>
+                <div class="text-base font-extrabold text-slate-800 mt-1">平均 8.0 点</div>
+                <div class="text-[11px] text-slate-400">分散 0.50</div>
+              </div>
+              <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                <div class="font-bold text-slate-600">定番レシピ B（5人）</div>
+                <div class="text-base font-extrabold text-slate-800 mt-1">平均 6.0 点</div>
+                <div class="text-[11px] text-slate-400">分散 1.00</div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900 text-slate-100 p-4 rounded-xl text-xs sm:text-sm font-mono space-y-2">
+              <div class="text-slate-400">// t値の計算（平均差 / 推定標準誤差）</div>
+              <div>$t = \frac{8.0 - 6.0}{\sqrt{0.75/5 + 0.75/5}} = \frac{2.0}{0.548} \approx \mathbf{3.65}$</div>
+              <div class="pt-2 border-t border-slate-700 text-slate-300">
+                自由度 $5+5-2 = 8$ の5%両側限界値は <strong class="text-sky-400">\pm 2.306</strong>。<br>
+                $3.65 > 2.306$ なので「たった5人ずつの評価でも、新レシピが有意に高評価である」と立証できる！
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右：ポイント整理 -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-gradient-to-br from-sky-600 to-sky-700 text-white rounded-2xl p-6 sm:p-7 shadow-sm">
+            <h4 class="font-bold text-lg mb-2"><i class="fa-solid fa-scale-balanced mr-2"></i>どんな時に使う？</h4>
+            <ul class="space-y-3 text-sm text-sky-50 leading-relaxed">
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-check mt-1"></i>
+                <span><strong>1標本t検定：</strong> ある製品の平均重量が規定の「100g」と異なっているかを検査したい時。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-check mt-1"></i>
+                <span><strong>2標本t検定（独立・対応あり）：</strong> WebサイトのA/Bテストで滞在時間に有意差があるか、投薬の前後で血圧が下がったかを調べたい時。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-check mt-1"></i>
+                <span><strong>回帰係数の有意性検定：</strong> 単回帰・重回帰分析で、各変数の傾き（係数）が偶然 $0$ でないかを検定する時。</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm text-xs text-slate-600 space-y-3">
+            <div class="font-bold text-slate-800 text-sm">💡 なぜサンプル数30以上で正規分布と言われるのか？</div>
+            <p>自由度が30を超えると、$t$分布の95%信頼区間の係数は約 $2.04$ となり、正規分布の $1.96$ とわずか数%しか違わなくなるためです。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. F分布の詳細 -->
+    <section id="fdist" class="scroll-mt-20">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+          $F$
+        </span>
+        <div>
+          <h3 class="text-2xl font-extrabold text-slate-900">3. $F$ 分布（Fisher-Snedecor Distribution）</h3>
+          <p class="text-xs text-slate-500">近代統計学の父フィッシャーが拓いた「分散の比較」</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- 左：解説・背景 -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4">
+            <h4 class="font-bold text-slate-900 flex items-center gap-2">
+              <i class="fa-solid fa-seedling text-emerald-600"></i> 背景と誕生のストーリー
+            </h4>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              1920年代、<strong>ロナルド・フィッシャー（Ronald A. Fisher）</strong>がロザムステッド農業試験場で、複数の異なる肥料や土壌による収穫量の差を評価するために創案しました。
+            </p>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              3つ以上のグループを比較する際、ペアごとに $t$検定を繰り返すと「偶然どれかが有意になってしまう確率（多重性の問題）」が跳ね上がります。そこでフィッシャーは全体のデータの揺らぎを「グループ間のばらつき」と「偶然の誤差ばらつき」に分解し、<strong>「その比率（分散比）」</strong>を一発で評価する**分散分析（ANOVA）**を確立しました。
+            </p>
+
+            <div class="bg-emerald-50/80 rounded-xl p-4 border border-emerald-200 text-sm text-emerald-900 space-y-2">
+              <div class="font-semibold text-xs tracking-wide uppercase text-emerald-800">主な性質</div>
+              <ul class="list-disc list-inside space-y-1 text-xs sm:text-sm">
+                <li>正の値同士の比率であるため、<strong>必ず0以上の値</strong>をとる。</li>
+                <li>2つの分散が等しい場合、$F$値はおよそ $1$ 前後になる。</li>
+                <li>分子の自由度 $k_1$ と、分母の自由度 $k_2$ という2つのパラメータを持つ。</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 実例カード -->
+          <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4">
+            <span class="inline-block px-2.5 py-1 rounded text-xs font-bold bg-emerald-100 text-emerald-800">実例で理解する</span>
+            <h4 class="text-lg font-bold text-slate-900">3台のコーヒー抽出機による濃度差（一元配置分散分析）</h4>
+            <p class="text-sm text-slate-600">
+              マシン1、マシン2、マシン3でそれぞれ4杯（計12杯）抽出し、マシンの違いによる差があるかを一括検定。
+            </p>
+
+            <div class="grid grid-cols-3 gap-2 text-center text-xs sm:text-sm pt-2">
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                <div class="text-slate-500">マシン 1</div>
+                <div class="font-bold text-slate-800 mt-1">平均 1.30%</div>
+              </div>
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                <div class="text-slate-500">マシン 2</div>
+                <div class="font-bold text-slate-800 mt-1">平均 1.45%</div>
+              </div>
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                <div class="text-slate-500">マシン 3</div>
+                <div class="font-bold text-slate-800 mt-1">平均 1.20%</div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900 text-slate-100 p-4 rounded-xl text-xs sm:text-sm font-mono space-y-2">
+              <div class="text-slate-400">// F値の計算</div>
+              <div>$F = \frac{\text{マシン間の分散（要因）}}{\text{各マシン内の抽出ブレ分散（誤差）}}$</div>
+              <div class="pt-2 border-t border-slate-700 text-slate-300">
+                もし $F = 6.2$ だった場合（分子自由度 2、分母自由度 9 の5%限界値は <strong>4.26</strong>）：<br>
+                $6.2 > 4.26$ なので、「単なる淹れ方のブレを超えて、マシン間で明確な性能差がある」と判定できる！
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右：ポイント整理 -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-gradient-to-br from-emerald-600 to-emerald-700 text-white rounded-2xl p-6 sm:p-7 shadow-sm">
+            <h4 class="font-bold text-lg mb-2"><i class="fa-solid fa-diagram-project mr-2"></i>どんな時に使う？</h4>
+            <ul class="space-y-3 text-sm text-emerald-50 leading-relaxed">
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-check mt-1"></i>
+                <span><strong>分散分析（ANOVA）：</strong> 3つ以上の店舗、デザイン案、薬効グループなどの平均値に差があるかを一括検定したい時。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-check mt-1"></i>
+                <span><strong>等分散性の検定（F検定）：</strong> 2つの工場の製造ラインで、寸法のばらつき（品質の安定度）が同じかどうかを比較したい時。</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fa-solid fa-check mt-1"></i>
+                <span><strong>重回帰分析の適合度検定：</strong> モデル全体として目的変数を説明する能力が統計的に有意かを判定したい時。</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm text-xs text-slate-600 space-y-3">
+            <div class="font-bold text-slate-800 text-sm">💡 スネデカーによる「F」の命名</div>
+            <p>考案者フィッシャーの功績に敬意を表し、親交のあったアメリカの統計学者ジョージ・スネデカーが頭文字をとって「$F$分布」と命名しました。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- インタラクティブ・シミュレーター -->
+    <section id="simulator" class="scroll-mt-20">
+      <div class="text-center max-w-3xl mx-auto mb-8">
+        <span class="text-xs uppercase tracking-widest font-bold text-indigo-600 mb-2 inline-block">Interactive Visualizer</span>
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">分布の形状シミュレーター</h3>
+        <p class="mt-2 text-slate-600 text-sm">スライダーで自由度を動かし、確率密度関数の形状変化や正規分布への収束を体感してください。</p>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden p-6 sm:p-8">
+        <!-- タブ切り替えボタン -->
+        <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-4 mb-6">
+          <button onclick="switchDist('t')" id="tab-t" class="px-4 py-2 rounded-lg font-bold text-sm bg-indigo-600 text-white transition shadow-sm">
+            $t$ 分布（vs 標準正規分布）
+          </button>
+          <button onclick="switchDist('chi')" id="tab-chi" class="px-4 py-2 rounded-lg font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition">
+            $\chi^2$（カイ二乗）分布
+          </button>
+          <button onclick="switchDist('f')" id="tab-f" class="px-4 py-2 rounded-lg font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition">
+            $F$ 分布
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <!-- グラフ表示エリア -->
+          <div class="lg:col-span-8 bg-slate-50/70 p-4 rounded-xl border border-slate-100 h-72 sm:h-96 relative">
+            <canvas id="distChart"></canvas>
+          </div>
+
+          <!-- コントロール・パネル -->
+          <div class="lg:col-span-4 space-y-6">
+            <div id="controls-container" class="space-y-4">
+              <!-- 動的にパラメータスライダーを更新 -->
+            </div>
+
+            <!-- 解説ボックス -->
+            <div id="dist-insight" class="p-4 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-700 leading-relaxed">
+              <!-- 動的コメント -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 実務フローチャート・診断ツール -->
+    <section id="flowchart" class="scroll-mt-20">
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span class="text-xs uppercase tracking-widest font-bold text-indigo-600 mb-2 inline-block">Decision Tree</span>
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">どの検定を使うべき？ 実務クイック診断</h3>
+        <p class="mt-2 text-slate-600 text-sm">手元にあるデータの種類と分析目的に応じて、適切な分布と推奨される統計的アプローチを案内します。</p>
+      </div>
+
+      <div class="bg-gradient-to-br from-indigo-900 to-slate-900 text-white rounded-2xl p-6 sm:p-10 shadow-lg">
+        <div class="max-w-2xl mx-auto space-y-6">
+          
+          <div>
+            <label class="block text-xs font-semibold text-indigo-300 uppercase tracking-wider mb-2">ステップ 1：調べたいデータは？</label>
+            <div class="grid grid-cols-2 gap-3" id="step1-buttons">
+              <button onclick="selectStep1('categorical')" class="step1-btn p-3 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-indigo-600/50 text-left transition">
+                <div class="font-bold text-sm">カテゴリ・度数</div>
+                <div class="text-xs text-slate-400 mt-1">アンケート人数、合格/不合格数</div>
+              </button>
+              <button onclick="selectStep1('numeric')" class="step1-btn p-3 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-indigo-600/50 text-left transition">
+                <div class="font-bold text-sm">連続数値データ</div>
+                <div class="text-xs text-slate-400 mt-1">売上、テスト点数、重量、濃度</div>
+              </button>
+            </div>
+          </div>
+
+          <div id="step2-wrapper" class="hidden">
+            <label class="block text-xs font-semibold text-indigo-300 uppercase tracking-wider mb-2">ステップ 2：分析の目的は？</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="step2-buttons">
+              <!-- 動的配置 -->
+            </div>
+          </div>
+
+          <!-- 診断結果表示 -->
+          <div id="diagnosis-result" class="hidden mt-6 p-5 rounded-xl bg-indigo-500/20 border border-indigo-400/40 text-left space-y-2">
+            <div class="flex items-center gap-2 text-indigo-300 text-xs font-bold uppercase tracking-wider">
+              <i class="fa-solid fa-circle-check"></i> 推奨される分布と手法
+            </div>
+            <div id="result-title" class="text-xl font-bold text-white"></div>
+            <div id="result-desc" class="text-sm text-slate-200 leading-relaxed"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめ一覧表 -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+      <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+        <i class="fa-solid fa-table-list text-indigo-600"></i> 3大標本分布の要点総まとめ
+      </h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-600 border-collapse">
+          <thead class="bg-slate-50 text-slate-800 text-xs uppercase font-bold border-b border-slate-200">
+            <tr>
+              <th class="p-3">分布</th>
+              <th class="p-3">パラメータ</th>
+              <th class="p-3">本質的な正体</th>
+              <th class="p-3">値の範囲</th>
+              <th class="p-3">代表的な分析・検定</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr class="hover:bg-slate-50/50">
+              <td class="p-3 font-bold text-amber-700">カイ二乗（$\chi^2$）分布</td>
+              <td class="p-3">自由度 $k$</td>
+              <td class="p-3">正規変数の二乗和</td>
+              <td class="p-3 font-mono text-xs">$[0, +\infty)$</td>
+              <td class="p-3">独立性の検定（クロス表）、適合度検定、母分散検定</td>
+            </tr>
+            <tr class="hover:bg-slate-50/50">
+              <td class="p-3 font-bold text-sky-700">$t$ 分布</td>
+              <td class="p-3">自由度 $k$</td>
+              <td class="p-3">正規変数 $\div \sqrt{\chi^2/k}$</td>
+              <td class="p-3 font-mono text-xs">$(-\infty, +\infty)$</td>
+              <td class="p-3">1標本/2標本t検定、回帰係数の有意性検定</td>
+            </tr>
+            <tr class="hover:bg-slate-50/50">
+              <td class="p-3 font-bold text-emerald-700">$F$ 分布</td>
+              <td class="p-3">分子自由度 $k_1$, 分母自由度 $k_2$</td>
+              <td class="p-3">2つのカイ二乗変数の比率</td>
+              <td class="p-3 font-mono text-xs">$[0, +\infty)$</td>
+              <td class="p-3">分散分析（ANOVA）、等分散性検定、重回帰適合度</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-slate-900 text-slate-400 py-10 mt-20 border-t border-slate-800 text-center text-xs">
+    <div class="max-w-7xl mx-auto px-4">
+      <p class="font-medium text-slate-300">統計学の3大標本分布（カイ二乗分布・t分布・F分布）学習リファレンス</p>
+      <p class="mt-2 text-slate-500">ピアソン、スチューデント（ゴセット）、フィッシャーらの遺産に基づく推測統計の基盤概念</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript ロジック -->
+  <script>
+    // 数学関数：ガンマ関数（Lanczos近似）
+    function gamma(z) {
+      const g = 7;
+      const C = [
+        0.99999999999980993, 676.5203681218851, -1259.1392167224028,
+        771.32342877765313, -176.61502916214059, 12.507343278686905,
+        -0.138571095836524, 9.9843695780195716e-6, 1.5056327351493116e-7
+      ];
+      if (z < 0.5) return Math.PI / (Math.sin(Math.PI * z) * gamma(1 - z));
+      z -= 1;
+      let x = C[0];
+      for (let i = 1; i < g + 2; i++) x += C[i] / (z + i);
+      let t = z + g + 0.5;
+      return Math.sqrt(2 * Math.PI) * Math.pow(t, (z + 0.5)) * Math.exp(-t) * x;
+    }
+
+    // 確率密度関数
+    function normalPdf(x) {
+      return (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * x * x);
+    }
+
+    function tPdf(x, df) {
+      const coef = gamma((df + 1) / 2) / (Math.sqrt(df * Math.PI) * gamma(df / 2));
+      return coef * Math.pow(1 + (x * x) / df, -(df + 1) / 2);
+    }
+
+    function chiSquarePdf(x, k) {
+      if (x <= 0) return 0;
+      const coef = 1 / (Math.pow(2, k / 2) * gamma(k / 2));
+      return coef * Math.pow(x, k / 2 - 1) * Math.exp(-x / 2);
+    }
+
+    function fPdf(x, d1, d2) {
+      if (x <= 0) return 0;
+      const num = gamma((d1 + d2) / 2) * Math.pow(d1 / d2, d1 / 2) * Math.pow(x, d1 / 2 - 1);
+      const den = gamma(d1 / 2) * gamma(d2 / 2) * Math.pow(1 + (d1 / d2) * x, (d1 + d2) / 2);
+      return num / den;
+    }
+
+    // グラフ描画管理
+    let currentDist = 't';
+    let dfT = 3;
+    let dfChi = 3;
+    let dfF1 = 4;
+    let dfF2 = 10;
+    let chartInstance = null;
+
+    function initChart() {
+      const ctx = document.getElementById('distChart').getContext('2d');
+      chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: { labels: [], datasets: [] },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { intersect: false, mode: 'index' },
+          scales: {
+            x: {
+              title: { display: true, text: '値 (x)', color: '#64748b', font: { size: 11 } },
+              grid: { color: '#f1f5f9' },
+              ticks: { maxTicksLimit: 12, color: '#64748b' }
+            },
+            y: {
+              title: { display: true, text: '確率密度 f(x)', color: '#64748b', font: { size: 11 } },
+              grid: { color: '#f1f5f9' },
+              ticks: { color: '#64748b' },
+              min: 0
+            }
+          },
+          plugins: {
+            legend: { position: 'top', labels: { boxWidth: 14, font: { family: 'Inter', size: 12 } } },
+            tooltip: { backgroundColor: '#1e293b' }
+          }
+        }
+      });
+      updateSimulatorUI();
+    }
+
+    function switchDist(type) {
+      currentDist = type;
+      ['t', 'chi', 'f'].forEach(d => {
+        const btn = document.getElementById(`tab-${d}`);
+        if (d === type) {
+          btn.className = "px-4 py-2 rounded-lg font-bold text-sm bg-indigo-600 text-white transition shadow-sm";
+        } else {
+          btn.className = "px-4 py-2 rounded-lg font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition";
+        }
+      });
+      updateSimulatorUI();
+    }
+
+    function updateSimulatorUI() {
+      const controls = document.getElementById('controls-container');
+      const insight = document.getElementById('dist-insight');
+
+      if (currentDist === 't') {
+        controls.innerHTML = `
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-sm font-bold text-slate-800">自由度 (df): <span id="val-t" class="text-indigo-600 font-mono text-base">${dfT}</span></span>
+            </div>
+            <input type="range" min="1" max="30" value="${dfT}" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600" oninput="dfT = parseInt(this.value); document.getElementById('val-t').innerText = this.value; renderGraph();">
+            <div class="flex justify-between text-[11px] text-slate-400 mt-1"><span>1 (裾が極めて厚い)</span><span>30 (正規分布へ漸近)</span></div>
+          </div>
+        `;
+        insight.innerHTML = `
+          <strong>💡 t分布の観察ポイント：</strong><br>
+          自由度 df が小さい（例: 1〜3）ときは、標準正規分布（破線）と比べて頂点が低く両裾が厚い（外れ値が出やすい）状態です。df > 2 で分散は $\\frac{df}{df-2}$ となり、df を増やしていくと徐々に 1（正規分布の分散）へ近づいていきます。
+        `;
+      } else if (currentDist === 'chi') {
+        controls.innerHTML = `
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-sm font-bold text-slate-800">自由度 (k): <span id="val-chi" class="text-amber-600 font-mono text-base">${dfChi}</span></span>
+            </div>
+            <input type="range" min="1" max="25" value="${dfChi}" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-600" oninput="dfChi = parseInt(this.value); document.getElementById('val-chi').innerText = this.value; renderGraph();">
+            <div class="flex justify-between text-[11px] text-slate-400 mt-1"><span>1 (原点で発散)</span><span>25 (歪度が減少し左右対称へ接近)</span></div>
+          </div>
+        `;
+        insight.innerHTML = `
+          <strong>💡 カイ二乗分布の観察ポイント：</strong><br>
+          期待値は $k$、最頻値（山の頂点）は $k - 2$（$k \\ge 2$）です。$k=1$ では $x \\to 0$ で発散し、$k=2$ では原点が最大値となります。$k$ が大きくなるにつれて山が右へスライドし、歪度 $\\sqrt{8/k}$ が小さくなって緩やかに正規分布の形状へ近づきます。
+        `;
+      } else if (currentDist === 'f') {
+        controls.innerHTML = `
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-sm font-bold text-slate-800">分子自由度 (df1): <span id="val-f1" class="text-emerald-600 font-mono text-base">${dfF1}</span></span>
+              </div>
+              <input type="range" min="1" max="20" value="${dfF1}" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600" oninput="dfF1 = parseInt(this.value); document.getElementById('val-f1').innerText = this.value; renderGraph();">
+            </div>
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-sm font-bold text-slate-800">分母自由度 (df2): <span id="val-f2" class="text-emerald-600 font-mono text-base">${dfF2}</span></span>
+              </div>
+              <input type="range" min="2" max="30" value="${dfF2}" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600" oninput="dfF2 = parseInt(this.value); document.getElementById('val-f2').innerText = this.value; renderGraph();">
+            </div>
+          </div>
+        `;
+        insight.innerHTML = `
+          <strong>💡 F分布の観察ポイント：</strong><br>
+          期待値は $\\frac{df_2}{df_2 - 2}$（$df_2 > 2$）です。分母自由度 $df_2$ が大きくなるほど誤差分散の推定精度が安定し、右裾の広がりが引き締まります。$df_1=1$ のときは原点付近で密度が急上昇する点にも着目してください。
+        `;
+      }
+      renderGraph();
+    }
+
+    function renderGraph() {
+      const labels = [];
+      const datasets = [];
+
+      if (currentDist === 't') {
+        const step = 0.1;
+        const dataT = [];
+        const dataNorm = [];
+        for (let x = -4.5; x <= 4.5; x += step) {
+          labels.push(x.toFixed(1));
+          dataT.push(tPdf(x, dfT));
+          dataNorm.push(normalPdf(x));
+        }
+        datasets.push({
+          label: `t分布 (df=${dfT})`,
+          data: dataT,
+          borderColor: '#0284c7',
+          backgroundColor: 'rgba(2, 132, 199, 0.12)',
+          fill: true,
+          tension: 0.3,
+          borderWidth: 2.5,
+          pointRadius: 0
+        });
+        datasets.push({
+          label: '標準正規分布 N(0, 1)',
+          data: dataNorm,
+          borderColor: '#94a3b8',
+          borderDash: [5, 5],
+          tension: 0.3,
+          borderWidth: 2,
+          pointRadius: 0
+        });
+      } else if (currentDist === 'chi') {
+        const step = 0.2;
+        const dataChi = [];
+        const maxX = Math.max(20, dfChi * 2.8);
+        for (let x = 0.05; x <= maxX; x += step) {
+          labels.push(x.toFixed(1));
+          const val = chiSquarePdf(x, dfChi);
+          dataChi.push(Math.min(val, 0.8)); // 描画破綻防止クリッピング
+        }
+        datasets.push({
+          label: `カイ二乗分布 (k=${dfChi})`,
+          data: dataChi,
+          borderColor: '#d97706',
+          backgroundColor: 'rgba(217, 119, 6, 0.15)',
+          fill: true,
+          tension: 0.3,
+          borderWidth: 2.5,
+          pointRadius: 0
+        });
+      } else if (currentDist === 'f') {
+        const step = 0.08;
+        const dataF = [];
+        for (let x = 0.05; x <= 5.0; x += step) {
+          labels.push(x.toFixed(2));
+          const val = fPdf(x, dfF1, dfF2);
+          dataF.push(Math.min(val, 1.2)); // 描画破綻防止クリッピング
+        }
+        datasets.push({
+          label: `F分布 (df1=${dfF1}, df2=${dfF2})`,
+          data: dataF,
+          borderColor: '#059669',
+          backgroundColor: 'rgba(5, 150, 105, 0.15)',
+          fill: true,
+          tension: 0.3,
+          borderWidth: 2.5,
+          pointRadius: 0
+        });
+      }
+
+      chartInstance.data.labels = labels;
+      chartInstance.data.datasets = datasets;
+      chartInstance.update();
+      if (window.renderMathInElement) {
+        renderMathInElement(document.getElementById('simulator'), {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ]
+        });
+      }
+    }
+
+    // クイック診断ロジック
+    function selectStep1(type) {
+      document.querySelectorAll('.step1-btn').forEach(btn => {
+        btn.classList.remove('border-indigo-400', 'bg-indigo-600/30');
+      });
+      event.currentTarget.classList.add('border-indigo-400', 'bg-indigo-600/30');
+
+      const s2Wrapper = document.getElementById('step2-wrapper');
+      const s2Buttons = document.getElementById('step2-buttons');
+      const res = document.getElementById('diagnosis-result');
+      res.classList.add('hidden');
+      s2Wrapper.classList.remove('hidden');
+
+      if (type === 'categorical') {
+        s2Buttons.innerHTML = `
+          <button onclick="showDiagnosis('chi_gof')" class="p-3 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-amber-600/40 text-left transition">
+            <div class="font-bold text-sm">比率や偏りの検証</div>
+            <div class="text-xs text-slate-400 mt-1">理論通りの割合か確かめたい</div>
+          </button>
+          <button onclick="showDiagnosis('chi_indep')" class="p-3 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-amber-600/40 text-left transition">
+            <div class="font-bold text-sm">2つの属性の関連性</div>
+            <div class="text-xs text-slate-400 mt-1">性別と購入傾向などクロス集計</div>
+          </button>
+        `;
+      } else {
+        s2Buttons.innerHTML = `
+          <button onclick="showDiagnosis('t_test')" class="p-3 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-sky-600/40 text-left transition">
+            <div class="font-bold text-sm">2群の平均値の比較</div>
+            <div class="text-xs text-slate-400 mt-1">A群 vs B群、施策の前後</div>
+          </button>
+          <button onclick="showDiagnosis('anova')" class="p-3 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-emerald-600/40 text-left transition">
+            <div class="font-bold text-sm">3群以上の平均値比較</div>
+            <div class="text-xs text-slate-400 mt-1">A・B・C店舗の比較など</div>
+          </button>
+          <button onclick="showDiagnosis('f_var')" class="p-3 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-emerald-600/40 text-left transition sm:col-span-2">
+            <div class="font-bold text-sm">ばらつき（分散）自体の比較</div>
+            <div class="text-xs text-slate-400 mt-1">2つの製造ラインの品質安定性の比較</div>
+          </button>
+        `;
+      }
+    }
+
+    function showDiagnosis(kind) {
+      const res = document.getElementById('diagnosis-result');
+      const title = document.getElementById('result-title');
+      const desc = document.getElementById('result-desc');
+      res.classList.remove('hidden');
+
+      if (kind === 'chi_gof') {
+        title.innerHTML = 'カイ二乗分布（適合度検定）';
+        desc.innerText = '観測された度数が理論比率（等確率など）と一致しているかを検定します。各セルの期待度数が5以上あることを確認して適用します。';
+      } else if (kind === 'chi_indep') {
+        title.innerHTML = 'カイ二乗分布（独立性の検定）';
+        desc.innerText = '分割表（クロス集計表）で2属性が独立（無関連）かどうかを検証します（2×2表で度数が小さい場合はフィッシャーの正確検定も推奨）。';
+      } else if (kind === 't_test') {
+        title.innerHTML = 't 分布（Welchの2標本 t 検定を推奨）';
+        desc.innerText = '2群の平均値差を検定します。現代の実務では等分散性を仮定するStudentのt検定よりも、等分散性を前提としないWelchのt検定が標準です（事前の等分散性F検定による2段階検定は避けるのがベストプラクティスです）。';
+      } else if (kind === 'anova') {
+        title.innerHTML = 'F 分布（一元配置分散分析 / ANOVA ＋ 多重比較）';
+        desc.innerText = '3群以上の平均値差を一括判定します。全体F検定で有意差が検出された後は、具体的にどのペアに差があるかを特定するためTukey-Kramer法などの多重比較法を実施します。';
+      } else if (kind === 'f_var') {
+        title.innerHTML = '分散の比較（Levene検定 または Brown-Forsythe検定を推奨）';
+        desc.innerText = '群間のばらつき（分散）が等しいかを比較します。F検定（F分布）は正規性からの逸脱に過度に弱いため、実務では頑健なLevene検定やBrown-Forsythe検定の利用が強く推奨されます。';
+      }
+    }
+
+    // クイック診断ロジック
+    function selectStep1(type) {
+      document.querySelectorAll('.step1-btn').forEach(btn => {
+        btn.classList.remove('border-indigo-400', 'bg-indigo-600/30');
+      });
+      event.currentTarget.classList.add('border-indigo-400', 'bg-indigo-600/30');
+
+      const s2Wrapper = document.getElementById('step2-wrapper');
+      const s2Buttons = document.getElementById('step2-buttons');
+      const res = document.getElementById('diagnosis-result');
+      res.classList.add('hidden');
+      s2Wrapper.classList.remove('hidden');
+
+      if (type === 'categorical') {
+        s2Buttons.innerHTML = `
+          <button onclick="showDiagnosis('chi_gof')" class="p-3 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-amber-600/40 text-left transition">
+            <div class="font-bold text-sm">比率や偏りの検証</div>
+            <div class="text-xs text-slate-400 mt-1">理論通りの割合か確かめたい</div>
+          </button>
+          <button onclick="showDiagnosis('chi_indep')" class="p-3 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-amber-600/40 text-left transition">
+            <div class="font-bold text-sm">2つの属性の関連性</div>
+            <div class="text-xs text-slate-400 mt-1">性別と購入傾向などクロス集計</div>
+          </button>
+        `;
+      } else {
+        s2Buttons.innerHTML = `
+          <button onclick="showDiagnosis('t_test')" class="p-3 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-sky-600/40 text-left transition">
+            <div class="font-bold text-sm">2群の平均値の比較</div>
+            <div class="text-xs text-slate-400 mt-1">新薬 vs 偽薬、施策の前後</div>
+          </button>
+          <button onclick="showDiagnosis('anova')" class="p-3 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-emerald-600/40 text-left transition">
+            <div class="font-bold text-sm">3群以上の平均値比較</div>
+            <div class="text-xs text-slate-400 mt-1">A店舗・B店舗・C店舗の比較</div>
+          </button>
+          <button onclick="showDiagnosis('f_var')" class="p-3 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-emerald-600/40 text-left transition sm:col-span-2">
+            <div class="font-bold text-sm">ばらつき（分散）自体の比較</div>
+            <div class="text-xs text-slate-400 mt-1">2つの製造ラインの品質安定性の比較</div>
+          </button>
+        `;
+      }
+    }
+
+    function showDiagnosis(kind) {
+      const res = document.getElementById('diagnosis-result');
+      const title = document.getElementById('result-title');
+      const desc = document.getElementById('result-desc');
+      res.classList.remove('hidden');
+
+      if (kind === 'chi_gof') {
+        title.innerHTML = 'カイ二乗分布（適合度検定）';
+        desc.innerText = '観測された度数が理論値（均等など）と一致しているかを検定します。ズレの二乗和統計量をカイ二乗分布と照合します。';
+      } else if (kind === 'chi_indep') {
+        title.innerHTML = 'カイ二乗分布（独立性の検定）';
+        desc.innerText = '分割表（クロス集計表）で2つの要因が無関係（独立）かどうかを調べます。';
+      } else if (kind === 't_test') {
+        title.innerHTML = 't 分布（2標本 t 検定）';
+        desc.innerText = '母分散が未知の2グループの平均値に有意差があるかを調べます。サンプルサイズが小さくても正確に機能します。';
+      } else if (kind === 'anova') {
+        title.innerHTML = 'F 分布（分散分析 / ANOVA）';
+        desc.innerText = '3群以上の平均値の差を一括検定します。「群間のばらつき」と「群内の誤差ばらつき」の比（F値）をとることで多重比較の誤りを防ぎます。';
+      } else if (kind === 'f_var') {
+        title.innerHTML = 'F 分布（等分散性の検定 / F検定）';
+        desc.innerText = '2つのサンプルの不偏分散の比を取り、母集団の分散が等しいかどうかを直接判定します。';
+      }
+    }
+
+    // 読み込み時初期化
+    window.onload = function() {
+      initChart();
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ]
+        });
+      }
+    };
+  </script>
+</body>
+</html>
